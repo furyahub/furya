@@ -3,17 +3,17 @@ package bindings
 import (
 	"encoding/json"
 
-	feerefundertypes "github.com/neutron-org/neutron/x/feerefunder/types"
+	feerefundertypes "github.com/furyahub/furya/x/feerefunder/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
 	ibcclienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
-// NeutronQuery contains neutron custom queries.
-type NeutronQuery struct {
+// FuryaQuery contains furya custom queries.
+type FuryaQuery struct {
 	// Registered Interchain Query Result for specified QueryID
 	InterchainQueryResult *QueryRegisteredQueryResultRequest `json:"interchain_query_result,omitempty"`
 	// Interchain account address for specified ConnectionID and OwnerAddress
@@ -22,12 +22,12 @@ type NeutronQuery struct {
 	RegisteredInterchainQueries *QueryRegisteredQueriesRequest `json:"registered_interchain_queries,omitempty"`
 	// RegisteredInterchainQuery
 	RegisteredInterchainQuery *QueryRegisteredQueryRequest `json:"registered_interchain_query,omitempty"`
-	// TotalBurnedNeutronsAmount
-	TotalBurnedNeutronsAmount *QueryTotalBurnedNeutronsAmountRequest `json:"total_burned_neutrons_amount,omitempty"`
+	// TotalBurnedFuryasAmount
+	TotalBurnedFuryasAmount *QueryTotalBurnedFuryasAmountRequest `json:"total_burned_furyas_amount,omitempty"`
 	// MinIbcFee
 	MinIbcFee *QueryMinIbcFeeRequest `json:"min_ibc_fee,omitempty"`
 	// Token Factory queries
-	/// Given a subdenom minted by a contract via `NeutronMsg::MintTokens`,
+	/// Given a subdenom minted by a contract via `FuryaMsg::MintTokens`,
 	/// returns the full denom as used by `BankMsg::Send`.
 	FullDenom *FullDenom `json:"full_denom,omitempty"`
 	/// Returns the admin of a denom, if the denom is a Token Factory denom.
@@ -45,7 +45,7 @@ type QueryInterchainAccountAddressRequest struct {
 	OwnerAddress string `json:"owner_address,omitempty"`
 	// interchain_account_id is an identifier of your interchain account from which you want to execute msgs
 	InterchainAccountID string `json:"interchain_account_id,omitempty"`
-	// connection_id is an IBC connection identifier between Neutron and remote chain
+	// connection_id is an IBC connection identifier between Furya and remote chain
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
@@ -96,9 +96,9 @@ type RegisteredQuery struct {
 	RegisteredAtHeight uint64 `json:"registered_at_height"`
 }
 
-type QueryTotalBurnedNeutronsAmountRequest struct{}
+type QueryTotalBurnedFuryasAmountRequest struct{}
 
-type QueryTotalBurnedNeutronsAmountResponse struct {
+type QueryTotalBurnedFuryasAmountResponse struct {
 	Coin sdktypes.Coin `json:"coin"`
 }
 

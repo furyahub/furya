@@ -92,7 +92,7 @@ func (m *Params) GetTxQueryRemovalLimit() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.interchainqueries.Params")
+	proto.RegisterType((*Params)(nil), "furya.interchainqueries.Params")
 }
 
 func init() { proto.RegisterFile("interchainqueries/params.proto", fileDescriptor_1421c1e223ed164f) }

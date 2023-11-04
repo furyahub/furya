@@ -10,11 +10,11 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/testutil"
-	keepertest "github.com/neutron-org/neutron/testutil/contractmanager/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/contractmanager/types"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/testutil"
+	keepertest "github.com/furyahub/furya/testutil/contractmanager/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 func init() {

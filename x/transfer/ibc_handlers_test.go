@@ -8,13 +8,13 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	"github.com/golang/mock/gomock"
-	"github.com/neutron-org/neutron/testutil"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/transfer/types"
-	testkeeper "github.com/neutron-org/neutron/testutil/transfer/keeper"
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/keeper"
-	ictxtypes "github.com/neutron-org/neutron/x/interchaintxs/types"
-	"github.com/neutron-org/neutron/x/transfer"
+	"github.com/furyahub/furya/testutil"
+	mock_types "github.com/furyahub/furya/testutil/mocks/transfer/types"
+	testkeeper "github.com/furyahub/furya/testutil/transfer/keeper"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	"github.com/furyahub/furya/x/interchaintxs/keeper"
+	ictxtypes "github.com/furyahub/furya/x/interchaintxs/types"
+	"github.com/furyahub/furya/x/transfer"
 	"github.com/stretchr/testify/require"
 )
 
@@ -62,7 +62,7 @@ func TestHandleAcknowledgement(t *testing.T) {
 		SourceChannel: "channel-0",
 	}
 	contractAddress := sdk.MustAccAddressFromBech32(testutil.TestOwnerAddress)
-	relayerBech32 := "neutron1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
+	relayerBech32 := "furya1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
 	relayerAddress := sdk.MustAccAddressFromBech32(relayerBech32)
 
 	err = txModule.HandleAcknowledgement(ctx, channeltypes.Packet{}, nil, relayerAddress)
@@ -269,7 +269,7 @@ func TestHandleTimeout(t *testing.T) {
 	ctx := infCtx.WithGasMeter(sdk.NewGasMeter(1_000_000_000_000))
 	store := ctx.KVStore(storeKey)
 	contractAddress := sdk.MustAccAddressFromBech32(testutil.TestOwnerAddress)
-	relayerBech32 := "neutron1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
+	relayerBech32 := "furya1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
 	relayerAddress := sdk.MustAccAddressFromBech32(relayerBech32)
 	p := channeltypes.Packet{
 		Sequence:      100,

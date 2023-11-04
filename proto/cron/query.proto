@@ -1,5 +1,5 @@
 syntax = "proto3";
-package neutron.cron;
+package furya.cron;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cron/params.proto";
@@ -7,23 +7,23 @@ import "cron/schedule.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/cron/types";
+option go_package = "github.com/furyahub/furya/x/cron/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/neutron/cron/params";
+    option (google.api.http).get = "/furya/cron/params";
   }
 
   // Queries a Schedule by name.
   rpc Schedule(QueryGetScheduleRequest) returns (QueryGetScheduleResponse) {
-    option (google.api.http).get = "/neutron/cron/schedule/{name}";
+    option (google.api.http).get = "/furya/cron/schedule/{name}";
   }
 
   // Queries a list of Schedule items.
   rpc Schedules(QuerySchedulesRequest) returns (QuerySchedulesResponse) {
-    option (google.api.http).get = "/neutron/cron/schedule";
+    option (google.api.http).get = "/furya/cron/schedule";
   }
 }
 

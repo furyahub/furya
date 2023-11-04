@@ -17,9 +17,9 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/neutron-org/neutron/x/feeburner/client/cli"
-	"github.com/neutron-org/neutron/x/feeburner/keeper"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/client/cli"
+	"github.com/furyahub/furya/x/feeburner/keeper"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 var (

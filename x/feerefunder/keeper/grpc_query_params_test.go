@@ -3,12 +3,12 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/neutron-org/neutron/testutil/feerefunder/keeper"
+	testkeeper "github.com/furyahub/furya/testutil/feerefunder/keeper"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/x/feerefunder/types"
 )
 
 func TestParamsQuery(t *testing.T) {

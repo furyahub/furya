@@ -1,10 +1,10 @@
 syntax = "proto3";
-package neutron.contractmanager;
+package furya.contractmanager;
 
 import "contractmanager/params.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/contractmanager/types";
+option go_package = "github.com/furyahub/furya/x/contractmanager/types";
 
 // Failure message contains information about ACK failures and can be used to
 // replay ACK in case of requirement.

@@ -16,8 +16,8 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/keeper"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 func InterchainQueriesKeeper(

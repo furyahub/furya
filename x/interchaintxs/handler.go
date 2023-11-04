@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/neutron-org/neutron/x/interchaintxs/keeper"
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/x/interchaintxs/keeper"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 func NewHandler(k keeper.Keeper) sdk.Handler {

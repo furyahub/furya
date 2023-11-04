@@ -12,12 +12,12 @@ import (
 	packetforwardmiddlewaretypes "github.com/strangelove-ventures/packet-forward-middleware/v4/router/types"
 
 	globalfeetypes "github.com/cosmos/gaia/v8/x/globalfee/types"
-	crontypes "github.com/neutron-org/neutron/x/cron/types"
-	feeburnertypes "github.com/neutron-org/neutron/x/feeburner/types"
-	feerefundertypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	interchainqueriestypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	interchaintxstypes "github.com/neutron-org/neutron/x/interchaintxs/types"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	crontypes "github.com/furyahub/furya/x/cron/types"
+	feeburnertypes "github.com/furyahub/furya/x/feeburner/types"
+	feerefundertypes "github.com/furyahub/furya/x/feerefunder/types"
+	interchainqueriestypes "github.com/furyahub/furya/x/interchainqueries/types"
+	interchaintxstypes "github.com/furyahub/furya/x/interchaintxs/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func IsConsumerProposalAllowlisted(content govtypes.Content) bool {
@@ -75,7 +75,7 @@ var WhitelistedParams = map[paramChangeKey]struct{}{
 	{Subspace: interchainqueriestypes.ModuleName, Key: string(interchainqueriestypes.KeyTxQueryRemovalLimit)}: {},
 	// feeburner
 	{Subspace: feeburnertypes.ModuleName, Key: string(feeburnertypes.KeyTreasuryAddress)}: {},
-	{Subspace: feeburnertypes.ModuleName, Key: string(feeburnertypes.KeyNeutronDenom)}:    {},
+	{Subspace: feeburnertypes.ModuleName, Key: string(feeburnertypes.KeyFuryaDenom)}:    {},
 	// tokenfactory
 	{Subspace: tokenfactorytypes.ModuleName, Key: string(tokenfactorytypes.KeyDenomCreationFee)}:    {},
 	{Subspace: tokenfactorytypes.ModuleName, Key: string(tokenfactorytypes.KeyFeeCollectorAddress)}: {},

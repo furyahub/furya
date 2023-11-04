@@ -12,10 +12,10 @@ import (
 	ibctesting "github.com/cosmos/interchain-security/legacy_ibc_testing/testing"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/neutron-org/neutron/app/params"
-	"github.com/neutron-org/neutron/testutil"
-	"github.com/neutron-org/neutron/x/ibc-hooks/testutils"
-	"github.com/neutron-org/neutron/x/ibc-hooks/utils"
+	"github.com/furyahub/furya/app/params"
+	"github.com/furyahub/furya/testutil"
+	"github.com/furyahub/furya/x/ibc-hooks/testutils"
+	"github.com/furyahub/furya/x/ibc-hooks/utils"
 
 	transfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	clienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
@@ -44,11 +44,11 @@ func (suite *HooksTestSuite) TestOnRecvPacketHooks() {
 		expPass  bool
 	}{
 		{"override", func(status *testutils.Status) {
-			suite.GetNeutronZoneApp(suite.ChainB).HooksTransferIBCModule.
+			suite.GetFuryaZoneApp(suite.ChainB).HooksTransferIBCModule.
 				ICS4Middleware.Hooks = testutils.TestRecvOverrideHooks{Status: status}
 		}, true},
 		{"before and after", func(status *testutils.Status) {
-			suite.GetNeutronZoneApp(suite.ChainB).HooksTransferIBCModule.
+			suite.GetFuryaZoneApp(suite.ChainB).HooksTransferIBCModule.
 				ICS4Middleware.Hooks = testutils.TestRecvBeforeAfterHooks{Status: status}
 		}, true},
 	}
@@ -84,7 +84,7 @@ func (suite *HooksTestSuite) TestOnRecvPacketHooks() {
 			data := transfertypes.NewFungibleTokenPacketData(trace.GetFullDenomPath(), amount.String(), suite.ChainA.SenderAccount.GetAddress().String(), receiver)
 			packet := channeltypes.NewPacket(data.GetBytes(), seq, suite.TransferPath.EndpointA.ChannelConfig.PortID, suite.TransferPath.EndpointA.ChannelID, suite.TransferPath.EndpointB.ChannelConfig.PortID, suite.TransferPath.EndpointB.ChannelID, clienttypes.NewHeight(1, 100), 0)
 
-			ack := suite.GetNeutronZoneApp(suite.ChainB).HooksTransferIBCModule.
+			ack := suite.GetFuryaZoneApp(suite.ChainB).HooksTransferIBCModule.
 				OnRecvPacket(suite.ChainB.GetContext(), packet, suite.ChainA.SenderAccount.GetAddress())
 
 			if tc.expPass {
@@ -93,14 +93,14 @@ func (suite *HooksTestSuite) TestOnRecvPacketHooks() {
 				suite.Require().False(ack.Success())
 			}
 
-			if _, ok := suite.GetNeutronZoneApp(suite.ChainB).HooksTransferIBCModule.
+			if _, ok := suite.GetFuryaZoneApp(suite.ChainB).HooksTransferIBCModule.
 				ICS4Middleware.Hooks.(testutils.TestRecvOverrideHooks); ok {
 				suite.Require().True(status.OverrideRan)
 				suite.Require().False(status.BeforeRan)
 				suite.Require().False(status.AfterRan)
 			}
 
-			if _, ok := suite.GetNeutronZoneApp(suite.ChainB).HooksTransferIBCModule.
+			if _, ok := suite.GetFuryaZoneApp(suite.ChainB).HooksTransferIBCModule.
 				ICS4Middleware.Hooks.(testutils.TestRecvBeforeAfterHooks); ok {
 				suite.Require().False(status.OverrideRan)
 				suite.Require().True(status.BeforeRan)
@@ -142,7 +142,7 @@ func (suite *HooksTestSuite) receivePacketWithSequence(receiver, memo string, pr
 
 	packet := suite.makeMockPacket(receiver, memo, prevSequence)
 
-	err := suite.GetNeutronZoneApp(suite.ChainB).HooksICS4Wrapper.SendPacket(
+	err := suite.GetFuryaZoneApp(suite.ChainB).HooksICS4Wrapper.SendPacket(
 		suite.ChainB.GetContext(), channelCap, packet)
 	suite.Require().NoError(err, "IBC send failed. Expected success. %s", err)
 
@@ -193,7 +193,7 @@ func (suite *HooksTestSuite) TestFundsAreTransferredToTheContract() {
 
 	// Check that the contract has no funds
 	localDenom := utils.MustExtractDenomFromPacketOnRecv(suite.makeMockPacket("", "", 0))
-	balance := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
+	balance := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
 	suite.Require().Equal(sdk.NewInt(0), balance.Amount)
 
 	// Execute the contract via IBC
@@ -207,7 +207,7 @@ func (suite *HooksTestSuite) TestFundsAreTransferredToTheContract() {
 	suite.Require().Equal(ack["result"], "eyJjb250cmFjdF9yZXN1bHQiOiJkR2hwY3lCemFHOTFiR1FnWldOb2J3PT0iLCJpYmNfYWNrIjoiZXlKeVpYTjFiSFFpT2lKQlVUMDlJbjA9In0=")
 
 	// Check that the token has now been transferred to the contract
-	balance = suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
+	balance = suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
 	suite.Require().Equal(sdk.NewInt(1), balance.Amount)
 }
 
@@ -221,7 +221,7 @@ func (suite *HooksTestSuite) TestFundsAreReturnedOnFailedContractExec() {
 
 	// Check that the contract has no funds
 	localDenom := utils.MustExtractDenomFromPacketOnRecv(suite.makeMockPacket("", "", 0))
-	balance := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
+	balance := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
 	suite.Require().Equal(sdk.NewInt(0), balance.Amount)
 
 	// Execute the contract via IBC with a message that the contract will reject
@@ -234,7 +234,7 @@ func (suite *HooksTestSuite) TestFundsAreReturnedOnFailedContractExec() {
 	suite.Require().Contains(ack, "error")
 
 	// Check that the token has now been transferred to the contract
-	balance = suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
+	balance = suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), addr, localDenom)
 	fmt.Println(balance)
 	suite.Require().Equal(sdk.NewInt(0), balance.Amount)
 }
@@ -333,7 +333,7 @@ func (suite *HooksTestSuite) StoreContractCode(chain *ibctesting.TestChain, addr
 		panic(err)
 	}
 
-	codeID, _, err := wasmkeeper.NewDefaultPermissionKeeper(suite.GetNeutronZoneApp(chain).WasmKeeper).Create(chain.GetContext(), addr, wasmCode, &wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeEverybody, Address: ""})
+	codeID, _, err := wasmkeeper.NewDefaultPermissionKeeper(suite.GetFuryaZoneApp(chain).WasmKeeper).Create(chain.GetContext(), addr, wasmCode, &wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeEverybody, Address: ""})
 	if err != nil {
 		panic(err)
 	}
@@ -342,7 +342,7 @@ func (suite *HooksTestSuite) StoreContractCode(chain *ibctesting.TestChain, addr
 }
 
 func (suite *HooksTestSuite) InstantiateContract(chain *ibctesting.TestChain, funder sdk.AccAddress, codeID uint64, initMsg string) sdk.AccAddress {
-	contractKeeper := wasmkeeper.NewDefaultPermissionKeeper(suite.GetNeutronZoneApp(chain).WasmKeeper)
+	contractKeeper := wasmkeeper.NewDefaultPermissionKeeper(suite.GetFuryaZoneApp(chain).WasmKeeper)
 	addr, _, err := contractKeeper.Instantiate(chain.GetContext(), codeID, funder, funder, []byte(initMsg), "demo contract", nil)
 	if err != nil {
 		panic(err)
@@ -351,7 +351,7 @@ func (suite *HooksTestSuite) InstantiateContract(chain *ibctesting.TestChain, fu
 }
 
 func (suite *HooksTestSuite) QueryContract(chain *ibctesting.TestChain, contract sdk.AccAddress, req []byte) string {
-	state, err := suite.GetNeutronZoneApp(chain).WasmKeeper.QuerySmart(chain.GetContext(), contract, req)
+	state, err := suite.GetFuryaZoneApp(chain).WasmKeeper.QuerySmart(chain.GetContext(), contract, req)
 	if err != nil {
 		panic(err)
 	}

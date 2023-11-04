@@ -15,7 +15,7 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/x/cron/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
 

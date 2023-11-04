@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package neutron.transfer;
+package furya.transfer;
 
-option go_package = "github.com/neutron-org/neutron/x/transfer/types";
+option go_package = "github.com/furyahub/furya/x/transfer/types";
 
 import "ibc/applications/transfer/v1/query.proto";
 import "google/api/annotations.proto";

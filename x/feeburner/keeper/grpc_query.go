@@ -4,15 +4,15 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 var _ types.QueryServer = Keeper{}
 
-func (k Keeper) TotalBurnedNeutronsAmount(goCtx context.Context, _ *types.QueryTotalBurnedNeutronsAmountRequest) (*types.QueryTotalBurnedNeutronsAmountResponse, error) {
+func (k Keeper) TotalBurnedFuryasAmount(goCtx context.Context, _ *types.QueryTotalBurnedFuryasAmountRequest) (*types.QueryTotalBurnedFuryasAmountResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	totalBurnedNeutronsAmount := k.GetTotalBurnedNeutronsAmount(ctx)
+	totalBurnedFuryasAmount := k.GetTotalBurnedFuryasAmount(ctx)
 
-	return &types.QueryTotalBurnedNeutronsAmountResponse{TotalBurnedNeutronsAmount: totalBurnedNeutronsAmount}, nil
+	return &types.QueryTotalBurnedFuryasAmountResponse{TotalBurnedFuryasAmount: totalBurnedFuryasAmount}, nil
 }

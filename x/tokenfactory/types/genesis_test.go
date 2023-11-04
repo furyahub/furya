@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
@@ -27,9 +27,9 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
-							Admin: "neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
+							Admin: "furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
 						},
 					},
 				},
@@ -41,9 +41,9 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
-							Admin: "neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
+							Admin: "furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
 						},
 					},
 				},
@@ -55,7 +55,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "",
 						},
@@ -69,7 +69,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 					},
 				},
 			},
@@ -80,7 +80,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "moose",
 						},
@@ -94,13 +94,13 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "",
 						},
 					},
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/litecoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/litecoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "",
 						},
@@ -114,13 +114,13 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				FactoryDenoms: []types.GenesisDenom{
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "",
 						},
 					},
 					{
-						Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+						Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 						AuthorityMetadata: types.DenomAuthorityMetadata{
 							Admin: "",
 						},

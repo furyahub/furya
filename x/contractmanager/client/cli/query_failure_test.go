@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
@@ -18,10 +18,10 @@ import (
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/neutron-org/neutron/testutil/contractmanager/network"
-	"github.com/neutron-org/neutron/testutil/contractmanager/nullify"
-	"github.com/neutron-org/neutron/x/contractmanager/client/cli"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/testutil/contractmanager/network"
+	"github.com/furyahub/furya/testutil/contractmanager/nullify"
+	"github.com/furyahub/furya/x/contractmanager/client/cli"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 func networkWithFailureObjects(t *testing.T, n int) (*network.Network, []types.Failure) {

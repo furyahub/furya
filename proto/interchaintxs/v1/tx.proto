@@ -1,7 +1,7 @@
 syntax = "proto3";
-package neutron.interchaintxs.v1;
+package furya.interchaintxs.v1;
 
-option go_package = "github.com/neutron-org/neutron/x/interchaintxs/types";
+option go_package = "github.com/furyahub/furya/x/interchaintxs/types";
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
@@ -49,13 +49,13 @@ message MsgSubmitTx {
   // timeout in seconds after which the packet times out
   uint64 timeout = 6;
 
-  neutron.feerefunder.Fee fee = 7 [ (gogoproto.nullable) = false ];
+  furya.feerefunder.Fee fee = 7 [ (gogoproto.nullable) = false ];
 }
 
 // MsgSubmitTxResponse defines the response for Msg/SubmitTx
 message MsgSubmitTxResponse {
   // channel's sequence_id for outgoing ibc packet. Unique per a channel.
   uint64 sequence_id = 1;
-  // channel src channel on neutron side trasaction was submitted from
+  // channel src channel on furya side trasaction was submitted from
   string channel = 2;
 }

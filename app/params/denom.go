@@ -1,4 +1,4 @@
 package params
 
-// DefaultDenom defines neutron's denom
-const DefaultDenom = "untrn"
+// DefaultDenom defines furya's denom
+const DefaultDenom = "ufury"

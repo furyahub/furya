@@ -3,13 +3,13 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/testutil"
+	"github.com/furyahub/furya/testutil"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
-	testkeeper "github.com/neutron-org/neutron/testutil/cron/keeper"
+	testkeeper "github.com/furyahub/furya/testutil/cron/keeper"
 
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/x/cron/types"
 	"github.com/stretchr/testify/require"
 )
 

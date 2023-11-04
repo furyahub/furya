@@ -27597,10 +27597,10 @@ paths:
           type: string
       tags:
         - Query
-  /neutron/contractmanager/failures:
+  /furya/contractmanager/failures:
     get:
       summary: Queries a list of Failure items.
-      operationId: NeutronContractmanagerFailures
+      operationId: FuryaContractmanagerFailures
       responses:
         '200':
           description: A successful response.
@@ -27742,10 +27742,10 @@ paths:
           type: boolean
       tags:
         - Query
-  /neutron/contractmanager/failures/{address}:
+  /furya/contractmanager/failures/{address}:
     get:
       summary: Queries a Failure by address.
-      operationId: NeutronContractmanagerAddressFailures
+      operationId: FuryaContractmanagerAddressFailures
       responses:
         '200':
           description: A successful response.
@@ -27887,10 +27887,10 @@ paths:
           type: boolean
       tags:
         - Query
-  /neutron/contractmanager/params:
+  /furya/contractmanager/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: NeutronContractmanagerParams
+      operationId: FuryaContractmanagerParams
       responses:
         '200':
           description: A successful response.
@@ -27923,10 +27923,10 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /neutron/cron/params:
+  /furya/cron/params:
     get:
       summary: Queries the parameters of the module.
-      operationId: NeutronCronParams
+      operationId: FuryaCronParams
       responses:
         '200':
           description: A successful response.
@@ -27964,10 +27964,10 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /neutron/cron/schedule:
+  /furya/cron/schedule:
     get:
       summary: Queries a list of Schedule items.
-      operationId: NeutronCronSchedules
+      operationId: FuryaCronSchedules
       responses:
         '200':
           description: A successful response.
@@ -28108,10 +28108,10 @@ paths:
           type: boolean
       tags:
         - Query
-  /neutron/cron/schedule/{name}:
+  /furya/cron/schedule/{name}:
     get:
       summary: Queries a Schedule by name.
-      operationId: NeutronCronSchedule
+      operationId: FuryaCronSchedule
       responses:
         '200':
           description: A successful response.
@@ -28171,10 +28171,10 @@ paths:
           type: string
       tags:
         - Query
-  /neutron/feeburner/params:
+  /furya/feeburner/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: NeutronFeeburnerParams
+      operationId: FuryaFeeburnerParams
       responses:
         '200':
           description: A successful response.
@@ -28185,10 +28185,10 @@ paths:
                 description: params holds all the parameters of this module.
                 type: object
                 properties:
-                  neutron_denom:
+                  furya_denom:
                     type: string
                     title: >-
-                      Defines Neutron denom, which will be burned during fee
+                      Defines Furya denom, which will be burned during fee
                       processing, any
 
                       other denom will be sent to Treasury
@@ -28221,17 +28221,17 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /neutron/feeburner/total_burned_neutrons_amount:
+  /furya/feeburner/total_burned_furyas_amount:
     get:
-      summary: TotalBurnedNeutronsAmount queries total amount of burned neutron fees.
-      operationId: NeutronFeeburnerTotalBurnedNeutronsAmount
+      summary: TotalBurnedFuryasAmount queries total amount of burned furya fees.
+      operationId: FuryaFeeburnerTotalBurnedFuryasAmount
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              total_burned_neutrons_amount:
+              total_burned_furyas_amount:
                 type: object
                 properties:
                   coin:
@@ -28250,11 +28250,11 @@ paths:
 
                       signatures required by gogoproto.
                 title: >-
-                  TotalBurnedNeutronsAmount defines total amount of burned
-                  neutron fees
+                  TotalBurnedFuryasAmount defines total amount of burned
+                  furya fees
             description: |-
-              QueryTotalBurnedNeutronsAmountResponse is response type for the
-              Query/QueryTotalBurnedNeutronsAmount method.
+              QueryTotalBurnedFuryasAmountResponse is response type for the
+              Query/QueryTotalBurnedFuryasAmount method.
         default:
           description: An unexpected error response.
           schema:
@@ -28275,9 +28275,9 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /neutron-org/neutron/feerefunder/info:
+  /furyahub/furya/feerefunder/info:
     get:
-      operationId: NeutronFeerefunderFeeInfo
+      operationId: FuryaFeerefunderFeeInfo
       responses:
         '200':
           description: A successful response.
@@ -28396,10 +28396,10 @@ paths:
           format: uint64
       tags:
         - Query
-  /neutron-org/neutron/feerefunder/params:
+  /furyahub/furya/feerefunder/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: NeutronFeerefunderParams
+      operationId: FuryaFeerefunderParams
       responses:
         '200':
           description: A successful response.
@@ -28496,10 +28496,10 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /neutron/interchainqueries/params:
+  /furya/interchainqueries/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: NeutronInterchainqueriesParams
+      operationId: FuryaInterchainqueriesParams
       responses:
         '200':
           description: A successful response.
@@ -28737,9 +28737,9 @@ paths:
                         }
       tags:
         - Query
-  /neutron/interchainqueries/query_result:
+  /furya/interchainqueries/query_result:
     get:
-      operationId: NeutronInterchainqueriesQueryResult
+      operationId: FuryaInterchainqueriesQueryResult
       responses:
         '200':
           description: A successful response.
@@ -29466,9 +29466,9 @@ paths:
           format: uint64
       tags:
         - Query
-  /neutron/interchainqueries/registered_queries:
+  /furya/interchainqueries/registered_queries:
     get:
-      operationId: NeutronInterchainqueriesRegisteredQueries
+      operationId: FuryaInterchainqueriesRegisteredQueries
       responses:
         '200':
           description: A successful response.
@@ -29853,9 +29853,9 @@ paths:
           type: boolean
       tags:
         - Query
-  /neutron/interchainqueries/registered_query:
+  /furya/interchainqueries/registered_query:
     get:
-      operationId: NeutronInterchainqueriesRegisteredQuery
+      operationId: FuryaInterchainqueriesRegisteredQuery
       responses:
         '200':
           description: A successful response.
@@ -30157,9 +30157,9 @@ paths:
           format: uint64
       tags:
         - Query
-  /neutron/interchainqueries/remote_height:
+  /furya/interchainqueries/remote_height:
     get:
-      operationId: NeutronInterchainqueriesLastRemoteHeight
+      operationId: FuryaInterchainqueriesLastRemoteHeight
       responses:
         '200':
           description: A successful response.
@@ -30364,7 +30364,7 @@ paths:
   /ibc/apps/transfer/v1/denom_hashes/{trace}:
     get:
       summary: DenomHash queries a denomination hash information.
-      operationId: NeutronTransferDenomHash
+      operationId: FuryaTransferDenomHash
       responses:
         '200':
           description: A successful response.
@@ -30575,7 +30575,7 @@ paths:
   /ibc/apps/transfer/v1/denom_traces:
     get:
       summary: DenomTraces queries all denomination traces.
-      operationId: NeutronTransferDenomTraces
+      operationId: FuryaTransferDenomTraces
       responses:
         '200':
           description: A successful response.
@@ -30873,7 +30873,7 @@ paths:
   /ibc/apps/transfer/v1/denom_traces/{hash}:
     get:
       summary: DenomTrace queries a denomination trace information.
-      operationId: NeutronTransferDenomTrace
+      operationId: FuryaTransferDenomTrace
       responses:
         '200':
           description: A successful response.
@@ -31099,7 +31099,7 @@ paths:
   /ibc/apps/transfer/v1/params:
     get:
       summary: Params queries all parameters of the ibc-transfer module.
-      operationId: NeutronTransferParams
+      operationId: FuryaTransferParams
       responses:
         '200':
           description: A successful response.
@@ -52067,7 +52067,7 @@ definitions:
         type: string
         format: int64
     title: ValidatorUpdate
-  neutron.contractmanager.Failure:
+  furya.contractmanager.Failure:
     type: object
     properties:
       channel_id:
@@ -52090,10 +52090,10 @@ definitions:
     description: |-
       Failure message contains information about ACK failures and can be used to
       replay ACK in case of requirement.
-  neutron.contractmanager.Params:
+  furya.contractmanager.Params:
     type: object
     description: Params defines the parameters for the module.
-  neutron.contractmanager.QueryFailuresResponse:
+  furya.contractmanager.QueryFailuresResponse:
     type: object
     properties:
       failures:
@@ -52148,14 +52148,14 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  neutron.contractmanager.QueryParamsResponse:
+  furya.contractmanager.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  neutron.cron.MsgExecuteContract:
+  furya.cron.MsgExecuteContract:
     type: object
     properties:
       contract:
@@ -52164,7 +52164,7 @@ definitions:
       msg:
         type: string
         title: Msg is json encoded message to be passed to the contract
-  neutron.cron.Params:
+  furya.cron.Params:
     type: object
     properties:
       security_address:
@@ -52175,7 +52175,7 @@ definitions:
         format: uint64
         title: Limit of schedules executed in one block
     description: Params defines the parameters for the module.
-  neutron.cron.QueryGetScheduleResponse:
+  furya.cron.QueryGetScheduleResponse:
     type: object
     properties:
       schedule:
@@ -52204,7 +52204,7 @@ definitions:
             type: string
             format: uint64
             title: Last execution's block height
-  neutron.cron.QueryParamsResponse:
+  furya.cron.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -52218,7 +52218,7 @@ definitions:
             type: string
             format: uint64
             title: Limit of schedules executed in one block
-  neutron.cron.QuerySchedulesResponse:
+  furya.cron.QuerySchedulesResponse:
     type: object
     properties:
       schedules:
@@ -52274,7 +52274,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  neutron.cron.Schedule:
+  furya.cron.Schedule:
     type: object
     properties:
       name:
@@ -52300,13 +52300,13 @@ definitions:
         type: string
         format: uint64
         title: Last execution's block height
-  neutron.feeburner.Params:
+  furya.feeburner.Params:
     type: object
     properties:
-      neutron_denom:
+      furya_denom:
         type: string
         title: |-
-          Defines Neutron denom, which will be burned during fee processing, any
+          Defines Furya denom, which will be burned during fee processing, any
           other denom will be sent to Treasury
       reserve_address:
         type: string
@@ -52315,17 +52315,17 @@ definitions:
         type: string
         title: Defines treasury address
     description: Params defines the parameters for the module.
-  neutron.feeburner.QueryParamsResponse:
+  furya.feeburner.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
         properties:
-          neutron_denom:
+          furya_denom:
             type: string
             title: >-
-              Defines Neutron denom, which will be burned during fee processing,
+              Defines Furya denom, which will be burned during fee processing,
               any
 
               other denom will be sent to Treasury
@@ -52336,10 +52336,10 @@ definitions:
             type: string
             title: Defines treasury address
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  neutron.feeburner.QueryTotalBurnedNeutronsAmountResponse:
+  furya.feeburner.QueryTotalBurnedFuryasAmountResponse:
     type: object
     properties:
-      total_burned_neutrons_amount:
+      total_burned_furyas_amount:
         type: object
         properties:
           coin:
@@ -52357,11 +52357,11 @@ definitions:
               method
 
               signatures required by gogoproto.
-        title: TotalBurnedNeutronsAmount defines total amount of burned neutron fees
+        title: TotalBurnedFuryasAmount defines total amount of burned furya fees
     description: |-
-      QueryTotalBurnedNeutronsAmountResponse is response type for the
-      Query/QueryTotalBurnedNeutronsAmount method.
-  neutron.feeburner.TotalBurnedNeutronsAmount:
+      QueryTotalBurnedFuryasAmountResponse is response type for the
+      Query/QueryTotalBurnedFuryasAmount method.
+  furya.feeburner.TotalBurnedFuryasAmount:
     type: object
     properties:
       coin:
@@ -52376,8 +52376,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-    title: TotalBurnedNeutronsAmount defines total amount of burned neutron fees
-  neutron.feerefunder.Fee:
+    title: TotalBurnedFuryasAmount defines total amount of burned furya fees
+  furya.feerefunder.Fee:
     type: object
     properties:
       recv_fee:
@@ -52426,7 +52426,7 @@ definitions:
             signatures required by gogoproto.
         title: the packet timeout fee
     title: Fee defines the ICS29 receive, acknowledgement and timeout fees
-  neutron.feerefunder.FeeInfo:
+  furya.feerefunder.FeeInfo:
     type: object
     properties:
       payer:
@@ -52499,7 +52499,7 @@ definitions:
                 signatures required by gogoproto.
             title: the packet timeout fee
         title: Fee defines the ICS29 receive, acknowledgement and timeout fees
-  neutron.feerefunder.FeeInfoResponse:
+  furya.feerefunder.FeeInfoResponse:
     type: object
     properties:
       fee_info:
@@ -52575,7 +52575,7 @@ definitions:
                     signatures required by gogoproto.
                 title: the packet timeout fee
             title: Fee defines the ICS29 receive, acknowledgement and timeout fees
-  neutron.feerefunder.PacketID:
+  furya.feerefunder.PacketID:
     type: object
     properties:
       channel_id:
@@ -52585,7 +52585,7 @@ definitions:
       sequence:
         type: string
         format: uint64
-  neutron.feerefunder.Params:
+  furya.feerefunder.Params:
     type: object
     properties:
       min_fee:
@@ -52647,7 +52647,7 @@ definitions:
             title: the packet timeout fee
         title: Fee defines the ICS29 receive, acknowledgement and timeout fees
     description: Params defines the parameters for the module.
-  neutron.feerefunder.QueryParamsResponse:
+  furya.feerefunder.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -52713,7 +52713,7 @@ definitions:
                 title: the packet timeout fee
             title: Fee defines the ICS29 receive, acknowledgement and timeout fees
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  neutron.interchainqueries.Block:
+  furya.interchainqueries.Block:
     type: object
     properties:
       next_block_header:
@@ -53145,7 +53145,7 @@ definitions:
             type: string
             format: byte
             title: is body of the transaction
-  neutron.interchainqueries.KVKey:
+  furya.interchainqueries.KVKey:
     type: object
     properties:
       path:
@@ -53159,19 +53159,19 @@ definitions:
         type: string
         format: byte
         title: Key you want to read from the storage
-  neutron.interchainqueries.MsgRegisterInterchainQueryResponse:
+  furya.interchainqueries.MsgRegisterInterchainQueryResponse:
     type: object
     properties:
       id:
         type: string
         format: uint64
-  neutron.interchainqueries.MsgRemoveInterchainQueryResponse:
+  furya.interchainqueries.MsgRemoveInterchainQueryResponse:
     type: object
-  neutron.interchainqueries.MsgSubmitQueryResultResponse:
+  furya.interchainqueries.MsgSubmitQueryResultResponse:
     type: object
-  neutron.interchainqueries.MsgUpdateInterchainQueryResponse:
+  furya.interchainqueries.MsgUpdateInterchainQueryResponse:
     type: object
-  neutron.interchainqueries.Params:
+  furya.interchainqueries.Params:
     type: object
     properties:
       query_submit_timeout:
@@ -53207,13 +53207,13 @@ definitions:
 
           means no limit.
     description: Params defines the parameters for the module.
-  neutron.interchainqueries.QueryLastRemoteHeightResponse:
+  furya.interchainqueries.QueryLastRemoteHeightResponse:
     type: object
     properties:
       height:
         type: string
         format: uint64
-  neutron.interchainqueries.QueryParamsResponse:
+  furya.interchainqueries.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -53258,7 +53258,7 @@ definitions:
 
               means no limit.
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  neutron.interchainqueries.QueryRegisteredQueriesResponse:
+  furya.interchainqueries.QueryRegisteredQueriesResponse:
     type: object
     properties:
       registered_queries:
@@ -53379,7 +53379,7 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-  neutron.interchainqueries.QueryRegisteredQueryResponse:
+  furya.interchainqueries.QueryRegisteredQueryResponse:
     type: object
     properties:
       registered_query:
@@ -53477,7 +53477,7 @@ definitions:
             type: string
             format: uint64
             description: The local chain height when the query was registered.
-  neutron.interchainqueries.QueryRegisteredQueryResultResponse:
+  furya.interchainqueries.QueryRegisteredQueryResultResponse:
     type: object
     properties:
       result:
@@ -53995,7 +53995,7 @@ definitions:
             format: uint64
           allow_kv_callbacks:
             type: boolean
-  neutron.interchainqueries.QueryResult:
+  furya.interchainqueries.QueryResult:
     type: object
     properties:
       kv_results:
@@ -54497,7 +54497,7 @@ definitions:
         format: uint64
       allow_kv_callbacks:
         type: boolean
-  neutron.interchainqueries.RegisteredQuery:
+  furya.interchainqueries.RegisteredQuery:
     type: object
     properties:
       id:
@@ -54583,7 +54583,7 @@ definitions:
         type: string
         format: uint64
         description: The local chain height when the query was registered.
-  neutron.interchainqueries.StorageValue:
+  furya.interchainqueries.StorageValue:
     type: object
     properties:
       storage_prefix:
@@ -54620,7 +54620,7 @@ definitions:
                 ProofOp defines an operation used for calculating Merkle root
                 The data could be arbitrary format, providing nessecary data
                 for example neighbouring node hash
-  neutron.interchainqueries.TxValue:
+  furya.interchainqueries.TxValue:
     type: object
     properties:
       response:
@@ -54834,7 +54834,7 @@ definitions:
             The data could be arbitrary format, providing nessecary data
             for example neighbouring node hash
     title: ProofOps is Merkle proof defined by the list of ProofOps
-  neutron.interchaintxs.Params:
+  furya.interchaintxs.Params:
     type: object
     properties:
       msg_submit_tx_max_messages:
@@ -54842,14 +54842,14 @@ definitions:
         format: uint64
         title: Defines maximum amount of messages to be passed in MsgSubmitTx
     description: Params defines the parameters for the module.
-  neutron.interchaintxs.QueryInterchainAccountAddressResponse:
+  furya.interchaintxs.QueryInterchainAccountAddressResponse:
     type: object
     properties:
       interchain_account_address:
         type: string
         title: The corresponding interchain account address on the host chain
     title: Query response for an interchain account address
-  neutron.interchaintxs.QueryParamsResponse:
+  furya.interchaintxs.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -54861,12 +54861,12 @@ definitions:
             format: uint64
             title: Defines maximum amount of messages to be passed in MsgSubmitTx
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  neutron.interchaintxs.v1.MsgRegisterInterchainAccountResponse:
+  furya.interchaintxs.v1.MsgRegisterInterchainAccountResponse:
     type: object
     description: |-
       MsgRegisterInterchainAccountResponse is the response type for
       MsgRegisterInterchainAccount.
-  neutron.interchaintxs.v1.MsgSubmitTxResponse:
+  furya.interchaintxs.v1.MsgSubmitTxResponse:
     type: object
     properties:
       sequence_id:
@@ -54875,7 +54875,7 @@ definitions:
         description: channel's sequence_id for outgoing ibc packet. Unique per a channel.
       channel:
         type: string
-        title: channel src channel on neutron side trasaction was submitted from
+        title: channel src channel on furya side trasaction was submitted from
     title: MsgSubmitTxResponse defines the response for Msg/SubmitTx
   ibc.applications.transfer.v1.DenomTrace:
     type: object
@@ -55019,7 +55019,7 @@ definitions:
 
               chain.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
-  neutron.transfer.MsgTransferResponse:
+  furya.transfer.MsgTransferResponse:
     type: object
     properties:
       sequence_id:
@@ -55028,7 +55028,7 @@ definitions:
         description: channel's sequence_id for outgoing ibc packet. Unique per a channel.
       channel:
         type: string
-        title: channel src channel on neutron side trasaction was submitted from
+        title: channel src channel on furya side trasaction was submitted from
     description: |-
       MsgTransferResponse is the modified response type for
       ibc-go MsgTransfer.

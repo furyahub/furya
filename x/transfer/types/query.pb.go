@@ -88,7 +88,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) DenomTrace(ctx context.Context, in *types.QueryDenomTraceRequest, opts ...grpc.CallOption) (*types.QueryDenomTraceResponse, error) {
 	out := new(types.QueryDenomTraceResponse)
-	err := c.cc.Invoke(ctx, "/neutron.transfer.Query/DenomTrace", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.transfer.Query/DenomTrace", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (c *queryClient) DenomTrace(ctx context.Context, in *types.QueryDenomTraceR
 
 func (c *queryClient) DenomTraces(ctx context.Context, in *types.QueryDenomTracesRequest, opts ...grpc.CallOption) (*types.QueryDenomTracesResponse, error) {
 	out := new(types.QueryDenomTracesResponse)
-	err := c.cc.Invoke(ctx, "/neutron.transfer.Query/DenomTraces", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.transfer.Query/DenomTraces", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (c *queryClient) DenomTraces(ctx context.Context, in *types.QueryDenomTrace
 
 func (c *queryClient) Params(ctx context.Context, in *types.QueryParamsRequest, opts ...grpc.CallOption) (*types.QueryParamsResponse, error) {
 	out := new(types.QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.transfer.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.transfer.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (c *queryClient) Params(ctx context.Context, in *types.QueryParamsRequest, 
 
 func (c *queryClient) DenomHash(ctx context.Context, in *types.QueryDenomHashRequest, opts ...grpc.CallOption) (*types.QueryDenomHashResponse, error) {
 	out := new(types.QueryDenomHashResponse)
-	err := c.cc.Invoke(ctx, "/neutron.transfer.Query/DenomHash", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.transfer.Query/DenomHash", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func _Query_DenomTrace_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.transfer.Query/DenomTrace",
+		FullMethod: "/furya.transfer.Query/DenomTrace",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DenomTrace(ctx, req.(*types.QueryDenomTraceRequest))
@@ -183,7 +183,7 @@ func _Query_DenomTraces_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.transfer.Query/DenomTraces",
+		FullMethod: "/furya.transfer.Query/DenomTraces",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DenomTraces(ctx, req.(*types.QueryDenomTracesRequest))
@@ -201,7 +201,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.transfer.Query/Params",
+		FullMethod: "/furya.transfer.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*types.QueryParamsRequest))
@@ -219,7 +219,7 @@ func _Query_DenomHash_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.transfer.Query/DenomHash",
+		FullMethod: "/furya.transfer.Query/DenomHash",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DenomHash(ctx, req.(*types.QueryDenomHashRequest))
@@ -228,7 +228,7 @@ func _Query_DenomHash_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.transfer.Query",
+	ServiceName: "furya.transfer.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

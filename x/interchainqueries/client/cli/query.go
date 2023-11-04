@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 const (

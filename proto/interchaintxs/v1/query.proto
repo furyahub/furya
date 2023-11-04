@@ -1,12 +1,12 @@
 syntax = "proto3";
-package neutron.interchaintxs;
+package furya.interchaintxs;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "interchaintxs/v1/params.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/interchaintxs/types";
+option go_package = "github.com/furyahub/furya/x/interchaintxs/types";
 
 // Query defines the gRPC querier service.
 service Query {
@@ -35,7 +35,7 @@ message QueryInterchainAccountAddressRequest {
   // interchain_account_id is an identifier of your interchain account from
   // which you want to execute msgs
   string interchain_account_id = 2;
-  // connection_id is an IBC connection identifier between Neutron and remote
+  // connection_id is an IBC connection identifier between Furya and remote
   // chain
   string connection_id = 3;
 }

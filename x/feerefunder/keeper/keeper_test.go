@@ -8,9 +8,9 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/neutron-org/neutron/testutil"
-	testutil_keeper "github.com/neutron-org/neutron/testutil/feerefunder/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/feerefunder/types"
+	"github.com/furyahub/furya/testutil"
+	testutil_keeper "github.com/furyahub/furya/testutil/feerefunder/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/feerefunder/types"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/pkg/errors"
@@ -18,13 +18,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/x/feerefunder/types"
 
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 )
 
 const (
-	TestAddress = "neutron17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh"
+	TestAddress = "furya17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh"
 )
 
 func TestKeeperCheckFees(t *testing.T) {
@@ -198,8 +198,8 @@ func TestDistributeAcknowledgementFee(t *testing.T) {
 
 	validFee := types.Fee{
 		RecvFee:    nil,
-		AckFee:     sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(1001))),
-		TimeoutFee: sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(2001))),
+		AckFee:     sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1001))),
+		TimeoutFee: sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(2001))),
 	}
 	packet := types.PacketID{
 		ChannelId: "channel-0",
@@ -264,8 +264,8 @@ func TestDistributeTimeoutFee(t *testing.T) {
 
 	validFee := types.Fee{
 		RecvFee:    nil,
-		AckFee:     sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(1001))),
-		TimeoutFee: sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(2001))),
+		AckFee:     sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1001))),
+		TimeoutFee: sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(2001))),
 	}
 	packet := types.PacketID{
 		ChannelId: "channel-0",
@@ -325,8 +325,8 @@ func TestFeeInfo(t *testing.T) {
 	k, ctx := testutil_keeper.FeeKeeper(t, nil, nil)
 	validFee := types.Fee{
 		RecvFee:    nil,
-		AckFee:     sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(1001))),
-		TimeoutFee: sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(1001))),
+		AckFee:     sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1001))),
+		TimeoutFee: sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1001))),
 	}
 	for i := uint64(0); i < 1000; i++ {
 		packet := types.PacketID{

@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     linux-headers
 
 # Download go dependencies
-WORKDIR /neutron
+WORKDIR /furya
 COPY go.mod go.sum ./
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/root/go/pkg/mod \
@@ -37,22 +37,22 @@ RUN WASMVM_VERSION=$(go list -m github.com/CosmWasm/wasmvm | cut -d ' ' -f 2) &&
 # Copy the remaining files
 COPY . .
 
-# Build neutrond binary
+# Build furyad binary
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/root/go/pkg/mod \
     go build \
       -mod=readonly \
       -tags "netgo,ledger,muslc" \
-      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="neutron" \
-              -X github.com/cosmos/cosmos-sdk/version.AppName="neutrond" \
+      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="furya" \
+              -X github.com/cosmos/cosmos-sdk/version.AppName="furyad" \
               -X github.com/cosmos/cosmos-sdk/version.Version=${GIT_VERSION} \
               -X github.com/cosmos/cosmos-sdk/version.Commit=${GIT_COMMIT} \
               -X github.com/cosmos/cosmos-sdk/version.BuildTags='${BUILD_TAGS}' \
-              -X github.com/neutron-org/neutron/app.EnableSpecificProposals=${ENABLED_PROPOSALS} \
+              -X github.com/furyahub/furya/app.EnableSpecificProposals=${ENABLED_PROPOSALS} \
               -w -s -linkmode=external -extldflags '-Wl,-z,muldefs -static'" \
       -trimpath \
-      -o /neutron/build/neutrond \
-      /neutron/cmd/neutrond
+      -o /furya/build/furyad \
+      /furya/cmd/furyad
 
 # --------------------------------------------------------
 # Runner
@@ -60,13 +60,13 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 
 FROM ${RUNNER_IMAGE}
 
-COPY --from=builder /neutron/build/neutrond /bin/neutrond
+COPY --from=builder /furya/build/furyad /bin/furyad
 
-ENV HOME /neutron
+ENV HOME /furya
 WORKDIR $HOME
 
 EXPOSE 26656
 EXPOSE 26657
 EXPOSE 1317
 
-ENTRYPOINT ["neutrond"]
+ENTRYPOINT ["furyad"]

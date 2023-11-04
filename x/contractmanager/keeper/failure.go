@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 // AddContractFailure adds a specific failure to the store using address as the key

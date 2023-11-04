@@ -6,18 +6,18 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	feekeeperutil "github.com/neutron-org/neutron/testutil/feeburner/keeper"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	feekeeperutil "github.com/furyahub/furya/testutil/feeburner/keeper"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
-func TestGrpcQuery_TotalBurnedNeutronsAmount(t *testing.T) {
+func TestGrpcQuery_TotalBurnedFuryasAmount(t *testing.T) {
 	feeKeeper, ctx := feekeeperutil.FeeburnerKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
 
-	feeKeeper.RecordBurnedFees(ctx, sdk.NewCoin(types.DefaultNeutronDenom, sdk.NewInt(100)))
+	feeKeeper.RecordBurnedFees(ctx, sdk.NewCoin(types.DefaultFuryaDenom, sdk.NewInt(100)))
 
-	request := types.QueryTotalBurnedNeutronsAmountRequest{}
-	response, err := feeKeeper.TotalBurnedNeutronsAmount(wctx, &request)
+	request := types.QueryTotalBurnedFuryasAmountRequest{}
+	response, err := feeKeeper.TotalBurnedFuryasAmount(wctx, &request)
 	require.NoError(t, err)
-	require.Equal(t, &types.QueryTotalBurnedNeutronsAmountResponse{TotalBurnedNeutronsAmount: types.TotalBurnedNeutronsAmount{Coin: sdk.Coin{Denom: types.DefaultNeutronDenom, Amount: sdk.NewInt(100)}}}, response)
+	require.Equal(t, &types.QueryTotalBurnedFuryasAmountResponse{TotalBurnedFuryasAmount: types.TotalBurnedFuryasAmount{Coin: sdk.Coin{Denom: types.DefaultFuryaDenom, Amount: sdk.NewInt(100)}}}, response)
 }

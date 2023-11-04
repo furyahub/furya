@@ -23,7 +23,7 @@ func NewDefaultGenesisState(cdc codec.JSONCodec) GenesisState {
 	// If we will not alter globalfee module genesis state, then we will get panic during tests run.
 
 	genesisState := ModuleBasics.DefaultGenesis(cdc)
-	minGasPrices := json.RawMessage(`{"params":{"minimum_gas_prices":[{"denom": "untrn", "amount": "0"}]}}`)
+	minGasPrices := json.RawMessage(`{"params":{"minimum_gas_prices":[{"denom": "ufury", "amount": "0"}]}}`)
 	genesisState["globalfee"] = minGasPrices
 
 	return genesisState

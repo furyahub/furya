@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	// EventTypeNeutronMessage defines the event type used by the Interchain Queries module events.
-	EventTypeNeutronMessage = "neutron"
+	// EventTypeFuryaMessage defines the event type used by the Interchain Queries module events.
+	EventTypeFuryaMessage = "furya"
 
 	// AttributeKeyQueryID represents the key for event attribute delivering the query ID of a
 	// registered interchain query.

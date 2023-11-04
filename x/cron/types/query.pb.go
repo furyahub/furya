@@ -296,12 +296,12 @@ func (m *QuerySchedulesResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "neutron.cron.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "neutron.cron.QueryParamsResponse")
-	proto.RegisterType((*QueryGetScheduleRequest)(nil), "neutron.cron.QueryGetScheduleRequest")
-	proto.RegisterType((*QueryGetScheduleResponse)(nil), "neutron.cron.QueryGetScheduleResponse")
-	proto.RegisterType((*QuerySchedulesRequest)(nil), "neutron.cron.QuerySchedulesRequest")
-	proto.RegisterType((*QuerySchedulesResponse)(nil), "neutron.cron.QuerySchedulesResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "furya.cron.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "furya.cron.QueryParamsResponse")
+	proto.RegisterType((*QueryGetScheduleRequest)(nil), "furya.cron.QueryGetScheduleRequest")
+	proto.RegisterType((*QueryGetScheduleResponse)(nil), "furya.cron.QueryGetScheduleResponse")
+	proto.RegisterType((*QuerySchedulesRequest)(nil), "furya.cron.QuerySchedulesRequest")
+	proto.RegisterType((*QuerySchedulesResponse)(nil), "furya.cron.QuerySchedulesResponse")
 }
 
 func init() { proto.RegisterFile("cron/query.proto", fileDescriptor_aa4b81a2a4395683) }
@@ -371,7 +371,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.cron.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.cron.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +380,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) Schedule(ctx context.Context, in *QueryGetScheduleRequest, opts ...grpc.CallOption) (*QueryGetScheduleResponse, error) {
 	out := new(QueryGetScheduleResponse)
-	err := c.cc.Invoke(ctx, "/neutron.cron.Query/Schedule", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.cron.Query/Schedule", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +389,7 @@ func (c *queryClient) Schedule(ctx context.Context, in *QueryGetScheduleRequest,
 
 func (c *queryClient) Schedules(ctx context.Context, in *QuerySchedulesRequest, opts ...grpc.CallOption) (*QuerySchedulesResponse, error) {
 	out := new(QuerySchedulesResponse)
-	err := c.cc.Invoke(ctx, "/neutron.cron.Query/Schedules", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.cron.Query/Schedules", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -434,7 +434,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.cron.Query/Params",
+		FullMethod: "/furya.cron.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -452,7 +452,7 @@ func _Query_Schedule_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.cron.Query/Schedule",
+		FullMethod: "/furya.cron.Query/Schedule",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Schedule(ctx, req.(*QueryGetScheduleRequest))
@@ -470,7 +470,7 @@ func _Query_Schedules_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.cron.Query/Schedules",
+		FullMethod: "/furya.cron.Query/Schedules",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Schedules(ctx, req.(*QuerySchedulesRequest))
@@ -479,7 +479,7 @@ func _Query_Schedules_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.cron.Query",
+	ServiceName: "furya.cron.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

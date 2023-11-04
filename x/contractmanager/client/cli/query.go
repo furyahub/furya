@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

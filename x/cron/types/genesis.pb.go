@@ -77,7 +77,7 @@ func (m *GenesisState) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "neutron.cron.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "furya.cron.GenesisState")
 }
 
 func init() { proto.RegisterFile("cron/genesis.proto", fileDescriptor_0c58acd1c2bcdf4f) }

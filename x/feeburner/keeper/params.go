@@ -2,7 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 // GetParams get all parameters as types.Params

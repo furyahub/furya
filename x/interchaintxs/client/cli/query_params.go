@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
 
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 func CmdQueryParams() *cobra.Command {

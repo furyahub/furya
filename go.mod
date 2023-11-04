@@ -1,4 +1,4 @@
-module github.com/neutron-org/neutron
+module github.com/furyahub/furya
 
 go 1.20
 
@@ -157,7 +157,7 @@ require (
 )
 
 replace (
-	github.com/CosmWasm/wasmd v0.31.0 => github.com/neutron-org/wasmd v0.31.1-neutron-fixes.0.20230426103416-67da724a1eaf
+	github.com/CosmWasm/wasmd v0.31.0 => github.com/furyahub/wasmd v0.31.1-furya-fixes.0.20230426103416-67da724a1eaf
 	// github.com/btcsuite/btcd => github.com/btcsuite/btcd v0.22.2
 	github.com/cosmos/admin-module => github.com/Ethernal-Tech/admin-module v0.0.0-20221102105340-e693f4d379c3
 	github.com/cosmos/cosmos-sdk => github.com/cosmos/cosmos-sdk v0.45.15-ics

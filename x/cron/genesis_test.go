@@ -3,10 +3,10 @@ package cron_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/testutil/cron/keeper"
-	"github.com/neutron-org/neutron/testutil/cron/nullify"
-	"github.com/neutron-org/neutron/x/cron"
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/testutil/cron/keeper"
+	"github.com/furyahub/furya/testutil/cron/nullify"
+	"github.com/furyahub/furya/x/cron"
+	"github.com/furyahub/furya/x/cron/types"
 	"github.com/stretchr/testify/require"
 )
 

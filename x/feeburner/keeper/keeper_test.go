@@ -11,11 +11,11 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/feeburner/types"
-	"github.com/neutron-org/neutron/x/feeburner/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/keeper"
 
-	feekeeperutil "github.com/neutron-org/neutron/testutil/feeburner/keeper"
-	feetypes "github.com/neutron-org/neutron/x/feeburner/types"
+	feekeeperutil "github.com/furyahub/furya/testutil/feeburner/keeper"
+	feetypes "github.com/furyahub/furya/x/feeburner/types"
 )
 
 func TestKeeper_RecordBurnedFees(t *testing.T) {
@@ -29,15 +29,15 @@ func TestKeeper_RecordBurnedFees(t *testing.T) {
 		{
 			desc:      "default works with empty store",
 			initial:   nil,
-			amount:    sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(300)},
-			expected:  &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(300)},
+			amount:    sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(300)},
+			expected:  &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(300)},
 			wantPanic: false,
 		},
 		{
 			desc:      "default works with existing tokens burned sums",
-			initial:   &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(100)},
-			amount:    sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(300)},
-			expected:  &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(400)},
+			initial:   &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(100)},
+			amount:    sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(300)},
+			expected:  &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(400)},
 			wantPanic: false,
 		},
 		{
@@ -61,13 +61,13 @@ func TestKeeper_RecordBurnedFees(t *testing.T) {
 				feeKeeper.RecordBurnedFees(ctx, *tc.initial)
 			}
 			feeKeeper.RecordBurnedFees(ctx, tc.amount)
-			res := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+			res := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 			require.Equal(t, *tc.expected, res.Coin)
 		})
 	}
 }
 
-func TestKeeper_GetTotalBurnedNeutronsAmount(t *testing.T) {
+func TestKeeper_GetTotalBurnedFuryasAmount(t *testing.T) {
 	for _, tc := range []struct {
 		desc     string
 		initial  *sdk.Coin
@@ -76,12 +76,12 @@ func TestKeeper_GetTotalBurnedNeutronsAmount(t *testing.T) {
 		{
 			desc:     "works with empty value",
 			initial:  nil,
-			expected: &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(0)},
+			expected: &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(0)},
 		},
 		{
 			desc:     "works with existing burned fees",
-			initial:  &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(100)},
-			expected: &sdk.Coin{Denom: feetypes.DefaultNeutronDenom, Amount: sdk.NewInt(100)},
+			initial:  &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(100)},
+			expected: &sdk.Coin{Denom: feetypes.DefaultFuryaDenom, Amount: sdk.NewInt(100)},
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
@@ -89,7 +89,7 @@ func TestKeeper_GetTotalBurnedNeutronsAmount(t *testing.T) {
 			if tc.initial != nil {
 				feeKeeper.RecordBurnedFees(ctx, *tc.initial)
 			}
-			res := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+			res := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 			require.Equal(t, tc.expected, &res.Coin)
 		})
 	}
@@ -102,67 +102,67 @@ func TestKeeper_BurnAndDistribute_Clean(t *testing.T) {
 
 	feeKeeper.BurnAndDistribute(ctx)
 
-	burnedAmount := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+	burnedAmount := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 	require.Equal(t, burnedAmount.Coin.Amount, sdk.NewInt(0))
 }
 
-func TestKeeper_BurnAndDistribute_Ntrn(t *testing.T) {
+func TestKeeper_BurnAndDistribute_Fury(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	feeKeeper, ctx, mockBankKeeper, _ := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin(feetypes.DefaultNeutronDenom, sdk.NewInt(100))})
+	feeKeeper, ctx, mockBankKeeper, _ := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin(feetypes.DefaultFuryaDenom, sdk.NewInt(100))})
 
-	mockBankKeeper.EXPECT().BurnCoins(ctx, consumertypes.ConsumerRedistributeName, sdk.Coins{sdk.NewCoin(feetypes.DefaultNeutronDenom, sdk.NewInt(100))})
+	mockBankKeeper.EXPECT().BurnCoins(ctx, consumertypes.ConsumerRedistributeName, sdk.Coins{sdk.NewCoin(feetypes.DefaultFuryaDenom, sdk.NewInt(100))})
 
 	feeKeeper.BurnAndDistribute(ctx)
 
-	burnedAmount := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+	burnedAmount := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 	require.Equal(t, burnedAmount.Coin.Amount, sdk.NewInt(100))
 }
 
-func TestKeeper_BurnAndDistribute_NonNtrn(t *testing.T) {
+func TestKeeper_BurnAndDistribute_NonFury(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	feeKeeper, ctx, mockBankKeeper, redistrAddr := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin("nonntrn", sdk.NewInt(50))})
+	feeKeeper, ctx, mockBankKeeper, redistrAddr := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin("nonfury", sdk.NewInt(50))})
 
-	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonntrn", sdk.NewInt(50))})
+	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonfury", sdk.NewInt(50))})
 
 	feeKeeper.BurnAndDistribute(ctx)
 
-	burnedAmount := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+	burnedAmount := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 	require.Equal(t, burnedAmount.Coin.Amount, sdk.NewInt(0))
 }
 
 func TestKeeper_BurnAndDistribute_SendCoinsFail(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	feeKeeper, ctx, mockBankKeeper, redistrAddr := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin("nonntrn", sdk.NewInt(50))})
+	feeKeeper, ctx, mockBankKeeper, redistrAddr := setupBurnAndDistribute(t, ctrl, sdk.Coins{sdk.NewCoin("nonfury", sdk.NewInt(50))})
 
-	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonntrn", sdk.NewInt(50))}).Return(fmt.Errorf("testerror"))
+	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonfury", sdk.NewInt(50))}).Return(fmt.Errorf("testerror"))
 
 	assert.Panics(t, func() {
 		feeKeeper.BurnAndDistribute(ctx)
 	}, "did not panic")
 
-	burnedAmount := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+	burnedAmount := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 	require.Equal(t, burnedAmount.Coin.Amount, sdk.NewInt(0))
 }
 
-func TestKeeper_BurnAndDistribute_NtrnAndNonNtrn(t *testing.T) {
+func TestKeeper_BurnAndDistribute_FuryAndNonFury(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	coins := sdk.Coins{sdk.NewCoin(feetypes.DefaultNeutronDenom, sdk.NewInt(70)), sdk.NewCoin("nonntrn", sdk.NewInt(20))}
+	coins := sdk.Coins{sdk.NewCoin(feetypes.DefaultFuryaDenom, sdk.NewInt(70)), sdk.NewCoin("nonfury", sdk.NewInt(20))}
 	feeKeeper, ctx, mockBankKeeper, redistrAddr := setupBurnAndDistribute(t, ctrl, coins)
 
-	mockBankKeeper.EXPECT().BurnCoins(ctx, consumertypes.ConsumerRedistributeName, sdk.Coins{sdk.NewCoin(feetypes.DefaultNeutronDenom, sdk.NewInt(70))})
-	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonntrn", sdk.NewInt(20))})
+	mockBankKeeper.EXPECT().BurnCoins(ctx, consumertypes.ConsumerRedistributeName, sdk.Coins{sdk.NewCoin(feetypes.DefaultFuryaDenom, sdk.NewInt(70))})
+	mockBankKeeper.EXPECT().SendCoins(ctx, redistrAddr, sdk.MustAccAddressFromBech32(feeKeeper.GetParams(ctx).TreasuryAddress), sdk.Coins{sdk.NewCoin("nonfury", sdk.NewInt(20))})
 
 	feeKeeper.BurnAndDistribute(ctx)
-	burnedAmount := feeKeeper.GetTotalBurnedNeutronsAmount(ctx)
+	burnedAmount := feeKeeper.GetTotalBurnedFuryasAmount(ctx)
 	require.Equal(t, burnedAmount.Coin.Amount, sdk.NewInt(70))
 }
 
 func setupBurnAndDistribute(t *testing.T, ctrl *gomock.Controller, coins sdk.Coins) (*keeper.Keeper, sdk.Context, *mock_types.MockBankKeeper, sdk.AccAddress) {
-	redistrAddr := sdk.AccAddress("neutronabcdasdf")
+	redistrAddr := sdk.AccAddress("furyaabcdasdf")
 	mockAccountKeeper := mock_types.NewMockAccountKeeper(ctrl)
 	mockBankKeeper := mock_types.NewMockBankKeeper(ctrl)
 	feeKeeper, ctx := feekeeperutil.FeeburnerKeeperWithDeps(t, mockAccountKeeper, mockBankKeeper)

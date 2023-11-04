@@ -3,12 +3,12 @@ package feeburner_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
-	"github.com/neutron-org/neutron/testutil/feeburner/keeper"
-	"github.com/neutron-org/neutron/testutil/feeburner/nullify"
-	"github.com/neutron-org/neutron/x/feeburner"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/testutil/feeburner/keeper"
+	"github.com/furyahub/furya/testutil/feeburner/nullify"
+	"github.com/furyahub/furya/x/feeburner"
+	"github.com/furyahub/furya/x/feeburner/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -13,7 +13,7 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/x/feerefunder/types"
 )
 
 type (

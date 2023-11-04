@@ -14,7 +14,7 @@ BUILDDIR ?= $(CURDIR)/build
 # for dockerized protobuf tools
 DOCKER := $(shell which docker)
 BUILDDIR ?= $(CURDIR)/build
-HTTPS_GIT := https://github.com/neutron-org/neutron.git
+HTTPS_GIT := https://github.com/furyahub/furya.git
 
 GO_SYSTEM_VERSION = $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1-2)
 REQUIRE_GO_VERSION = 1.20
@@ -64,12 +64,12 @@ build_tags_test_binary_comma_sep := $(subst $(empty),$(comma),$(build_tags_test_
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=neutron \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=neutrond \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=furya \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=furyad \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-		  -X "github.com/neutron-org/neutron/app.EnableSpecificProposals=$(ENABLED_PROPOSALS)"
+		  -X "github.com/furyahub/furya/app.EnableSpecificProposals=$(ENABLED_PROPOSALS)"
 
 ifeq ($(WITH_CLEVELDB),yes)
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
@@ -85,7 +85,7 @@ include contrib/devtools/Makefile
 
 check_version:
 ifneq ($(GO_SYSTEM_VERSION), $(REQUIRE_GO_VERSION))
-	@echo "ERROR: Go version ${REQUIRE_GO_VERSION} is required for $(VERSION) of Neutron."
+	@echo "ERROR: Go version ${REQUIRE_GO_VERSION} is required for $(VERSION) of Furya."
 	exit 1
 endif
 
@@ -99,15 +99,15 @@ $(BUILD_TARGETS): check_version go.sum $(BUILDDIR)/
 ifeq ($(OS),Windows_NT)
 	exit 1
 else
-	go $@ -mod=readonly $(BUILD_FLAGS) $(BUILD_ARGS) ./cmd/neutrond
+	go $@ -mod=readonly $(BUILD_FLAGS) $(BUILD_ARGS) ./cmd/furyad
 endif
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
 
 build-static-linux-amd64: go.sum $(BUILDDIR)/
-	$(DOCKER) buildx create --name neutronbuilder || true
-	$(DOCKER) buildx use neutronbuilder
+	$(DOCKER) buildx create --name furyabuilder || true
+	$(DOCKER) buildx use furyabuilder
 	$(DOCKER) buildx build \
 		--build-arg GO_VERSION=$(GO_VERSION) \
 		--build-arg GIT_VERSION=$(VERSION) \
@@ -115,16 +115,16 @@ build-static-linux-amd64: go.sum $(BUILDDIR)/
 		--build-arg BUILD_TAGS=$(build_tags_comma_sep) \
 		--build-arg ENABLED_PROPOSALS=$(ENABLED_PROPOSALS) \
 		--platform linux/amd64 \
-		-t neutron-amd64 \
+		-t furya-amd64 \
 		--load \
 		-f Dockerfile.builder .
-	$(DOCKER) rm -f neutronbinary || true
-	$(DOCKER) create -ti --name neutronbinary neutron-amd64
-	$(DOCKER) cp neutronbinary:/bin/neutrond $(BUILDDIR)/neutrond-linux-amd64
-	$(DOCKER) rm -f neutronbinary
+	$(DOCKER) rm -f furyabinary || true
+	$(DOCKER) create -ti --name furyabinary furya-amd64
+	$(DOCKER) cp furyabinary:/bin/furyad $(BUILDDIR)/furyad-linux-amd64
+	$(DOCKER) rm -f furyabinary
 
 install-test-binary: check_version go.sum
-	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/neutrond
+	go install -mod=readonly $(BUILD_FLAGS_TEST_BINARY) ./cmd/furyad
 
 ########################################
 ### Tools & dependencies
@@ -140,7 +140,7 @@ go.sum: go.mod
 draw-deps:
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i ./cmd/neutrond -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i ./cmd/furyad -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf snapcraft-local.yaml $(BUILDDIR)/
@@ -233,29 +233,29 @@ init: kill-dev install-test-binary
 	./network/hermes/create-conn.sh
 
 start: kill-dev install-test-binary
-	@echo "Starting up neutrond alone..."
-	export BINARY=neutrond CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=untrn && \
-	./network/init.sh && ./network/init-neutrond.sh && ./network/start.sh
+	@echo "Starting up furyad alone..."
+	export BINARY=furyad CHAINID=test-1 P2PPORT=26656 RPCPORT=26657 RESTPORT=1317 ROSETTA=8080 GRPCPORT=8090 GRPCWEB=8091 STAKEDENOM=ufury && \
+	./network/init.sh && ./network/init-furyad.sh && ./network/start.sh
 
 start-rly:
 	./network/hermes/start.sh
 
 kill-dev:
-	@echo "Killing neutrond and removing previous data"
+	@echo "Killing furyad and removing previous data"
 	-@rm -rf ./data
-	-@killall neutrond 2>/dev/null
+	-@killall furyad 2>/dev/null
 	-@killall gaiad 2>/dev/null
 
 build-docker-image:
-	# please keep the image name consistent with https://github.com/neutron-org/neutron-integration-tests/blob/main/setup/docker-compose.yml
-	@docker buildx build --load --build-context app=. -t neutron-node --build-arg BINARY=neutrond .
+	# please keep the image name consistent with https://github.com/furyahub/furya-integration-tests/blob/main/setup/docker-compose.yml
+	@docker buildx build --load --build-context app=. -t furya-node --build-arg BINARY=furyad .
 
 start-docker-container:
-	# please keep the ports consistent with https://github.com/neutron-org/neutron-integration-tests/blob/main/setup/docker-compose.yml
-	@docker run --rm --name neutron -d -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 neutron-node
+	# please keep the ports consistent with https://github.com/furyahub/furya-integration-tests/blob/main/setup/docker-compose.yml
+	@docker run --rm --name furya -d -p 1317:1317 -p 26657:26657 -p 26656:26656 -p 16657:16657 -p 8090:9090 -e RUN_BACKGROUND=0 furya-node
 
 stop-docker-container:
-	@docker stop neutron
+	@docker stop furya
 
 mocks:
 	@echo "Regenerate mocks..."

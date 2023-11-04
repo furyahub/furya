@@ -7,8 +7,8 @@ import (
 
 	ibckeeper "github.com/cosmos/ibc-go/v4/modules/core/keeper"
 	"github.com/golang/mock/gomock"
-	icqtestkeeper "github.com/neutron-org/neutron/testutil/interchainqueries/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/interchainqueries/types"
+	icqtestkeeper "github.com/furyahub/furya/testutil/interchainqueries/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/interchainqueries/types"
 
 	"github.com/CosmWasm/wasmd/x/wasm/keeper"
 	"github.com/cosmos/cosmos-sdk/types"
@@ -26,9 +26,9 @@ import (
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	clientkeeper "github.com/cosmos/ibc-go/v4/modules/core/02-client/keeper"
-	"github.com/neutron-org/neutron/testutil"
-	iqkeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	iqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/testutil"
+	iqkeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	iqtypes "github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 // CreateTMClientHeader creates a TM header to update the TM client. Args are passed in to allow
@@ -179,7 +179,7 @@ func (suite *KeeperTestSuite) TestUnpackAndVerifyHeaders() {
 				nextHeader, err := suite.Path.EndpointA.Chain.ConstructUpdateTMClientHeader(suite.Path.EndpointA.Counterparty.Chain, suite.Path.EndpointB.ClientID)
 				suite.Require().NoError(err)
 
-				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetNeutronZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
+				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetFuryaZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
 			},
 			nil,
 		},
@@ -200,7 +200,7 @@ func (suite *KeeperTestSuite) TestUnpackAndVerifyHeaders() {
 				nextHeader, err := suite.Path.EndpointA.Chain.ConstructUpdateTMClientHeader(suite.Path.EndpointA.Counterparty.Chain, suite.Path.EndpointB.ClientID)
 				suite.Require().NoError(err)
 
-				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetNeutronZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
+				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetFuryaZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
 			},
 			iqtypes.ErrInvalidHeader,
 		},
@@ -221,7 +221,7 @@ func (suite *KeeperTestSuite) TestUnpackAndVerifyHeaders() {
 				nextHeader, err := suite.Path.EndpointA.Chain.ConstructUpdateTMClientHeader(suite.Path.EndpointA.Counterparty.Chain, suite.Path.EndpointB.ClientID)
 				suite.Require().NoError(err)
 
-				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetNeutronZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
+				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetFuryaZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, header, nextHeader)
 			},
 			iqtypes.ErrInvalidHeader,
 		},
@@ -252,7 +252,7 @@ func (suite *KeeperTestSuite) TestUnpackAndVerifyHeaders() {
 				oldNextHeader.TrustedHeight = headerWithTrustedHeight.TrustedHeight
 				oldNextHeader.TrustedValidators = headerWithTrustedHeight.TrustedValidators
 
-				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetNeutronZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, &oldHeader, &oldNextHeader)
+				return iqkeeper.Verifier{}.VerifyHeaders(suite.ChainA.GetContext(), suite.GetFuryaZoneApp(suite.ChainA).IBCKeeper.ClientKeeper, clientID, &oldHeader, &oldNextHeader)
 			},
 			nil,
 		},

@@ -16,7 +16,7 @@ import (
 	ibcconnectiontypes "github.com/cosmos/ibc-go/v4/modules/core/03-connection/types"
 	ibccommitmenttypes "github.com/cosmos/ibc-go/v4/modules/core/23-commitment/types"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 type msgServer struct {
@@ -305,7 +305,7 @@ func (k msgServer) validateUpdateInterchainQueryParams(
 func getEventsQueryUpdated(query *types.RegisteredQuery) sdk.Events {
 	return sdk.Events{
 		sdk.NewEvent(
-			types.EventTypeNeutronMessage,
+			types.EventTypeFuryaMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
 			sdk.NewAttribute(sdk.AttributeKeyAction, types.AttributeValueQueryUpdated),
 			sdk.NewAttribute(types.AttributeKeyQueryID, strconv.FormatUint(query.Id, 10)),
@@ -321,7 +321,7 @@ func getEventsQueryUpdated(query *types.RegisteredQuery) sdk.Events {
 func getEventsQueryRemoved(query *types.RegisteredQuery) sdk.Events {
 	return sdk.Events{
 		sdk.NewEvent(
-			types.EventTypeNeutronMessage,
+			types.EventTypeFuryaMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
 			sdk.NewAttribute(sdk.AttributeKeyAction, types.AttributeValueQueryRemoved),
 			sdk.NewAttribute(types.AttributeKeyQueryID, strconv.FormatUint(query.Id, 10)),

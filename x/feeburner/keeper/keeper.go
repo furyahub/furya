@@ -13,7 +13,7 @@ import (
 	consumertypes "github.com/cosmos/interchain-security/x/ccv/consumer/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 type (
@@ -54,38 +54,38 @@ func NewKeeper(
 	}
 }
 
-// RecordBurnedFees adds `amount` to the total amount of burned NTRN tokens
+// RecordBurnedFees adds `amount` to the total amount of burned FURY tokens
 func (k Keeper) RecordBurnedFees(ctx sdk.Context, amount sdk.Coin) {
 	store := ctx.KVStore(k.storeKey)
 
-	totalBurnedNeutronsAmount := k.GetTotalBurnedNeutronsAmount(ctx)
-	totalBurnedNeutronsAmount.Coin = totalBurnedNeutronsAmount.Coin.Add(amount)
+	totalBurnedFuryasAmount := k.GetTotalBurnedFuryasAmount(ctx)
+	totalBurnedFuryasAmount.Coin = totalBurnedFuryasAmount.Coin.Add(amount)
 
-	store.Set(KeyBurnedFees, k.cdc.MustMarshal(&totalBurnedNeutronsAmount))
+	store.Set(KeyBurnedFees, k.cdc.MustMarshal(&totalBurnedFuryasAmount))
 }
 
-// GetTotalBurnedNeutronsAmount gets the total burned amount of NTRN tokens
-func (k Keeper) GetTotalBurnedNeutronsAmount(ctx sdk.Context) types.TotalBurnedNeutronsAmount {
+// GetTotalBurnedFuryasAmount gets the total burned amount of FURY tokens
+func (k Keeper) GetTotalBurnedFuryasAmount(ctx sdk.Context) types.TotalBurnedFuryasAmount {
 	store := ctx.KVStore(k.storeKey)
 
-	var totalBurnedNeutronsAmount types.TotalBurnedNeutronsAmount
-	bzTotalBurnedNeutronsAmount := store.Get(KeyBurnedFees)
-	if bzTotalBurnedNeutronsAmount != nil {
-		k.cdc.MustUnmarshal(bzTotalBurnedNeutronsAmount, &totalBurnedNeutronsAmount)
+	var totalBurnedFuryasAmount types.TotalBurnedFuryasAmount
+	bzTotalBurnedFuryasAmount := store.Get(KeyBurnedFees)
+	if bzTotalBurnedFuryasAmount != nil {
+		k.cdc.MustUnmarshal(bzTotalBurnedFuryasAmount, &totalBurnedFuryasAmount)
 	}
 
-	if totalBurnedNeutronsAmount.Coin.Denom == "" {
-		totalBurnedNeutronsAmount.Coin = sdk.NewCoin(k.GetParams(ctx).NeutronDenom, sdk.NewInt(0))
+	if totalBurnedFuryasAmount.Coin.Denom == "" {
+		totalBurnedFuryasAmount.Coin = sdk.NewCoin(k.GetParams(ctx).FuryaDenom, sdk.NewInt(0))
 	}
 
-	return totalBurnedNeutronsAmount
+	return totalBurnedFuryasAmount
 }
 
 // BurnAndDistribute is an important part of tokenomics. It does few things:
-// 1. Burns NTRN fee coins distributed to consumertypes.ConsumerRedistributeName in ICS (https://github.com/cosmos/interchain-security/blob/v0.2.0/x/ccv/consumer/keeper/distribution.go#L17)
-// 2. Updates total amount of burned NTRN coins
-// 3. Sends non-NTRN fee tokens to reserve contract address
-// Panics if no `consumertypes.ConsumerRedistributeName` module found OR could not burn NTRN tokens
+// 1. Burns FURY fee coins distributed to consumertypes.ConsumerRedistributeName in ICS (https://github.com/cosmos/interchain-security/blob/v0.2.0/x/ccv/consumer/keeper/distribution.go#L17)
+// 2. Updates total amount of burned FURY coins
+// 3. Sends non-FURY fee tokens to reserve contract address
+// Panics if no `consumertypes.ConsumerRedistributeName` module found OR could not burn FURY tokens
 func (k Keeper) BurnAndDistribute(ctx sdk.Context) {
 	moduleAddr := k.accountKeeper.GetModuleAddress(consumertypes.ConsumerRedistributeName)
 	if moduleAddr == nil {
@@ -98,10 +98,10 @@ func (k Keeper) BurnAndDistribute(ctx sdk.Context) {
 
 	for _, balance := range balances {
 		if !balance.IsZero() {
-			if balance.Denom == params.NeutronDenom {
+			if balance.Denom == params.FuryaDenom {
 				err := k.bankKeeper.BurnCoins(ctx, consumertypes.ConsumerRedistributeName, sdk.Coins{balance})
 				if err != nil {
-					panic(sdkerrors.Wrapf(err, "failed to burn NTRN tokens during fee processing"))
+					panic(sdkerrors.Wrapf(err, "failed to burn FURY tokens during fee processing"))
 				}
 
 				k.RecordBurnedFees(ctx, balance)

@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func (suite *KeeperTestSuite) TestAdminMsgs() {
@@ -28,14 +28,14 @@ func (suite *KeeperTestSuite) TestAdminMsgs() {
 	_, err = suite.msgServer.Mint(sdk.WrapSDKContext(suite.ChainA.GetContext()), types.NewMsgMint(suite.TestAccs[0].String(), sdk.NewInt64Coin(suite.defaultDenom, 10)))
 	addr0bal += 10
 	suite.Require().NoError(err)
-	suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
+	suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
 
 	// Test burning from own account
 	_, err = suite.msgServer.Burn(sdk.WrapSDKContext(suite.ChainA.GetContext()), types.NewMsgBurn(suite.TestAccs[0].String(), sdk.NewInt64Coin(suite.defaultDenom, 5)))
 	addr0bal -= 5
 	suite.Require().NoError(err)
-	suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
-	suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[1], suite.defaultDenom).Amount.Int64() == addr1bal)
+	suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
+	suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[1], suite.defaultDenom).Amount.Int64() == addr1bal)
 
 	// Test Change Admin
 	_, err = suite.msgServer.ChangeAdmin(sdk.WrapSDKContext(suite.ChainA.GetContext()), types.NewMsgChangeAdmin(suite.TestAccs[0].String(), suite.defaultDenom, suite.TestAccs[1].String()))
@@ -56,7 +56,7 @@ func (suite *KeeperTestSuite) TestAdminMsgs() {
 	_, err = suite.msgServer.Mint(sdk.WrapSDKContext(suite.ChainA.GetContext()), types.NewMsgMint(suite.TestAccs[1].String(), sdk.NewInt64Coin(suite.defaultDenom, 5)))
 	addr1bal += 5
 	suite.Require().NoError(err)
-	suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[1], suite.defaultDenom).Amount.Int64() == addr1bal)
+	suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[1], suite.defaultDenom).Amount.Int64() == addr1bal)
 
 	// Try setting admin to empty
 	_, err = suite.msgServer.ChangeAdmin(sdk.WrapSDKContext(suite.ChainA.GetContext()), types.NewMsgChangeAdmin(suite.TestAccs[1].String(), suite.defaultDenom, ""))
@@ -116,7 +116,7 @@ func (suite *KeeperTestSuite) TestMintDenom() {
 			if tc.valid {
 				addr0bal += 10
 				suite.Require().NoError(err)
-				suite.Require().Equal(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64(), addr0bal, suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
+				suite.Require().Equal(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64(), addr0bal, suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
 			} else {
 				suite.Require().Error(err)
 			}
@@ -178,10 +178,10 @@ func (suite *KeeperTestSuite) TestBurnDenom() {
 			if tc.valid {
 				addr0bal -= 10
 				suite.Require().NoError(err)
-				suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
+				suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
 			} else {
 				suite.Require().Error(err)
-				suite.Require().True(suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetNeutronZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
+				suite.Require().True(suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom).Amount.Int64() == addr0bal, suite.GetFuryaZoneApp(suite.ChainA).BankKeeper.GetBalance(suite.ChainA.GetContext(), suite.TestAccs[0], suite.defaultDenom))
 			}
 		})
 	}

@@ -8,8 +8,8 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 const (

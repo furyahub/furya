@@ -14,8 +14,8 @@ import (
 	types3 "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	exported "github.com/cosmos/ibc-go/v4/modules/core/exported"
 	gomock "github.com/golang/mock/gomock"
-	types4 "github.com/neutron-org/neutron/x/contractmanager/types"
-	types5 "github.com/neutron-org/neutron/x/feerefunder/types"
+	types4 "github.com/furyahub/furya/x/contractmanager/types"
+	types5 "github.com/furyahub/furya/x/feerefunder/types"
 )
 
 // MockAccountKeeper is a mock of AccountKeeper interface.

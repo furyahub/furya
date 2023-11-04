@@ -15,8 +15,8 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	host "github.com/cosmos/ibc-go/v4/modules/core/24-host"
 
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	ictxtypes "github.com/neutron-org/neutron/x/interchaintxs/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	ictxtypes "github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 type msgServer struct {

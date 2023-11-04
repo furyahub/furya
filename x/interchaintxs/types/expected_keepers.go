@@ -8,8 +8,8 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	ibcexported "github.com/cosmos/ibc-go/v4/modules/core/exported"
 
-	contractmanagertypes "github.com/neutron-org/neutron/x/contractmanager/types"
-	feerefundertypes "github.com/neutron-org/neutron/x/feerefunder/types"
+	contractmanagertypes "github.com/furyahub/furya/x/contractmanager/types"
+	feerefundertypes "github.com/furyahub/furya/x/feerefunder/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

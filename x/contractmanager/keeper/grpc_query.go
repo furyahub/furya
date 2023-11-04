@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 var _ types.QueryServer = Keeper{}

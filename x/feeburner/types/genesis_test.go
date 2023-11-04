@@ -3,14 +3,14 @@ package types_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/neutron-org/neutron/testutil/feeburner/keeper"
-	"github.com/neutron-org/neutron/testutil/feeburner/nullify"
-	"github.com/neutron-org/neutron/x/feeburner"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	keepertest "github.com/furyahub/furya/testutil/feeburner/keeper"
+	"github.com/furyahub/furya/testutil/feeburner/nullify"
+	"github.com/furyahub/furya/x/feeburner"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 func TestGenesis(t *testing.T) {
@@ -41,10 +41,10 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc: "empty neutron denom",
+			desc: "empty furya denom",
 			genState: &types.GenesisState{
 				Params: types.Params{
-					NeutronDenom: "",
+					FuryaDenom: "",
 				},
 			},
 			valid: false,

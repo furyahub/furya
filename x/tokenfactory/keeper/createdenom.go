@@ -7,7 +7,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 // CreateDenom creates new denom with `factory/{creatorAddr}/{subdenom}` name.

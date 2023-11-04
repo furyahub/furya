@@ -22,7 +22,7 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 
 	clienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
 	appProvider "github.com/cosmos/interchain-security/app/provider"
@@ -30,8 +30,8 @@ import (
 	ccvutils "github.com/cosmos/interchain-security/x/ccv/utils"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/neutron-org/neutron/app"
-	ictxstypes "github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/app"
+	ictxstypes "github.com/furyahub/furya/x/interchaintxs/types"
 
 	consumertypes "github.com/cosmos/interchain-security/x/ccv/consumer/types"
 	providertypes "github.com/cosmos/interchain-security/x/ccv/provider/types"
@@ -40,7 +40,7 @@ import (
 
 var (
 	// TestOwnerAddress defines a reusable bech32 address for testing purposes
-	TestOwnerAddress = "neutron17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh"
+	TestOwnerAddress = "furya17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh"
 
 	TestInterchainID = "owner_id"
 
@@ -189,7 +189,7 @@ func (suite *IBCConnectionTestSuite) ConfigureTransferChannel() {
 }
 
 func (suite *IBCConnectionTestSuite) FundAcc(acc sdk.AccAddress, amounts sdk.Coins) {
-	bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+	bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 	err := bankKeeper.MintCoins(suite.ChainA.GetContext(), tokenfactorytypes.ModuleName, amounts)
 	suite.Require().NoError(err)
 
@@ -254,7 +254,7 @@ func (suite *IBCConnectionTestSuite) SetupCCVChannels() {
 	}
 }
 
-// NewCoordinator initializes Coordinator with interchain security dummy provider and 2 neutron consumer chains
+// NewCoordinator initializes Coordinator with interchain security dummy provider and 2 furya consumer chains
 func NewProviderConsumerCoordinator(t *testing.T) *ibctesting.Coordinator {
 	coordinator := ibctesting.NewCoordinator(t, 3)
 	chainID := ibctesting.GetChainID(1)
@@ -272,21 +272,21 @@ func NewProviderConsumerCoordinator(t *testing.T) *ibctesting.Coordinator {
 	return coordinator
 }
 
-func (suite *IBCConnectionTestSuite) GetNeutronZoneApp(chain *ibctesting.TestChain) *app.App {
+func (suite *IBCConnectionTestSuite) GetFuryaZoneApp(chain *ibctesting.TestChain) *app.App {
 	testApp, ok := chain.App.(*app.App)
 	if !ok {
-		panic("not NeutronZone app")
+		panic("not FuryaZone app")
 	}
 
 	return testApp
 }
 
 func (suite *IBCConnectionTestSuite) StoreReflectCode(ctx sdk.Context, addr sdk.AccAddress, path string) uint64 {
-	// wasm file built with https://github.com/neutron-org/neutron-contracts/tree/main/contracts/reflect
+	// wasm file built with https://github.com/furyahub/furya-contracts/tree/main/contracts/reflect
 	wasmCode, err := os.ReadFile(path)
 	suite.Require().NoError(err)
 
-	codeID, _, err := keeper.NewDefaultPermissionKeeper(suite.GetNeutronZoneApp(suite.ChainA).WasmKeeper).Create(ctx, addr, wasmCode, &wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeEverybody, Address: ""})
+	codeID, _, err := keeper.NewDefaultPermissionKeeper(suite.GetFuryaZoneApp(suite.ChainA).WasmKeeper).Create(ctx, addr, wasmCode, &wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeEverybody, Address: ""})
 	suite.Require().NoError(err)
 
 	return codeID
@@ -294,7 +294,7 @@ func (suite *IBCConnectionTestSuite) StoreReflectCode(ctx sdk.Context, addr sdk.
 
 func (suite *IBCConnectionTestSuite) InstantiateReflectContract(ctx sdk.Context, funder sdk.AccAddress, codeID uint64) sdk.AccAddress {
 	initMsgBz := []byte("{}")
-	contractKeeper := keeper.NewDefaultPermissionKeeper(suite.GetNeutronZoneApp(suite.ChainA).WasmKeeper)
+	contractKeeper := keeper.NewDefaultPermissionKeeper(suite.GetFuryaZoneApp(suite.ChainA).WasmKeeper)
 	addr, _, err := contractKeeper.Instantiate(ctx, codeID, funder, funder, initMsgBz, "demo contract", nil)
 	suite.Require().NoError(err)
 
@@ -354,7 +354,7 @@ func RegisterInterchainAccount(endpoint *ibctesting.Endpoint, owner string) erro
 
 	a, ok := endpoint.Chain.App.(*app.App)
 	if !ok {
-		return fmt.Errorf("not NeutronZoneApp")
+		return fmt.Errorf("not FuryaZoneApp")
 	}
 
 	// TODO(pr0n00gler): are we sure it's okay?

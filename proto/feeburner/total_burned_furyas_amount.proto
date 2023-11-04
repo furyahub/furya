@@ -1,13 +1,13 @@
 syntax = "proto3";
-package neutron.feeburner;
+package furya.feeburner;
 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feeburner/types";
+option go_package = "github.com/furyahub/furya/x/feeburner/types";
 
-// TotalBurnedNeutronsAmount defines total amount of burned neutron fees
-message TotalBurnedNeutronsAmount {
+// TotalBurnedFuryasAmount defines total amount of burned furya fees
+message TotalBurnedFuryasAmount {
   cosmos.base.v1beta1.Coin coin = 1
       [ (gogoproto.moretags) = "yaml:\"coin\"", (gogoproto.nullable) = false ];
 }

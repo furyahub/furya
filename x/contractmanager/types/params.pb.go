@@ -60,7 +60,7 @@ func (m *Params) XXX_DiscardUnknown() {
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.contractmanager.Params")
+	proto.RegisterType((*Params)(nil), "furya.contractmanager.Params")
 }
 
 func init() { proto.RegisterFile("contractmanager/params.proto", fileDescriptor_0201b435690497d1) }

@@ -161,8 +161,8 @@ func (m *GenesisState) GetFailuresList() []Failure {
 }
 
 func init() {
-	proto.RegisterType((*Failure)(nil), "neutron.contractmanager.Failure")
-	proto.RegisterType((*GenesisState)(nil), "neutron.contractmanager.GenesisState")
+	proto.RegisterType((*Failure)(nil), "furya.contractmanager.Failure")
+	proto.RegisterType((*GenesisState)(nil), "furya.contractmanager.GenesisState")
 }
 
 func init() { proto.RegisterFile("contractmanager/genesis.proto", fileDescriptor_c23af9b9805fb076) }

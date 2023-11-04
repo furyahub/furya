@@ -150,8 +150,8 @@ func (m *PacketID) GetSequence() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*Fee)(nil), "neutron.feerefunder.Fee")
-	proto.RegisterType((*PacketID)(nil), "neutron.feerefunder.PacketID")
+	proto.RegisterType((*Fee)(nil), "furya.feerefunder.Fee")
+	proto.RegisterType((*PacketID)(nil), "furya.feerefunder.PacketID")
 }
 
 func init() { proto.RegisterFile("feerefunder/fee.proto", fileDescriptor_0c6cd4ef4b890305) }

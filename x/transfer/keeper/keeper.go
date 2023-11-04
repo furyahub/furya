@@ -12,8 +12,8 @@ import (
 	"github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	wrappedtypes "github.com/neutron-org/neutron/x/transfer/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	wrappedtypes "github.com/furyahub/furya/x/transfer/types"
 )
 
 // KeeperTransferWrapper is a wrapper for original ibc keeper to override response for "Transfer" method

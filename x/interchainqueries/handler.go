@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/keeper"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 // NewHandler ...

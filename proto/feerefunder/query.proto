@@ -1,5 +1,5 @@
 syntax = "proto3";
-package neutron.feerefunder;
+package furya.feerefunder;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "feerefunder/genesis.proto";
@@ -7,16 +7,16 @@ import "feerefunder/params.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feerefunder/types";
+option go_package = "github.com/furyahub/furya/x/feerefunder/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/neutron-org/neutron/feerefunder/params";
+    option (google.api.http).get = "/furyahub/furya/feerefunder/params";
   }
   rpc FeeInfo(FeeInfoRequest) returns (FeeInfoResponse) {
-    option (google.api.http).get = "/neutron-org/neutron/feerefunder/info";
+    option (google.api.http).get = "/furyahub/furya/feerefunder/info";
   }
 }
 

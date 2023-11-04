@@ -14,10 +14,10 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 )
 
-// NewTestChainWithValSet copypasted and modified to use neutron denom from here https://github.com/cosmos/ibc-go/blob/af9b461c63274b9ce5917beb89a2c92e865419df/testing/chain.go#L94
+// NewTestChainWithValSet copypasted and modified to use furya denom from here https://github.com/cosmos/ibc-go/blob/af9b461c63274b9ce5917beb89a2c92e865419df/testing/chain.go#L94
 func NewTestChainWithValSet(t *testing.T, coord *legacyibctesting.Coordinator, appIniter legacyibctesting.AppIniter, chainID string, valSet *tmtypes.ValidatorSet, signers map[string]tmtypes.PrivValidator) *legacyibctesting.TestChain {
 	genAccs := []authtypes.GenesisAccount{}
 	genBals := []banktypes.Balance{}

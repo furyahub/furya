@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-BINARY=${BINARY:-neutrond}
+BINARY=${BINARY:-furyad}
 BASE_DIR=./data
 CHAINID=${CHAINID:-test-1}
-STAKEDENOM=${STAKEDENOM:-untrn}
+STAKEDENOM=${STAKEDENOM:-ufury}
 CONTRACTS_BINARIES_DIR=${CONTRACTS_BINARIES_DIR:-./contracts}
 THIRD_PARTY_CONTRACTS_DIR=${THIRD_PARTY_CONTRACTS_DIR:-./contracts_thirdparty}
 
 # IMPORTANT! minimum_gas_prices should always contain at least one record, otherwise the chain will not start or halt
 # ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2 denom is required by intgration tests (test:tokenomics)
-MIN_GAS_PRICES_DEFAULT='[{"denom":"ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2","amount":"0"},{"denom":"untrn","amount":"0"}]'
+MIN_GAS_PRICES_DEFAULT='[{"denom":"ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2","amount":"0"},{"denom":"ufury","amount":"0"}]'
 MIN_GAS_PRICES=${MIN_GAS_PRICES:-"$MIN_GAS_PRICES_DEFAULT"}
 
 
@@ -26,15 +26,15 @@ PRE_PROPOSAL_MULTIPLE_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_pre_propose_multiple.
 PRE_PROPOSAL_OVERRULE_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_pre_propose_overrule.wasm
 PROPOSAL_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_proposal_single.wasm
 PROPOSAL_MULTIPLE_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_proposal_multiple.wasm
-VOTING_REGISTRY_CONTRACT=$CONTRACTS_BINARIES_DIR/neutron_voting_registry.wasm
+VOTING_REGISTRY_CONTRACT=$CONTRACTS_BINARIES_DIR/furya_voting_registry.wasm
 # VAULTS
-NEUTRON_VAULT_CONTRACT=$CONTRACTS_BINARIES_DIR/neutron_vault.wasm
-NEUTRON_INVESTORS_VAULT=$CONTRACTS_BINARIES_DIR/investors_vesting_vault.wasm
+FURYA_VAULT_CONTRACT=$CONTRACTS_BINARIES_DIR/furya_vault.wasm
+FURYA_INVESTORS_VAULT=$CONTRACTS_BINARIES_DIR/investors_vesting_vault.wasm
 # VESTING
-NEUTRON_VESTING_INVESTORS=$CONTRACTS_BINARIES_DIR/vesting_investors.wasm
+FURYA_VESTING_INVESTORS=$CONTRACTS_BINARIES_DIR/vesting_investors.wasm
 # RESERVE
-RESERVE_CONTRACT=$CONTRACTS_BINARIES_DIR/neutron_reserve.wasm
-DISTRIBUTION_CONTRACT=$CONTRACTS_BINARIES_DIR/neutron_distribution.wasm
+RESERVE_CONTRACT=$CONTRACTS_BINARIES_DIR/furya_reserve.wasm
+DISTRIBUTION_CONTRACT=$CONTRACTS_BINARIES_DIR/furya_distribution.wasm
 # SUBDAOS
 SUBDAO_CORE_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_subdao_core.wasm
 SUBDAO_TIMELOCK_CONTRACT=$CONTRACTS_BINARIES_DIR/cwd_subdao_timelock_single.wasm
@@ -65,8 +65,8 @@ PROPOSAL_SINGLE_ONLY_MAX_VOTING_PERIOD=1200 # seconds; should be 2 weeks in prod
 PROPOSAL_SINGLE_CLOSE_PROPOSAL_ON_EXECUTION_FAILURE=false
 PROPOSAL_SINGLE_QUORUM=0.05 # quorum to consider proposal's result viable [float] < 1
 PROPOSAL_SINGLE_THRESHOLD=0.5 # % of votes should vote for the proposal to pass [float] <1
-PROPOSAL_SINGLE_LABEL="neutron.proposals.single"
-PRE_PROPOSAL_SINGLE_LABEL="neutron.proposals.single.pre_propose"
+PROPOSAL_SINGLE_LABEL="furya.proposals.single"
+PRE_PROPOSAL_SINGLE_LABEL="furya.proposals.single.pre_propose"
 
 ## propose multiple params
 PROPOSAL_MULTIPLE_ALLOW_REVOTING=false # should be true for non-testing env
@@ -74,8 +74,8 @@ PROPOSAL_MULTIPLE_ONLY_MEMBERS_EXECUTE=false
 PROPOSAL_MULTIPLE_ONLY_MAX_VOTING_PERIOD=1200 # seconds; should be 2 weeks in production
 PROPOSAL_MULTIPLE_CLOSE_PROPOSAL_ON_EXECUTION_FAILURE=false
 PROPOSAL_MULTIPLE_QUORUM=0.05 # quorum to consider proposal's result viable [float] < 1
-PROPOSAL_MULTIPLE_LABEL="neutron.proposals.multiple"
-PRE_PROPOSAL_MULTIPLE_LABEL="neutron.proposals.multiple.pre_propose"
+PROPOSAL_MULTIPLE_LABEL="furya.proposals.multiple"
+PRE_PROPOSAL_MULTIPLE_LABEL="furya.proposals.multiple.pre_propose"
 
 ## Propose overrule params
 PROPOSAL_OVERRULE_ALLOW_REVOTING=false
@@ -83,27 +83,27 @@ PROPOSAL_OVERRULE_ONLY_MEMBERS_EXECUTE=false
 PROPOSAL_OVERRULE_ONLY_MAX_VOTING_PERIOD=1200 # seconds; should be 3 days in production
 PROPOSAL_OVERRULE_CLOSE_PROPOSAL_ON_EXECUTION_FAILURE=false
 PROPOSAL_OVERRULE_THRESHOLD=0.005 # around 10 times lower than for regular proposals
-PROPOSAL_OVERRULE_LABEL="neutron.proposals.overrule"
-PRE_PROPOSE_OVERRULE_LABEL="neutron.proposals.overrule.pre_propose"
+PROPOSAL_OVERRULE_LABEL="furya.proposals.overrule"
+PRE_PROPOSE_OVERRULE_LABEL="furya.proposals.overrule.pre_propose"
 
 ## Voting registry
-VOTING_REGISTRY_LABEL="neutron.voting"
+VOTING_REGISTRY_LABEL="furya.voting"
 
 ## DAO
-DAO_NAME="Neutron DAO"
-DAO_DESCRIPTION="Neutron DAO is a DAO DAO-based governance of Neutron chain"
-DAO_CORE_LABEL="neutron.core"
+DAO_NAME="Furya DAO"
+DAO_DESCRIPTION="Furya DAO is a DAO DAO-based governance of Furya chain"
+DAO_CORE_LABEL="furya.core"
 
-## Neutron vault
-NEUTRON_VAULT_NAME="Neutron Vault"
-NEUTRON_VAULT_DESCRIPTION="Vault to put NTRN tokens to get voting power"
-NEUTRON_VAULT_LABEL="neutron.voting.vaults.neutron"
-NEUTRON_INVESTORS_VAULT_NAME="Neutron Investors Vault"
-NEUTRON_INVESTORS_VAULT_DESCRIPTION="Vault sourcing voting power form investors vesting"
-NEUTRON_INVESTORS_VAULT_LABEL="neutron.voting.vaults.investors"
+## Furya vault
+FURYA_VAULT_NAME="Furya Vault"
+FURYA_VAULT_DESCRIPTION="Vault to put FURY tokens to get voting power"
+FURYA_VAULT_LABEL="furya.voting.vaults.furya"
+FURYA_INVESTORS_VAULT_NAME="Furya Investors Vault"
+FURYA_INVESTORS_VAULT_DESCRIPTION="Vault sourcing voting power form investors vesting"
+FURYA_INVESTORS_VAULT_LABEL="furya.voting.vaults.investors"
 
 # VESTING (for tests purposes)
-NEUTRON_VESTING_INVESTORS_LABEL="neutron.vesting.investors"
+FURYA_VESTING_INVESTORS_LABEL="furya.vesting.investors"
 
 ## Reserve
 RESERVE_DISTRIBUTION_RATE=0
@@ -116,21 +116,21 @@ DISTRIBUTION_LABEL="distribution"
 ## Grants subdao
 GRANTS_SUBDAO_CORE_NAME="Grants SubDAO"
 GRANTS_SUBDAO_CORE_DESCRIPTION="SubDAO to distribute grants to projects"
-GRANTS_SUBDAO_CORE_LABEL="neutron.subdaos.grants.core"
-GRANTS_SUBDAO_PROPOSAL_LABEL="neutron.subdaos.grants.proposals.single"
-GRANTS_SUBDAO_PRE_PROPOSE_LABEL="neutron.subdaos.grants.proposals.single.pre_propose"
-GRANTS_SUBDAO_VOTING_MODULE_LABEL="neutron.subdaos.grants.voting"
+GRANTS_SUBDAO_CORE_LABEL="furya.subdaos.grants.core"
+GRANTS_SUBDAO_PROPOSAL_LABEL="furya.subdaos.grants.proposals.single"
+GRANTS_SUBDAO_PRE_PROPOSE_LABEL="furya.subdaos.grants.proposals.single.pre_propose"
+GRANTS_SUBDAO_VOTING_MODULE_LABEL="furya.subdaos.grants.voting"
 
 ## Timelock
-GRANTS_SUBDAO_TIMELOCK_LABEL="neutron.subdaos.grants.proposals.single.pre_propose.timelock"
+GRANTS_SUBDAO_TIMELOCK_LABEL="furya.subdaos.grants.proposals.single.pre_propose.timelock"
 
 ## Security subdao
 SECURITY_SUBDAO_CORE_NAME="Security SubDAO"
-SECURITY_SUBDAO_CORE_DESCRIPTION="SubDAO with power to pause specific Neutron DAO modules"
-SECURITY_SUBDAO_CORE_LABEL="neutron.subdaos.security.core"
-SECURITY_SUBDAO_PROPOSAL_LABEL="neutron.subdaos.security.proposals.single"
-SECURITY_SUBDAO_PRE_PROPOSE_LABEL="neutron.subdaos.security.proposals.single.pre_propose"
-SECURITY_SUBDAO_VOTE_LABEL="neutron.subdaos.security.voting"
+SECURITY_SUBDAO_CORE_DESCRIPTION="SubDAO with power to pause specific Furya DAO modules"
+SECURITY_SUBDAO_CORE_LABEL="furya.subdaos.security.core"
+SECURITY_SUBDAO_PROPOSAL_LABEL="furya.subdaos.security.proposals.single"
+SECURITY_SUBDAO_PRE_PROPOSE_LABEL="furya.subdaos.security.proposals.single.pre_propose"
+SECURITY_SUBDAO_VOTE_LABEL="furya.subdaos.security.voting"
 
 echo "Initializing dao contract in genesis..."
 
@@ -152,10 +152,10 @@ PROPOSAL_CONTRACT_BINARY_ID=$(store_binary              "$PROPOSAL_CONTRACT")
 PROPOSAL_MULTIPLE_CONTRACT_BINARY_ID=$(store_binary     "$PROPOSAL_MULTIPLE_CONTRACT")
 VOTING_REGISTRY_CONTRACT_BINARY_ID=$(store_binary       "$VOTING_REGISTRY_CONTRACT")
 # VAULTS
-NEUTRON_VAULT_CONTRACT_BINARY_ID=$(store_binary         "$NEUTRON_VAULT_CONTRACT")
-NEUTRON_INVESTORS_VAULT_CONTRACT_BINARY_ID=$(store_binary "$NEUTRON_INVESTORS_VAULT")
+FURYA_VAULT_CONTRACT_BINARY_ID=$(store_binary         "$FURYA_VAULT_CONTRACT")
+FURYA_INVESTORS_VAULT_CONTRACT_BINARY_ID=$(store_binary "$FURYA_INVESTORS_VAULT")
 # VESTING
-NEUTRON_VESTING_INVESTORS_BINARY_ID=$(store_binary      "$NEUTRON_VESTING_INVESTORS")
+FURYA_VESTING_INVESTORS_BINARY_ID=$(store_binary      "$FURYA_VESTING_INVESTORS")
 # RESERVE
 DISTRIBUTION_CONTRACT_BINARY_ID=$(store_binary          "$DISTRIBUTION_CONTRACT")
 RESERVE_CONTRACT_BINARY_ID=$(store_binary               "$RESERVE_CONTRACT")
@@ -184,11 +184,11 @@ function genaddr() {
 INSTANCE_ID_COUNTER=1
 
 # VAULTS
-NEUTRON_VAULT_CONTRACT_ADDRESS=$(genaddr                "$NEUTRON_VAULT_CONTRACT_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
-NEUTRON_INVESTORS_VAULT_CONTRACT_ADDRESS=$(genaddr      "$NEUTRON_INVESTORS_VAULT_CONTRACT_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
+FURYA_VAULT_CONTRACT_ADDRESS=$(genaddr                "$FURYA_VAULT_CONTRACT_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
+FURYA_INVESTORS_VAULT_CONTRACT_ADDRESS=$(genaddr      "$FURYA_INVESTORS_VAULT_CONTRACT_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
 
 # VESTING
-NEUTRON_VESTING_INVESTORS_CONTRACT_ADDRRES=$(genaddr    "$NEUTRON_VESTING_INVESTORS_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
+FURYA_VESTING_INVESTORS_CONTRACT_ADDRRES=$(genaddr    "$FURYA_VESTING_INVESTORS_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
 
 # MAIN_DAO
 DAO_CONTRACT_ADDRESS=$(genaddr                          "$DAO_CONTRACT_BINARY_ID") && (( INSTANCE_ID_COUNTER++ ))
@@ -351,8 +351,8 @@ PROPOSAL_OVERRULE_INIT_MSG_BASE64=$(json_to_base64 "$PROPOSAL_OVERRULE_INIT_MSG"
 VOTING_REGISTRY_INIT_MSG='{
   "owner": "'"$DAO_CONTRACT_ADDRESS"'",
   "voting_vaults": [
-    "'"$NEUTRON_VAULT_CONTRACT_ADDRESS"'",
-    "'"$NEUTRON_INVESTORS_VAULT_CONTRACT_ADDRESS"'"
+    "'"$FURYA_VAULT_CONTRACT_ADDRESS"'",
+    "'"$FURYA_INVESTORS_VAULT_CONTRACT_ADDRESS"'"
   ]
 }'
 VOTING_REGISTRY_INIT_MSG_BASE64=$(json_to_base64 "$VOTING_REGISTRY_INIT_MSG")
@@ -416,22 +416,22 @@ DISTRIBUTION_INIT='{
 
 # VAULTS
 
-NEUTRON_VAULT_INIT='{
+FURYA_VAULT_INIT='{
   "owner": "'"$DAO_CONTRACT_ADDRESS"'",
-  "name":         "'"$NEUTRON_VAULT_NAME"'",
+  "name":         "'"$FURYA_VAULT_NAME"'",
   "denom":        "'"$STAKEDENOM"'",
-  "description":  "'"$NEUTRON_VAULT_DESCRIPTION"'"
+  "description":  "'"$FURYA_VAULT_DESCRIPTION"'"
 }'
 
-NEUTRON_INVESTORS_VAULT_INIT='{
-     "vesting_contract_address": "'"$NEUTRON_VESTING_INVESTORS_CONTRACT_ADDRRES"'",
+FURYA_INVESTORS_VAULT_INIT='{
+     "vesting_contract_address": "'"$FURYA_VESTING_INVESTORS_CONTRACT_ADDRRES"'",
      "owner": "'"$DAO_CONTRACT_ADDRESS"'",
-     "description": "'"$NEUTRON_INVESTORS_VAULT_DESCRIPTION"'",
-     "name": "'"$NEUTRON_INVESTORS_VAULT_NAME"'"
+     "description": "'"$FURYA_INVESTORS_VAULT_DESCRIPTION"'",
+     "name": "'"$FURYA_INVESTORS_VAULT_NAME"'"
 }'
 
 # VESTING
-NEUTRON_VESTING_INVESTORS_INIT='{
+FURYA_VESTING_INVESTORS_INIT='{
     "owner": "'"$ADMIN_ADDRESS"'",
     "token_info_manager": "'"$ADMIN_ADDRESS"'"
 }'
@@ -614,9 +614,9 @@ function init_contract() {
 # The following code is to add contracts instantiations messages to genesis
 # It affects the section of predicting contracts addresses at the beginning of the script
 # If you're to do any changes, please do it consistently in both sections
-init_contract "$NEUTRON_VAULT_CONTRACT_BINARY_ID"            "$NEUTRON_VAULT_INIT"             "$NEUTRON_VAULT_LABEL"
-init_contract "$NEUTRON_INVESTORS_VAULT_CONTRACT_BINARY_ID"  "$NEUTRON_INVESTORS_VAULT_INIT"   "$NEUTRON_INVESTORS_VAULT_LABEL"
-init_contract "$NEUTRON_VESTING_INVESTORS_BINARY_ID"         "$NEUTRON_VESTING_INVESTORS_INIT"  "$NEUTRON_VESTING_INVESTORS_LABEL"
+init_contract "$FURYA_VAULT_CONTRACT_BINARY_ID"            "$FURYA_VAULT_INIT"             "$FURYA_VAULT_LABEL"
+init_contract "$FURYA_INVESTORS_VAULT_CONTRACT_BINARY_ID"  "$FURYA_INVESTORS_VAULT_INIT"   "$FURYA_INVESTORS_VAULT_LABEL"
+init_contract "$FURYA_VESTING_INVESTORS_BINARY_ID"         "$FURYA_VESTING_INVESTORS_INIT"  "$FURYA_VESTING_INVESTORS_LABEL"
 init_contract "$DAO_CONTRACT_BINARY_ID"                      "$DAO_INIT"                       "$DAO_CORE_LABEL"
 init_contract "$RESERVE_CONTRACT_BINARY_ID"                  "$RESERVE_INIT"                   "$RESERVE_LABEL"
 init_contract "$DISTRIBUTION_CONTRACT_BINARY_ID"             "$DISTRIBUTION_INIT"              "$DISTRIBUTION_LABEL"
@@ -673,11 +673,11 @@ REGISTER_VESTING_ACCOUNTS_MSG='{
 $BINARY add-wasm-message execute "$DAO_CONTRACT_ADDRESS" "$ADD_SUBDAOS_MSG" \
   --run-as "$DAO_CONTRACT_ADDRESS" --home "$CHAIN_DIR"
 
-$BINARY add-wasm-message execute "$NEUTRON_VESTING_INVESTORS_CONTRACT_ADDRRES" "$SET_VESTING_TOKEN_MSG" \
+$BINARY add-wasm-message execute "$FURYA_VESTING_INVESTORS_CONTRACT_ADDRRES" "$SET_VESTING_TOKEN_MSG" \
   --run-as "$ADMIN_ADDRESS" --home "$CHAIN_DIR"
 
-$BINARY add-wasm-message execute "$NEUTRON_VESTING_INVESTORS_CONTRACT_ADDRRES" "$REGISTER_VESTING_ACCOUNTS_MSG" \
-  --amount 1000untrn --run-as "$ADMIN_ADDRESS" --home "$CHAIN_DIR"
+$BINARY add-wasm-message execute "$FURYA_VESTING_INVESTORS_CONTRACT_ADDRRES" "$REGISTER_VESTING_ACCOUNTS_MSG" \
+  --amount 1000ufury --run-as "$ADMIN_ADDRESS" --home "$CHAIN_DIR"
 
 function set_genesis_param() {
   param_name=$1

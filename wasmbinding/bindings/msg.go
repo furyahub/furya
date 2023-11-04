@@ -6,9 +6,9 @@ import (
 	paramChange "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	icqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	transferwrappertypes "github.com/neutron-org/neutron/x/transfer/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	icqtypes "github.com/furyahub/furya/x/interchainqueries/types"
+	transferwrappertypes "github.com/furyahub/furya/x/transfer/types"
 )
 
 // ProtobufAny is a hack-struct to serialize protobuf Any message into JSON object
@@ -17,10 +17,10 @@ type ProtobufAny struct {
 	Value   []byte `json:"value"`
 }
 
-// NeutronMsg is used like a sum type to hold one of custom Neutron messages.
-// Follow https://github.com/neutron-org/neutron-sdk/blob/main/packages/neutron-sdk/src/bindings/msg.rs
+// FuryaMsg is used like a sum type to hold one of custom Furya messages.
+// Follow https://github.com/furyahub/furya-sdk/blob/main/packages/furya-sdk/src/bindings/msg.rs
 // for more information.
-type NeutronMsg struct {
+type FuryaMsg struct {
 	SubmitTx                  *SubmitTx                         `json:"submit_tx,omitempty"`
 	RegisterInterchainAccount *RegisterInterchainAccount        `json:"register_interchain_account,omitempty"`
 	RegisterInterchainQuery   *RegisterInterchainQuery          `json:"register_interchain_query,omitempty"`
@@ -62,7 +62,7 @@ type SubmitTx struct {
 type SubmitTxResponse struct {
 	// SequenceId is a channel's sequence_id for outgoing ibc packet. Unique per a channel.
 	SequenceId uint64 `json:"sequence_id"`
-	// Channel is a src channel on neutron side transaction was submitted from
+	// Channel is a src channel on furya side transaction was submitted from
 	Channel string `json:"channel"`
 }
 

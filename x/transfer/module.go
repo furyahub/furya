@@ -13,9 +13,9 @@ import (
 	"github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	wrapkeeper "github.com/neutron-org/neutron/x/transfer/keeper"
-	neutrontypes "github.com/neutron-org/neutron/x/transfer/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	wrapkeeper "github.com/furyahub/furya/x/transfer/keeper"
+	furyatypes "github.com/furyahub/furya/x/transfer/types"
 )
 
 /*
@@ -26,7 +26,7 @@ import (
 type IBCModule struct {
 	wrappedKeeper         wrapkeeper.KeeperTransferWrapper
 	keeper                keeper.Keeper
-	ContractManagerKeeper neutrontypes.ContractManagerKeeper
+	ContractManagerKeeper furyatypes.ContractManagerKeeper
 	transfer.IBCModule
 }
 
@@ -83,7 +83,7 @@ func NewAppModule(k wrapkeeper.KeeperTransferWrapper) AppModule {
 
 // RegisterServices registers module services.
 func (am AppModule) RegisterServices(cfg module.Configurator) {
-	neutrontypes.RegisterMsgServer(cfg.MsgServer(), am.keeper)
+	furyatypes.RegisterMsgServer(cfg.MsgServer(), am.keeper)
 	types.RegisterQueryServer(cfg.QueryServer(), am.keeper)
 }
 
@@ -96,17 +96,17 @@ func NewAppModuleBasic() AppModuleBasic {
 }
 
 func (AppModuleBasic) RegisterCodec(cdc *codec.LegacyAmino) {
-	neutrontypes.RegisterLegacyAminoCodec(cdc)
+	furyatypes.RegisterLegacyAminoCodec(cdc)
 }
 
 func (am AppModuleBasic) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	neutrontypes.RegisterLegacyAminoCodec(cdc)
+	furyatypes.RegisterLegacyAminoCodec(cdc)
 	am.AppModuleBasic.RegisterLegacyAminoCodec(cdc)
 }
 
 // RegisterInterfaces registers the module's interface types
 func (am AppModuleBasic) RegisterInterfaces(reg cdctypes.InterfaceRegistry) {
-	neutrontypes.RegisterInterfaces(reg)
+	furyatypes.RegisterInterfaces(reg)
 	am.AppModuleBasic.RegisterInterfaces(reg)
 }
 
@@ -126,7 +126,7 @@ func NewHandler(k wrapkeeper.KeeperTransferWrapper) sdk.Handler {
 
 		switch msg := msg.(type) {
 		case *types.MsgTransfer:
-			neutronMsg := neutrontypes.MsgTransfer{
+			furyaMsg := furyatypes.MsgTransfer{
 				SourcePort:       msg.SourcePort,
 				SourceChannel:    msg.SourceChannel,
 				Token:            msg.Token,
@@ -137,7 +137,7 @@ func NewHandler(k wrapkeeper.KeeperTransferWrapper) sdk.Handler {
 				Fee:              feetypes.Fee{},
 				Memo:             msg.Memo,
 			}
-			res, err := k.Transfer(sdk.WrapSDKContext(ctx), &neutronMsg)
+			res, err := k.Transfer(sdk.WrapSDKContext(ctx), &furyaMsg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
 		default:

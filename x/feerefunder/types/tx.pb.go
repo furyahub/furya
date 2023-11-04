@@ -78,7 +78,7 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutronorg.neutron.feerefunder.Msg",
+	ServiceName: "furyaorg.furya.feerefunder.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},

@@ -10,8 +10,8 @@ import (
 	icatypes "github.com/cosmos/ibc-go/v4/modules/apps/27-interchain-accounts/types"
 	host "github.com/cosmos/ibc-go/v4/modules/core/24-host"
 
-	feerefundertypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/keeper"
+	feerefundertypes "github.com/furyahub/furya/x/feerefunder/types"
+	"github.com/furyahub/furya/x/interchaintxs/keeper"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/golang/mock/gomock"
@@ -19,10 +19,10 @@ import (
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 
-	"github.com/neutron-org/neutron/testutil"
-	testkeeper "github.com/neutron-org/neutron/testutil/interchaintxs/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/interchaintxs/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/testutil"
+	testkeeper "github.com/furyahub/furya/testutil/interchaintxs/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/interchaintxs/types"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 func TestRegisterInterchainAccount(t *testing.T) {

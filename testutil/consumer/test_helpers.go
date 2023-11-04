@@ -19,11 +19,11 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/testutil/network"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 )
 
 // This function creates consumer module genesis state that is used as starting point for modifications
-// that allow neutron chain to be started locally without having to start the provider chain and the relayer.
+// that allow furya chain to be started locally without having to start the provider chain and the relayer.
 // It is also used in tests that are starting the chain node.
 func CreateMinimalConsumerTestGenesis() *ccvconsumertypes.GenesisState {
 	genesisState := ccvconsumertypes.DefaultGenesisState()

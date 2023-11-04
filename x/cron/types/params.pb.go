@@ -78,7 +78,7 @@ func (m *Params) GetLimit() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.cron.Params")
+	proto.RegisterType((*Params)(nil), "furya.cron.Params")
 }
 
 func init() { proto.RegisterFile("cron/params.proto", fileDescriptor_1c8bf79b449ebe44) }

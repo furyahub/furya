@@ -1,12 +1,12 @@
 syntax = "proto3";
-package neutron.interchainqueries;
+package furya.interchainqueries;
 
 import "tendermint/crypto/proof.proto";
 import "tendermint/abci/types.proto";
 import "google/protobuf/any.proto";
 import "interchainqueries/genesis.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/interchainqueries/types";
+option go_package = "github.com/furyahub/furya/x/interchainqueries/types";
 
 // Msg defines the Msg service.
 service Msg {
@@ -34,7 +34,7 @@ message MsgRegisterInterchainQuery {
   // is IBC connection ID for getting ConsensusState to verify proofs
   string connection_id = 4;
 
-  // is used to specify how often (in neutron blocks) the query must be updated
+  // is used to specify how often (in furya blocks) the query must be updated
   uint64 update_period = 5;
 
   // is the signer of the message
@@ -47,7 +47,7 @@ message MsgSubmitQueryResult {
   uint64 query_id = 1;
   string sender = 2;
 
-  // is the IBC client ID for an IBC connection between Neutron chain and target
+  // is the IBC client ID for an IBC connection between Furya chain and target
   // chain (where the result was obtained from)
   string client_id = 3;
   QueryResult result = 4;

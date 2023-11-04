@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/neutron-org/neutron/testutil/feeburner/sample"
-	feeburnersimulation "github.com/neutron-org/neutron/x/feeburner/simulation"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/testutil/feeburner/sample"
+	feeburnersimulation "github.com/furyahub/furya/x/feeburner/simulation"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 // avoid unused import issue

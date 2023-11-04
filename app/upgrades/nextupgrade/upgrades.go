@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	"github.com/cosmos/gaia/v8/x/globalfee/types"
-	"github.com/neutron-org/neutron/app/upgrades"
+	"github.com/furyahub/furya/app/upgrades"
 )
 
 func CreateUpgradeHandler(
@@ -29,9 +29,9 @@ func CreateUpgradeHandler(
 		}
 		// global fee is empty set, set global fee to equal to 0.05 USD (for 200k of gas) in appropriate coin
 		// As of June 22nd, 2023 this is
-		// 0.9untrn,0.026ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9,0.25ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349
+		// 0.9ufury,0.026ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9,0.25ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349
 		requiredGlobalFees := sdk.DecCoins{
-			sdk.NewDecCoinFromDec("untrn", sdk.MustNewDecFromStr("0.9")),
+			sdk.NewDecCoinFromDec("ufury", sdk.MustNewDecFromStr("0.9")),
 			sdk.NewDecCoinFromDec("ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9", sdk.MustNewDecFromStr("0.026")),
 			sdk.NewDecCoinFromDec("ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349", sdk.MustNewDecFromStr("0.25")),
 		}

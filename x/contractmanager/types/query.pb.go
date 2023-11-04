@@ -218,10 +218,10 @@ func (m *QueryFailuresResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "neutron.contractmanager.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "neutron.contractmanager.QueryParamsResponse")
-	proto.RegisterType((*QueryFailuresRequest)(nil), "neutron.contractmanager.QueryFailuresRequest")
-	proto.RegisterType((*QueryFailuresResponse)(nil), "neutron.contractmanager.QueryFailuresResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "furya.contractmanager.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "furya.contractmanager.QueryParamsResponse")
+	proto.RegisterType((*QueryFailuresRequest)(nil), "furya.contractmanager.QueryFailuresRequest")
+	proto.RegisterType((*QueryFailuresResponse)(nil), "furya.contractmanager.QueryFailuresResponse")
 }
 
 func init() { proto.RegisterFile("contractmanager/query.proto", fileDescriptor_bcfc7f6aef8ad109) }
@@ -290,7 +290,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.contractmanager.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.contractmanager.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +299,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) AddressFailures(ctx context.Context, in *QueryFailuresRequest, opts ...grpc.CallOption) (*QueryFailuresResponse, error) {
 	out := new(QueryFailuresResponse)
-	err := c.cc.Invoke(ctx, "/neutron.contractmanager.Query/AddressFailures", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.contractmanager.Query/AddressFailures", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +308,7 @@ func (c *queryClient) AddressFailures(ctx context.Context, in *QueryFailuresRequ
 
 func (c *queryClient) Failures(ctx context.Context, in *QueryFailuresRequest, opts ...grpc.CallOption) (*QueryFailuresResponse, error) {
 	out := new(QueryFailuresResponse)
-	err := c.cc.Invoke(ctx, "/neutron.contractmanager.Query/Failures", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.contractmanager.Query/Failures", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -353,7 +353,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.contractmanager.Query/Params",
+		FullMethod: "/furya.contractmanager.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -371,7 +371,7 @@ func _Query_AddressFailures_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.contractmanager.Query/AddressFailures",
+		FullMethod: "/furya.contractmanager.Query/AddressFailures",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AddressFailures(ctx, req.(*QueryFailuresRequest))
@@ -389,7 +389,7 @@ func _Query_Failures_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.contractmanager.Query/Failures",
+		FullMethod: "/furya.contractmanager.Query/Failures",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Failures(ctx, req.(*QueryFailuresRequest))
@@ -398,7 +398,7 @@ func _Query_Failures_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.contractmanager.Query",
+	ServiceName: "furya.contractmanager.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

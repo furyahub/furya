@@ -18,7 +18,7 @@ import (
 
 // This code is copied from the Juno implementation: https://github.com/CosmosContracts/juno/pull/601/files
 
-type NeutronCustomClient struct {
+type FuryaCustomClient struct {
 	scconfig.ClientConfig
 	Gas           string `mapstructure:"gas" json:"gas"`
 	GasPrices     string `mapstructure:"gas-prices" json:"gas-prices"`
@@ -52,24 +52,24 @@ func runConfigCmd(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("couldn't get client config: %w", err)
 	}
 
-	ncc := NeutronCustomClient{
+	ncc := FuryaCustomClient{
 		*conf,
-		os.Getenv("NEUTROND_GAS"),
-		os.Getenv("NEUTROND_GAS_PRICES"),
-		os.Getenv("NEUTROND_GAS_ADJUSTMENT"),
+		os.Getenv("FURYAD_GAS"),
+		os.Getenv("FURYAD_GAS_PRICES"),
+		os.Getenv("FURYAD_GAS_ADJUSTMENT"),
 
-		os.Getenv("NEUTROND_FEES"),
-		// os.Getenv("NEUTROND_FEE_GRANTER"),
-		// os.Getenv("NEUTROND_FEE_PAYER"),
+		os.Getenv("FURYAD_FEES"),
+		// os.Getenv("FURYAD_FEE_GRANTER"),
+		// os.Getenv("FURYAD_FEE_PAYER"),
 
-		os.Getenv("NEUTROND_NOTE"),
+		os.Getenv("FURYAD_NOTE"),
 	}
 
 	switch len(args) {
 	case 0:
 		s, err := json.MarshalIndent(ncc, "", "\t")
 		if err != nil {
-			return fmt.Errorf("unable to marshal neutron custom client: %w", err)
+			return fmt.Errorf("unable to marshal furya custom client: %w", err)
 		}
 
 		cmd.Println(string(s))
@@ -178,12 +178,12 @@ node = "{{ .Node }}"
 broadcast-mode = "{{ .BroadcastMode }}"
 
 ###############################################################################
-###                          Neutron Tx Configuration                          ###
+###                          Furya Tx Configuration                          ###
 ###############################################################################
 
 # Amount of gas per transaction
 gas = "{{ .Gas }}"
-# Price per unit of gas (ex: 0.005untrn)
+# Price per unit of gas (ex: 0.005ufury)
 gas-prices = "{{ .GasPrices }}"
 gas-adjustment = "{{ .GasAdjustment }}"
 
@@ -200,7 +200,7 @@ note = "{{ .Note }}"
 
 // writeConfigToFile parses defaultConfigTemplate, renders config using the template and writes it to
 // configFilePath.
-func writeConfigToFile(configFilePath string, config *NeutronCustomClient) error {
+func writeConfigToFile(configFilePath string, config *FuryaCustomClient) error {
 	var buffer bytes.Buffer
 
 	tmpl := template.New("clientConfigFileTemplate")

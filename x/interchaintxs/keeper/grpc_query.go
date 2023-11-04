@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 var _ types.QueryServer = Keeper{}

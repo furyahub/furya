@@ -5,9 +5,9 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	sdkquery "github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/neutron-org/neutron/wasmbinding/bindings"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
-	icatypes "github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/wasmbinding/bindings"
+	"github.com/furyahub/furya/x/interchainqueries/types"
+	icatypes "github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 func (qp *QueryPlugin) GetInterchainQueryResult(ctx sdk.Context, queryID uint64) (*bindings.QueryRegisteredQueryResultResponse, error) {
@@ -94,9 +94,9 @@ func (qp QueryPlugin) GetDenomAdmin(ctx sdk.Context, denom string) (*bindings.De
 	return &bindings.DenomAdminResponse{Admin: metadata.Admin}, nil
 }
 
-func (qp *QueryPlugin) GetTotalBurnedNeutronsAmount(ctx sdk.Context, _ *bindings.QueryTotalBurnedNeutronsAmountRequest) (*bindings.QueryTotalBurnedNeutronsAmountResponse, error) {
-	grpcResp := qp.feeBurnerKeeper.GetTotalBurnedNeutronsAmount(ctx)
-	return &bindings.QueryTotalBurnedNeutronsAmountResponse{Coin: grpcResp.Coin}, nil
+func (qp *QueryPlugin) GetTotalBurnedFuryasAmount(ctx sdk.Context, _ *bindings.QueryTotalBurnedFuryasAmountRequest) (*bindings.QueryTotalBurnedFuryasAmountResponse, error) {
+	grpcResp := qp.feeBurnerKeeper.GetTotalBurnedFuryasAmount(ctx)
+	return &bindings.QueryTotalBurnedFuryasAmountResponse{Coin: grpcResp.Coin}, nil
 }
 
 func (qp *QueryPlugin) GetMinIbcFee(ctx sdk.Context, _ *bindings.QueryMinIbcFeeRequest) (*bindings.QueryMinIbcFeeResponse, error) {

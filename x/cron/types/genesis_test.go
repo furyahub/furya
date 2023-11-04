@@ -3,9 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/x/cron/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -21,7 +21,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 				Params: types.Params{
-					SecurityAddress: "neutron17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
+					SecurityAddress: "furya17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
 					Limit:           1,
 				},
 			},

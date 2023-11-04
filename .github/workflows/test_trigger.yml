@@ -1,7 +1,7 @@
 ---
 name: Dispatch Workflow
 
-concurrency: neutron-tests
+concurrency: furya-tests
 
 on:
   push:
@@ -32,5 +32,5 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          repository: neutron-org/neutron-tests
+          repository: furyahub/furya-tests
           event-type: run-tests

@@ -7,12 +7,12 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	ictxtypes "github.com/neutron-org/neutron/x/interchaintxs/types"
+	ictxtypes "github.com/furyahub/furya/x/interchaintxs/types"
 
 	adminkeeper "github.com/cosmos/admin-module/x/adminmodule/keeper"
 	admintypes "github.com/cosmos/admin-module/x/adminmodule/types"
 
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 
 	"github.com/CosmWasm/wasmd/x/wasm/keeper"
 	"github.com/CosmWasm/wasmvm/types"
@@ -20,23 +20,23 @@ import (
 	host "github.com/cosmos/ibc-go/v4/modules/core/24-host"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/testutil"
-	"github.com/neutron-org/neutron/wasmbinding"
-	"github.com/neutron-org/neutron/wasmbinding/bindings"
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	icqkeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	icqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	ictxkeeper "github.com/neutron-org/neutron/x/interchaintxs/keeper"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/testutil"
+	"github.com/furyahub/furya/wasmbinding"
+	"github.com/furyahub/furya/wasmbinding/bindings"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	icqkeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	icqtypes "github.com/furyahub/furya/x/interchainqueries/types"
+	ictxkeeper "github.com/furyahub/furya/x/interchaintxs/keeper"
 
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 )
 
-const FeeCollectorAddress = "neutron1vguuxez2h5ekltfj9gjd62fs5k4rl2zy5hfrncasykzw08rezpfsd2rhm7"
+const FeeCollectorAddress = "furya1vguuxez2h5ekltfj9gjd62fs5k4rl2zy5hfrncasykzw08rezpfsd2rhm7"
 
 type CustomMessengerTestSuite struct {
 	testutil.IBCConnectionTestSuite
-	neutron         *app.App
+	furya         *app.App
 	ctx             sdk.Context
 	messenger       *wasmbinding.CustomMessenger
 	contractOwner   sdk.AccAddress
@@ -45,21 +45,21 @@ type CustomMessengerTestSuite struct {
 
 func (suite *CustomMessengerTestSuite) SetupTest() {
 	suite.IBCConnectionTestSuite.SetupTest()
-	suite.neutron = suite.GetNeutronZoneApp(suite.ChainA)
+	suite.furya = suite.GetFuryaZoneApp(suite.ChainA)
 	suite.ctx = suite.ChainA.GetContext()
 	suite.messenger = &wasmbinding.CustomMessenger{}
-	suite.messenger.Ictxmsgserver = ictxkeeper.NewMsgServerImpl(suite.neutron.InterchainTxsKeeper)
-	suite.messenger.Keeper = suite.neutron.InterchainTxsKeeper
-	suite.messenger.Icqmsgserver = icqkeeper.NewMsgServerImpl(suite.neutron.InterchainQueriesKeeper)
-	suite.messenger.Adminserver = adminkeeper.NewMsgServerImpl(suite.neutron.AdminmoduleKeeper)
-	suite.messenger.Bank = &suite.neutron.BankKeeper
-	suite.messenger.TokenFactory = suite.neutron.TokenFactoryKeeper
-	suite.messenger.CronKeeper = &suite.neutron.CronKeeper
-	suite.messenger.AdminKeeper = &suite.neutron.AdminmoduleKeeper
+	suite.messenger.Ictxmsgserver = ictxkeeper.NewMsgServerImpl(suite.furya.InterchainTxsKeeper)
+	suite.messenger.Keeper = suite.furya.InterchainTxsKeeper
+	suite.messenger.Icqmsgserver = icqkeeper.NewMsgServerImpl(suite.furya.InterchainQueriesKeeper)
+	suite.messenger.Adminserver = adminkeeper.NewMsgServerImpl(suite.furya.AdminmoduleKeeper)
+	suite.messenger.Bank = &suite.furya.BankKeeper
+	suite.messenger.TokenFactory = suite.furya.TokenFactoryKeeper
+	suite.messenger.CronKeeper = &suite.furya.CronKeeper
+	suite.messenger.AdminKeeper = &suite.furya.AdminmoduleKeeper
 	suite.contractOwner = keeper.RandomAccountAddress(suite.T())
 
 	suite.messenger.TokenFactory.SetParams(suite.ctx, tokenfactorytypes.NewParams(
-		sdk.NewCoins(sdk.NewInt64Coin(tokenfactorytypes.DefaultNeutronDenom, 10_000_000)),
+		sdk.NewCoins(sdk.NewInt64Coin(tokenfactorytypes.DefaultFuryaDenom, 10_000_000)),
 		FeeCollectorAddress,
 	))
 }
@@ -71,7 +71,7 @@ func (suite *CustomMessengerTestSuite) TestRegisterInterchainAccount() {
 	suite.Require().NotEmpty(suite.contractAddress)
 
 	// Craft RegisterInterchainAccount message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		RegisterInterchainAccount: &bindings.RegisterInterchainAccount{
 			ConnectionId:        suite.Path.EndpointA.ConnectionID,
 			InterchainAccountId: testutil.TestInterchainID,
@@ -95,7 +95,7 @@ func (suite *CustomMessengerTestSuite) TestRegisterInterchainAccountLongID() {
 	suite.Require().NotEmpty(suite.contractAddress)
 
 	// Craft RegisterInterchainAccount message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		RegisterInterchainAccount: &bindings.RegisterInterchainAccount{
 			ConnectionId: suite.Path.EndpointA.ConnectionID,
 			// the limit is 47, this line is 50 characters long
@@ -124,12 +124,12 @@ func (suite *CustomMessengerTestSuite) TestRegisterInterchainQuery() {
 	// Top up contract balance
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(10_000_000))))
-	bankKeeper := suite.neutron.BankKeeper
+	bankKeeper := suite.furya.BankKeeper
 	err = bankKeeper.SendCoins(suite.ctx, senderAddress, suite.contractAddress, coinsAmnt)
 	suite.NoError(err)
 
 	// Craft RegisterInterchainQuery message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		RegisterInterchainQuery: &bindings.RegisterInterchainQuery{
 			QueryType: string(icqtypes.InterchainQueryTypeKV),
 			Keys: []*icqtypes.KVKey{
@@ -158,11 +158,11 @@ func (suite *CustomMessengerTestSuite) TestCreateDenomMsg() {
 
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(10_000_000))))
-	bankKeeper := suite.neutron.BankKeeper
+	bankKeeper := suite.furya.BankKeeper
 	err := bankKeeper.SendCoins(suite.ctx, senderAddress, suite.contractAddress, coinsAmnt)
 	suite.NoError(err)
 
-	fullMsg := bindings.NeutronMsg{
+	fullMsg := bindings.FuryaMsg{
 		CreateDenom: &bindings.CreateDenom{
 			Subdenom: "SUN",
 		},
@@ -175,7 +175,7 @@ func (suite *CustomMessengerTestSuite) TestCreateDenomMsg() {
 
 func (suite *CustomMessengerTestSuite) TestMintMsg() {
 	var (
-		neutron = suite.GetNeutronZoneApp(suite.ChainA)
+		furya = suite.GetFuryaZoneApp(suite.ChainA)
 		ctx     = suite.ChainA.GetContext()
 		lucky   = keeper.RandomAccountAddress(suite.T()) // We don't care what this address is
 	)
@@ -186,16 +186,16 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(20_000_000))))
-	bankKeeper := suite.neutron.BankKeeper
+	bankKeeper := suite.furya.BankKeeper
 	err := bankKeeper.SendCoins(suite.ctx, senderAddress, suite.contractAddress, coinsAmnt)
 	suite.NoError(err)
 
 	// lucky was broke
-	balances := neutron.BankKeeper.GetAllBalances(suite.ctx, lucky)
+	balances := furya.BankKeeper.GetAllBalances(suite.ctx, lucky)
 	require.Empty(suite.T(), balances)
 
 	// Create denom for minting
-	fullMsg := bindings.NeutronMsg{
+	fullMsg := bindings.FuryaMsg{
 		CreateDenom: &bindings.CreateDenom{
 			Subdenom: "SUN",
 		},
@@ -208,7 +208,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 	amount, ok := sdk.NewIntFromString("808010808")
 	require.True(suite.T(), ok)
 
-	fullMsg = bindings.NeutronMsg{
+	fullMsg = bindings.FuryaMsg{
 		MintTokens: &bindings.MintTokens{
 			Denom:         sunDenom,
 			Amount:        amount,
@@ -218,7 +218,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 
 	suite.executeCustomMsg(suite.contractAddress, fullMsg)
 
-	balances = neutron.BankKeeper.GetAllBalances(ctx, lucky)
+	balances = furya.BankKeeper.GetAllBalances(ctx, lucky)
 	require.Len(suite.T(), balances, 1)
 	coin := balances[0]
 	require.Equal(suite.T(), amount, coin.Amount)
@@ -228,7 +228,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 	// mint the same denom again
 	suite.executeCustomMsg(suite.contractAddress, fullMsg)
 
-	balances = neutron.BankKeeper.GetAllBalances(ctx, lucky)
+	balances = furya.BankKeeper.GetAllBalances(ctx, lucky)
 	require.Len(suite.T(), balances, 1)
 	coin = balances[0]
 	require.Equal(suite.T(), amount.MulRaw(2), coin.Amount)
@@ -237,7 +237,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 
 	// now mint another amount / denom
 	// create it first
-	fullMsg = bindings.NeutronMsg{
+	fullMsg = bindings.FuryaMsg{
 		CreateDenom: &bindings.CreateDenom{
 			Subdenom: "MOON",
 		},
@@ -247,7 +247,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 	moonDenom := fmt.Sprintf("factory/%s/%s", suite.contractAddress.String(), fullMsg.CreateDenom.Subdenom)
 
 	amount = amount.SubRaw(1)
-	fullMsg = bindings.NeutronMsg{
+	fullMsg = bindings.FuryaMsg{
 		MintTokens: &bindings.MintTokens{
 			Denom:         moonDenom,
 			Amount:        amount,
@@ -257,7 +257,7 @@ func (suite *CustomMessengerTestSuite) TestMintMsg() {
 
 	suite.executeCustomMsg(suite.contractAddress, fullMsg)
 
-	balances = neutron.BankKeeper.GetAllBalances(ctx, lucky)
+	balances = furya.BankKeeper.GetAllBalances(ctx, lucky)
 	require.Len(suite.T(), balances, 2)
 	coin = balances[0]
 	require.Equal(suite.T(), amount, coin.Amount)
@@ -270,7 +270,7 @@ func (suite *CustomMessengerTestSuite) TestUpdateInterchainQuery() {
 	suite.TestRegisterInterchainQuery()
 
 	// Craft UpdateInterchainQuery message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		UpdateInterchainQuery: &bindings.UpdateInterchainQuery{
 			QueryId:         1,
 			NewKeys:         nil,
@@ -290,7 +290,7 @@ func (suite *CustomMessengerTestSuite) TestUpdateInterchainQuery() {
 
 func (suite *CustomMessengerTestSuite) TestUpdateInterchainQueryFailed() {
 	// Craft UpdateInterchainQuery message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		UpdateInterchainQuery: &bindings.UpdateInterchainQuery{
 			QueryId:         1,
 			NewKeys:         nil,
@@ -316,7 +316,7 @@ func (suite *CustomMessengerTestSuite) TestRemoveInterchainQuery() {
 	suite.TestRegisterInterchainQuery()
 
 	// Craft RemoveInterchainQuery message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		RemoveInterchainQuery: &bindings.RemoveInterchainQuery{
 			QueryId: 1,
 		},
@@ -335,7 +335,7 @@ func (suite *CustomMessengerTestSuite) TestRemoveInterchainQuery() {
 
 func (suite *CustomMessengerTestSuite) TestRemoveInterchainQueryFailed() {
 	// Craft RemoveInterchainQuery message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		RemoveInterchainQuery: &bindings.RemoveInterchainQuery{
 			QueryId: 1,
 		},
@@ -362,7 +362,7 @@ func (suite *CustomMessengerTestSuite) TestSubmitTx() {
 
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(10_000_000))))
-	bankKeeper := suite.neutron.BankKeeper
+	bankKeeper := suite.furya.BankKeeper
 	err := bankKeeper.SendCoins(suite.ctx, senderAddress, suite.contractAddress, coinsAmnt)
 	suite.NoError(err)
 
@@ -409,10 +409,10 @@ func (suite *CustomMessengerTestSuite) TestSubmitTxTooMuchTxs() {
 
 func (suite *CustomMessengerTestSuite) TestSoftwareUpgradeProposal() {
 	// Set admin so that we can execute this proposal without permission error
-	suite.neutron.AdminmoduleKeeper.SetAdmin(suite.ctx, suite.contractAddress.String())
+	suite.furya.AdminmoduleKeeper.SetAdmin(suite.ctx, suite.contractAddress.String())
 
 	// Craft SubmitAdminProposal message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		SubmitAdminProposal: &bindings.SubmitAdminProposal{
 			AdminProposal: bindings.AdminProposal{
 				SoftwareUpgradeProposal: &bindings.SoftwareUpgradeProposal{
@@ -443,7 +443,7 @@ func (suite *CustomMessengerTestSuite) TestSoftwareUpgradeProposal() {
 	suite.Equal([][]uint8{expected}, data)
 
 	// Test with other proposer that is not admin should return failure
-	otherAddress, err := sdk.AccAddressFromBech32("neutron13jrwrtsyjjuynlug65r76r2zvfw5xjcq6532h2")
+	otherAddress, err := sdk.AccAddressFromBech32("furya13jrwrtsyjjuynlug65r76r2zvfw5xjcq6532h2")
 	suite.NoError(err)
 	_, _, err = suite.messenger.DispatchMsg(suite.ctx, otherAddress, suite.Path.EndpointA.ChannelConfig.PortID, types.CosmosMsg{
 		Custom: msg,
@@ -453,7 +453,7 @@ func (suite *CustomMessengerTestSuite) TestSoftwareUpgradeProposal() {
 	// Check CancelSubmitAdminProposal
 
 	// Craft CancelSubmitAdminProposal message
-	msg, err = json.Marshal(bindings.NeutronMsg{
+	msg, err = json.Marshal(bindings.FuryaMsg{
 		SubmitAdminProposal: &bindings.SubmitAdminProposal{
 			AdminProposal: bindings.AdminProposal{
 				CancelSoftwareUpgradeProposal: &bindings.CancelSoftwareUpgradeProposal{
@@ -488,7 +488,7 @@ func (suite *CustomMessengerTestSuite) TestTooMuchProposals() {
 	suite.Require().NoError(err)
 
 	// Craft  message with 2 proposals
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		SubmitAdminProposal: &bindings.SubmitAdminProposal{
 			AdminProposal: bindings.AdminProposal{
 				CancelSoftwareUpgradeProposal: &bindings.CancelSoftwareUpgradeProposal{
@@ -523,7 +523,7 @@ func (suite *CustomMessengerTestSuite) TestNoProposals() {
 	suite.Require().NoError(err)
 
 	// Craft  message with 0 proposals
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		SubmitAdminProposal: &bindings.SubmitAdminProposal{
 			AdminProposal: bindings.AdminProposal{},
 		},
@@ -545,10 +545,10 @@ func (suite *CustomMessengerTestSuite) TestAddRemoveSchedule() {
 	suite.Require().NotEmpty(suite.contractAddress)
 
 	// Set admin so that we can execute this proposal without permission error
-	suite.neutron.AdminmoduleKeeper.SetAdmin(suite.ctx, suite.contractAddress.String())
+	suite.furya.AdminmoduleKeeper.SetAdmin(suite.ctx, suite.contractAddress.String())
 
 	// Craft AddSchedule message
-	msg, err := json.Marshal(bindings.NeutronMsg{
+	msg, err := json.Marshal(bindings.FuryaMsg{
 		AddSchedule: &bindings.AddSchedule{
 			Name:   "schedule1",
 			Period: 5,
@@ -573,7 +573,7 @@ func (suite *CustomMessengerTestSuite) TestAddRemoveSchedule() {
 	suite.Equal([][]uint8{expected}, data)
 
 	// Craft RemoveSchedule message
-	msg, err = json.Marshal(bindings.NeutronMsg{
+	msg, err = json.Marshal(bindings.FuryaMsg{
 		RemoveSchedule: &bindings.RemoveSchedule{
 			Name: "schedule1",
 		},
@@ -591,7 +591,7 @@ func (suite *CustomMessengerTestSuite) TestAddRemoveSchedule() {
 	suite.Equal([][]uint8{expected}, data)
 }
 
-func (suite *CustomMessengerTestSuite) executeCustomMsg(owner sdk.AccAddress, fullMsg bindings.NeutronMsg) (result [][]byte, msg []byte) {
+func (suite *CustomMessengerTestSuite) executeCustomMsg(owner sdk.AccAddress, fullMsg bindings.FuryaMsg) (result [][]byte, msg []byte) {
 	msg, err := json.Marshal(fullMsg)
 	suite.NoError(err)
 

@@ -17,9 +17,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/neutron-org/neutron/x/feerefunder/client/cli"
-	"github.com/neutron-org/neutron/x/feerefunder/keeper"
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/x/feerefunder/client/cli"
+	"github.com/furyahub/furya/x/feerefunder/keeper"
+	"github.com/furyahub/furya/x/feerefunder/types"
 )
 
 var (

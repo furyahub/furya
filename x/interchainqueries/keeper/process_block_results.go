@@ -16,7 +16,7 @@ import (
 	"github.com/tendermint/tendermint/crypto/merkle"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 // deterministicResponseDeliverTx strips non-deterministic fields from

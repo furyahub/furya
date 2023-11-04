@@ -14,8 +14,8 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/neutron-org/neutron/x/contractmanager/keeper"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/keeper"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 func ContractManagerKeeper(t testing.TB, wasmKeeper types.WasmKeeper) (*keeper.Keeper, sdk.Context) {

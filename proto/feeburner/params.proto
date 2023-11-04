@@ -1,16 +1,16 @@
 syntax = "proto3";
-package neutron.feeburner;
+package furya.feeburner;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feeburner/types";
+option go_package = "github.com/furyahub/furya/x/feeburner/types";
 
 // Params defines the parameters for the module.
 message Params {
   option (gogoproto.goproto_stringer) = false;
-  // Defines Neutron denom, which will be burned during fee processing, any
+  // Defines Furya denom, which will be burned during fee processing, any
   // other denom will be sent to Treasury
-  string neutron_denom = 1;
+  string furya_denom = 1;
   // Deprecated in v0.4.4. Is not used anymore
   string reserve_address = 2;
   // Defines treasury address

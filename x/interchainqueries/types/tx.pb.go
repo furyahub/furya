@@ -40,7 +40,7 @@ type MsgRegisterInterchainQuery struct {
 	TransactionsFilter string `protobuf:"bytes,3,opt,name=transactions_filter,json=transactionsFilter,proto3" json:"transactions_filter,omitempty"`
 	// is IBC connection ID for getting ConsensusState to verify proofs
 	ConnectionId string `protobuf:"bytes,4,opt,name=connection_id,json=connectionId,proto3" json:"connection_id,omitempty"`
-	// is used to specify how often (in neutron blocks) the query must be updated
+	// is used to specify how often (in furya blocks) the query must be updated
 	UpdatePeriod uint64 `protobuf:"varint,5,opt,name=update_period,json=updatePeriod,proto3" json:"update_period,omitempty"`
 	// is the signer of the message
 	Sender string `protobuf:"bytes,6,opt,name=sender,proto3" json:"sender,omitempty"`
@@ -168,7 +168,7 @@ func (m *MsgRegisterInterchainQueryResponse) GetId() uint64 {
 type MsgSubmitQueryResult struct {
 	QueryId uint64 `protobuf:"varint,1,opt,name=query_id,json=queryId,proto3" json:"query_id,omitempty"`
 	Sender  string `protobuf:"bytes,2,opt,name=sender,proto3" json:"sender,omitempty"`
-	// is the IBC client ID for an IBC connection between Neutron chain and target
+	// is the IBC client ID for an IBC connection between Furya chain and target
 	// chain (where the result was obtained from)
 	ClientId string       `protobuf:"bytes,3,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
 	Result   *QueryResult `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
@@ -758,18 +758,18 @@ func (m *MsgUpdateInterchainQueryResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateInterchainQueryResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgRegisterInterchainQuery)(nil), "neutron.interchainqueries.MsgRegisterInterchainQuery")
-	proto.RegisterType((*MsgRegisterInterchainQueryResponse)(nil), "neutron.interchainqueries.MsgRegisterInterchainQueryResponse")
-	proto.RegisterType((*MsgSubmitQueryResult)(nil), "neutron.interchainqueries.MsgSubmitQueryResult")
-	proto.RegisterType((*QueryResult)(nil), "neutron.interchainqueries.QueryResult")
-	proto.RegisterType((*StorageValue)(nil), "neutron.interchainqueries.StorageValue")
-	proto.RegisterType((*Block)(nil), "neutron.interchainqueries.Block")
-	proto.RegisterType((*TxValue)(nil), "neutron.interchainqueries.TxValue")
-	proto.RegisterType((*MsgSubmitQueryResultResponse)(nil), "neutron.interchainqueries.MsgSubmitQueryResultResponse")
-	proto.RegisterType((*MsgRemoveInterchainQueryRequest)(nil), "neutron.interchainqueries.MsgRemoveInterchainQueryRequest")
-	proto.RegisterType((*MsgRemoveInterchainQueryResponse)(nil), "neutron.interchainqueries.MsgRemoveInterchainQueryResponse")
-	proto.RegisterType((*MsgUpdateInterchainQueryRequest)(nil), "neutron.interchainqueries.MsgUpdateInterchainQueryRequest")
-	proto.RegisterType((*MsgUpdateInterchainQueryResponse)(nil), "neutron.interchainqueries.MsgUpdateInterchainQueryResponse")
+	proto.RegisterType((*MsgRegisterInterchainQuery)(nil), "furya.interchainqueries.MsgRegisterInterchainQuery")
+	proto.RegisterType((*MsgRegisterInterchainQueryResponse)(nil), "furya.interchainqueries.MsgRegisterInterchainQueryResponse")
+	proto.RegisterType((*MsgSubmitQueryResult)(nil), "furya.interchainqueries.MsgSubmitQueryResult")
+	proto.RegisterType((*QueryResult)(nil), "furya.interchainqueries.QueryResult")
+	proto.RegisterType((*StorageValue)(nil), "furya.interchainqueries.StorageValue")
+	proto.RegisterType((*Block)(nil), "furya.interchainqueries.Block")
+	proto.RegisterType((*TxValue)(nil), "furya.interchainqueries.TxValue")
+	proto.RegisterType((*MsgSubmitQueryResultResponse)(nil), "furya.interchainqueries.MsgSubmitQueryResultResponse")
+	proto.RegisterType((*MsgRemoveInterchainQueryRequest)(nil), "furya.interchainqueries.MsgRemoveInterchainQueryRequest")
+	proto.RegisterType((*MsgRemoveInterchainQueryResponse)(nil), "furya.interchainqueries.MsgRemoveInterchainQueryResponse")
+	proto.RegisterType((*MsgUpdateInterchainQueryRequest)(nil), "furya.interchainqueries.MsgUpdateInterchainQueryRequest")
+	proto.RegisterType((*MsgUpdateInterchainQueryResponse)(nil), "furya.interchainqueries.MsgUpdateInterchainQueryResponse")
 }
 
 func init() { proto.RegisterFile("interchainqueries/tx.proto", fileDescriptor_3f1f36ccf3a8e51d) }
@@ -867,7 +867,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) RegisterInterchainQuery(ctx context.Context, in *MsgRegisterInterchainQuery, opts ...grpc.CallOption) (*MsgRegisterInterchainQueryResponse, error) {
 	out := new(MsgRegisterInterchainQueryResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Msg/RegisterInterchainQuery", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Msg/RegisterInterchainQuery", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -876,7 +876,7 @@ func (c *msgClient) RegisterInterchainQuery(ctx context.Context, in *MsgRegister
 
 func (c *msgClient) SubmitQueryResult(ctx context.Context, in *MsgSubmitQueryResult, opts ...grpc.CallOption) (*MsgSubmitQueryResultResponse, error) {
 	out := new(MsgSubmitQueryResultResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Msg/SubmitQueryResult", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Msg/SubmitQueryResult", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -885,7 +885,7 @@ func (c *msgClient) SubmitQueryResult(ctx context.Context, in *MsgSubmitQueryRes
 
 func (c *msgClient) RemoveInterchainQuery(ctx context.Context, in *MsgRemoveInterchainQueryRequest, opts ...grpc.CallOption) (*MsgRemoveInterchainQueryResponse, error) {
 	out := new(MsgRemoveInterchainQueryResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Msg/RemoveInterchainQuery", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Msg/RemoveInterchainQuery", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -894,7 +894,7 @@ func (c *msgClient) RemoveInterchainQuery(ctx context.Context, in *MsgRemoveInte
 
 func (c *msgClient) UpdateInterchainQuery(ctx context.Context, in *MsgUpdateInterchainQueryRequest, opts ...grpc.CallOption) (*MsgUpdateInterchainQueryResponse, error) {
 	out := new(MsgUpdateInterchainQueryResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Msg/UpdateInterchainQuery", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Msg/UpdateInterchainQuery", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -940,7 +940,7 @@ func _Msg_RegisterInterchainQuery_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Msg/RegisterInterchainQuery",
+		FullMethod: "/furya.interchainqueries.Msg/RegisterInterchainQuery",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).RegisterInterchainQuery(ctx, req.(*MsgRegisterInterchainQuery))
@@ -958,7 +958,7 @@ func _Msg_SubmitQueryResult_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Msg/SubmitQueryResult",
+		FullMethod: "/furya.interchainqueries.Msg/SubmitQueryResult",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SubmitQueryResult(ctx, req.(*MsgSubmitQueryResult))
@@ -976,7 +976,7 @@ func _Msg_RemoveInterchainQuery_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Msg/RemoveInterchainQuery",
+		FullMethod: "/furya.interchainqueries.Msg/RemoveInterchainQuery",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).RemoveInterchainQuery(ctx, req.(*MsgRemoveInterchainQueryRequest))
@@ -994,7 +994,7 @@ func _Msg_UpdateInterchainQuery_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Msg/UpdateInterchainQuery",
+		FullMethod: "/furya.interchainqueries.Msg/UpdateInterchainQuery",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateInterchainQuery(ctx, req.(*MsgUpdateInterchainQueryRequest))
@@ -1003,7 +1003,7 @@ func _Msg_UpdateInterchainQuery_Handler(srv interface{}, ctx context.Context, de
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.interchainqueries.Msg",
+	ServiceName: "furya.interchainqueries.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

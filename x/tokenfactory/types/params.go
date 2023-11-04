@@ -6,13 +6,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 )
 
 // Parameter store keys.
 var (
 	KeyDenomCreationFee              = []byte("DenomCreationFee")
-	DefaultNeutronDenom              = params.DefaultDenom
+	DefaultFuryaDenom              = params.DefaultDenom
 	DefaultFeeAmount           int64 = 1_000_000
 	KeyFeeCollectorAddress           = []byte("FeeCollectorAddress")
 	DefaultFeeCollectorAddress       = ""
@@ -33,7 +33,7 @@ func NewParams(denomCreationFee sdk.Coins, feeCollectorAddress string) Params {
 // default tokenfactory module parameters.
 func DefaultParams() Params {
 	return Params{
-		DenomCreationFee:    sdk.NewCoins(sdk.NewInt64Coin(DefaultNeutronDenom, DefaultFeeAmount)),
+		DenomCreationFee:    sdk.NewCoins(sdk.NewInt64Coin(DefaultFuryaDenom, DefaultFeeAmount)),
 		FeeCollectorAddress: DefaultFeeCollectorAddress,
 	}
 }

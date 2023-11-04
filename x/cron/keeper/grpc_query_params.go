@@ -4,7 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/x/cron/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

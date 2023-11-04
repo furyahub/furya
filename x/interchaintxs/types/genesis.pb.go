@@ -69,7 +69,7 @@ func (m *GenesisState) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "neutron.interchaintxs.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "furya.interchaintxs.GenesisState")
 }
 
 func init() { proto.RegisterFile("interchaintxs/v1/genesis.proto", fileDescriptor_8a4d50b91f9582a1) }

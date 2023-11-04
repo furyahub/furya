@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/neutron-org/neutron/app/upgrades"
-	"github.com/neutron-org/neutron/app/upgrades/nextupgrade"
-	v044 "github.com/neutron-org/neutron/app/upgrades/v0.4.4"
-	v3 "github.com/neutron-org/neutron/app/upgrades/v3"
-	"github.com/neutron-org/neutron/x/cron"
+	"github.com/furyahub/furya/app/upgrades"
+	"github.com/furyahub/furya/app/upgrades/nextupgrade"
+	v044 "github.com/furyahub/furya/app/upgrades/v0.4.4"
+	v3 "github.com/furyahub/furya/app/upgrades/v3"
+	"github.com/furyahub/furya/x/cron"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
@@ -94,12 +94,12 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	cronkeeper "github.com/neutron-org/neutron/x/cron/keeper"
-	crontypes "github.com/neutron-org/neutron/x/cron/types"
+	cronkeeper "github.com/furyahub/furya/x/cron/keeper"
+	crontypes "github.com/furyahub/furya/x/cron/types"
 
-	"github.com/neutron-org/neutron/x/tokenfactory"
-	tokenfactorykeeper "github.com/neutron-org/neutron/x/tokenfactory/keeper"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/x/tokenfactory"
+	tokenfactorykeeper "github.com/furyahub/furya/x/tokenfactory/keeper"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 
 	adminmodulemodule "github.com/cosmos/admin-module/x/adminmodule"
 	adminmodulecli "github.com/cosmos/admin-module/x/adminmodule/client/cli"
@@ -111,29 +111,29 @@ import (
 	upgraderest "github.com/cosmos/cosmos-sdk/x/upgrade/client/rest"
 
 	gaiaappparams "github.com/cosmos/gaia/v8/app/params"
-	appparams "github.com/neutron-org/neutron/app/params"
-	"github.com/neutron-org/neutron/docs"
-	"github.com/neutron-org/neutron/wasmbinding"
-	"github.com/neutron-org/neutron/x/contractmanager"
-	contractmanagermodulekeeper "github.com/neutron-org/neutron/x/contractmanager/keeper"
-	contractmanagermoduletypes "github.com/neutron-org/neutron/x/contractmanager/types"
-	"github.com/neutron-org/neutron/x/feeburner"
-	feeburnerkeeper "github.com/neutron-org/neutron/x/feeburner/keeper"
-	feeburnertypes "github.com/neutron-org/neutron/x/feeburner/types"
-	"github.com/neutron-org/neutron/x/feerefunder"
-	feekeeper "github.com/neutron-org/neutron/x/feerefunder/keeper"
-	ibchooks "github.com/neutron-org/neutron/x/ibc-hooks"
-	ibchookstypes "github.com/neutron-org/neutron/x/ibc-hooks/types"
-	"github.com/neutron-org/neutron/x/interchainqueries"
-	interchainqueriesmodulekeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	interchainqueriesmoduletypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	"github.com/neutron-org/neutron/x/interchaintxs"
-	interchaintxskeeper "github.com/neutron-org/neutron/x/interchaintxs/keeper"
-	interchaintxstypes "github.com/neutron-org/neutron/x/interchaintxs/types"
-	transferSudo "github.com/neutron-org/neutron/x/transfer"
-	wrapkeeper "github.com/neutron-org/neutron/x/transfer/keeper"
+	appparams "github.com/furyahub/furya/app/params"
+	"github.com/furyahub/furya/docs"
+	"github.com/furyahub/furya/wasmbinding"
+	"github.com/furyahub/furya/x/contractmanager"
+	contractmanagermodulekeeper "github.com/furyahub/furya/x/contractmanager/keeper"
+	contractmanagermoduletypes "github.com/furyahub/furya/x/contractmanager/types"
+	"github.com/furyahub/furya/x/feeburner"
+	feeburnerkeeper "github.com/furyahub/furya/x/feeburner/keeper"
+	feeburnertypes "github.com/furyahub/furya/x/feeburner/types"
+	"github.com/furyahub/furya/x/feerefunder"
+	feekeeper "github.com/furyahub/furya/x/feerefunder/keeper"
+	ibchooks "github.com/furyahub/furya/x/ibc-hooks"
+	ibchookstypes "github.com/furyahub/furya/x/ibc-hooks/types"
+	"github.com/furyahub/furya/x/interchainqueries"
+	interchainqueriesmodulekeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	interchainqueriesmoduletypes "github.com/furyahub/furya/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchaintxs"
+	interchaintxskeeper "github.com/furyahub/furya/x/interchaintxs/keeper"
+	interchaintxstypes "github.com/furyahub/furya/x/interchaintxs/types"
+	transferSudo "github.com/furyahub/furya/x/transfer"
+	wrapkeeper "github.com/furyahub/furya/x/transfer/keeper"
 
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
 
 	e2e "github.com/cosmos/interchain-security/testutil/e2e"
 	ccvconsumer "github.com/cosmos/interchain-security/x/ccv/consumer"
@@ -146,7 +146,7 @@ import (
 )
 
 const (
-	Name = "neutrond"
+	Name = "furyad"
 )
 
 var (
@@ -537,9 +537,9 @@ func New(
 	// The last arguments can contain custom message handlers, and custom query handlers,
 	// if we want to allow any custom callbacks
 	// NOTE: we need staking feature here even if there is no staking module anymore because cosmwasm-std in the CosmWasm SDK requires this feature
-	// NOTE: cosmwasm_1_2 feature enables GovMsg::VoteWeighted, which doesn't work with Neutron, because it uses its own custom governance,
+	// NOTE: cosmwasm_1_2 feature enables GovMsg::VoteWeighted, which doesn't work with Furya, because it uses its own custom governance,
 	//       however, cosmwasm_1_2 also enables WasmMsg::Instantiate2, which works as one could expect
-	supportedFeatures := "iterator,stargate,staking,neutron,cosmwasm_1_1,cosmwasm_1_2"
+	supportedFeatures := "iterator,stargate,staking,furya,cosmwasm_1_1,cosmwasm_1_2"
 
 	// register the proposal types
 	adminRouter := govtypes.NewRouter()

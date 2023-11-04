@@ -1,12 +1,12 @@
 package wasmbinding
 
 import (
-	feeburnerkeeper "github.com/neutron-org/neutron/x/feeburner/keeper"
-	feerefunderkeeper "github.com/neutron-org/neutron/x/feerefunder/keeper"
-	icqkeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	icacontrollerkeeper "github.com/neutron-org/neutron/x/interchaintxs/keeper"
+	feeburnerkeeper "github.com/furyahub/furya/x/feeburner/keeper"
+	feerefunderkeeper "github.com/furyahub/furya/x/feerefunder/keeper"
+	icqkeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	icacontrollerkeeper "github.com/furyahub/furya/x/interchaintxs/keeper"
 
-	tokenfactorykeeper "github.com/neutron-org/neutron/x/tokenfactory/keeper"
+	tokenfactorykeeper "github.com/furyahub/furya/x/tokenfactory/keeper"
 )
 
 type QueryPlugin struct {

@@ -4,33 +4,33 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func (suite *KeeperTestSuite) TestGenesis() {
 	genesisState := types.GenesisState{
 		FactoryDenoms: []types.GenesisDenom{
 			{
-				Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+				Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
+					Admin: "furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
 				},
 			},
 			{
-				Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/diff-admin",
+				Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/diff-admin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
+					Admin: "furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
 				},
 			},
 			{
-				Denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/litecoin",
+				Denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/litecoin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
+					Admin: "furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2",
 				},
 			},
 		},
 	}
-	app := suite.GetNeutronZoneApp(suite.ChainA)
+	app := suite.GetFuryaZoneApp(suite.ChainA)
 	context := app.BaseApp.NewContext(false, tmproto.Header{})
 	// Test both with bank denom metadata set, and not set.
 	for i, denom := range genesisState.FactoryDenoms {

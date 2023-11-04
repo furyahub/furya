@@ -3,15 +3,15 @@ package cli_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/testutil/contractmanager/network"
-	"github.com/neutron-org/neutron/x/feerefunder/client/cli"
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/testutil/contractmanager/network"
+	"github.com/furyahub/furya/x/feerefunder/client/cli"
+	"github.com/furyahub/furya/x/feerefunder/types"
 )
 
 func feeRefunderNetwork(t *testing.T, feeInfo types.Fee) *network.Network {
@@ -20,7 +20,7 @@ func feeRefunderNetwork(t *testing.T, feeInfo types.Fee) *network.Network {
 	state := types.DefaultGenesis()
 	require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], state))
 	state.FeeInfos = []types.FeeInfo{{
-		Payer: "neutron17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
+		Payer: "furya17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
 		PacketId: types.PacketID{
 			ChannelId: "channel-0",
 			PortId:    "transfer",
@@ -39,8 +39,8 @@ func TestQueryFeeInfo(t *testing.T) {
 
 	feeInfo := types.Fee{
 		RecvFee:    sdk.NewCoins(),
-		AckFee:     sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(1001))),
-		TimeoutFee: sdk.NewCoins(sdk.NewCoin("untrn", sdk.NewInt(2001))),
+		AckFee:     sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1001))),
+		TimeoutFee: sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(2001))),
 	}
 	net := feeRefunderNetwork(t, feeInfo)
 

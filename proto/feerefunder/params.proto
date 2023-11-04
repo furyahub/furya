@@ -1,10 +1,10 @@
 syntax = "proto3";
-package neutron.feerefunder;
+package furya.feerefunder;
 
 import "gogoproto/gogo.proto";
 import "feerefunder/fee.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feerefunder/types";
+option go_package = "github.com/furyahub/furya/x/feerefunder/types";
 
 // Params defines the parameters for the module.
 message Params {

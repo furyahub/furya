@@ -9,10 +9,10 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v4/modules/core/04-channel/types"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/neutron-org/neutron/app/params"
-	"github.com/neutron-org/neutron/testutil"
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	"github.com/neutron-org/neutron/x/transfer/types"
+	"github.com/furyahub/furya/app/params"
+	"github.com/furyahub/furya/testutil"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	"github.com/furyahub/furya/x/transfer/types"
 )
 
 const (
@@ -28,7 +28,7 @@ type KeeperTestSuite struct {
 func (suite KeeperTestSuite) TestTransfer() { //nolint:govet // it's a test so it's okay to copy locks
 	suite.ConfigureTransferChannel()
 
-	msgSrv := suite.GetNeutronZoneApp(suite.ChainA).TransferKeeper
+	msgSrv := suite.GetFuryaZoneApp(suite.ChainA).TransferKeeper
 
 	ctx := suite.ChainA.GetContext()
 	resp, err := msgSrv.Transfer(sdktypes.WrapSDKContext(ctx), &types.MsgTransfer{
@@ -136,7 +136,7 @@ func (suite KeeperTestSuite) TestTransfer() { //nolint:govet // it's a test so i
 
 func (suite *KeeperTestSuite) TopUpWallet(ctx sdktypes.Context, sender, contractAddress sdktypes.AccAddress) {
 	coinsAmnt := sdktypes.NewCoins(sdktypes.NewCoin(params.DefaultDenom, sdktypes.NewInt(int64(1_000_000))))
-	bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+	bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 	err := bankKeeper.SendCoins(ctx, sender, contractAddress, coinsAmnt)
 	suite.Require().NoError(err)
 }

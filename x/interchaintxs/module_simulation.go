@@ -10,8 +10,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	interchaintxssimulation "github.com/neutron-org/neutron/x/interchaintxs/simulation"
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	interchaintxssimulation "github.com/furyahub/furya/x/interchaintxs/simulation"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 // avoid unused import issue

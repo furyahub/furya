@@ -3,12 +3,12 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 
 	"github.com/stretchr/testify/require"
 
-	testkeeper "github.com/neutron-org/neutron/testutil/feeburner/keeper"
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	testkeeper "github.com/furyahub/furya/testutil/feeburner/keeper"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 func TestGetParams(t *testing.T) {

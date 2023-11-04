@@ -9,7 +9,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 
 	wasmKeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	ibcclienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
@@ -18,9 +18,9 @@ import (
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/neutron-org/neutron/testutil"
-	"github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	iqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/testutil"
+	"github.com/furyahub/furya/x/interchainqueries/keeper"
+	iqtypes "github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 var reflectContractPath = "../../../wasmbinding/testdata/reflect.wasm"
@@ -139,7 +139,7 @@ func (suite *KeeperTestSuite) TestRegisterInterchainQuery() {
 			suite.TopUpWallet(ctx, senderAddress, contractAddress)
 		}
 
-		msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+		msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 		res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &msg)
 
@@ -148,7 +148,7 @@ func (suite *KeeperTestSuite) TestRegisterInterchainQuery() {
 			suite.Require().Nil(res)
 		} else {
 			query, _ := keeper.Keeper.RegisteredQuery(
-				suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx),
+				suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx),
 				&iqtypes.QueryRegisteredQueryRequest{QueryId: 1})
 
 			suite.Require().Equal(iqtypes.DefaultQueryDeposit, query.RegisteredQuery.Deposit)
@@ -422,7 +422,7 @@ func (suite *KeeperTestSuite) TestUpdateInterchainQuery() {
 
 			tt.malleate(contractAddress.String())
 
-			iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+			iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 
 			msgSrv := keeper.NewMsgServerImpl(iqkeeper)
 
@@ -589,12 +589,12 @@ func (suite *KeeperTestSuite) TestRemoveInterchainQuery() {
 			suite.Require().NoError(err)
 
 			// Top up contract address with native coins for deposit
-			bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+			bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 			senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 			suite.TopUpWallet(ctx, senderAddress, contractAddress)
 
 			tt.malleate(contractAddress.String())
-			iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+			iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 
 			msgSrv := keeper.NewMsgServerImpl(iqkeeper)
 			query.Sender = contractAddress.String()
@@ -736,7 +736,7 @@ func (suite *KeeperTestSuite) TestGetAllRegisteredQueries() {
 
 			ctx := suite.ChainA.GetContext()
 
-			iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+			iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 			for _, query := range tt.queries {
 				err := iqkeeper.SaveQuery(ctx, query)
 				suite.Require().NoError(err)
@@ -803,7 +803,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -853,7 +853,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -906,7 +906,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -956,7 +956,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1007,7 +1007,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1056,7 +1056,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1107,7 +1107,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1158,7 +1158,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1207,7 +1207,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1257,7 +1257,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1266,7 +1266,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 				suite.NoError(suite.Path.EndpointA.UpdateClient())
 
 				// pretend like we have a very new query result
-				suite.NoError(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber(), 9999)))
+				suite.NoError(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber(), 9999)))
 
 				resp := suite.ChainB.App.Query(abci.RequestQuery{
 					Path:   fmt.Sprintf("store/%s/key", host.StoreKey),
@@ -1310,7 +1310,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1319,10 +1319,10 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 				suite.NoError(suite.Path.EndpointA.UpdateClient())
 
 				// pretend like we have a very new query result
-				suite.NoError(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber(), 9999)))
+				suite.NoError(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber(), 9999)))
 
 				// pretend like we have a very new query result with updated revision height
-				suite.NoError(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber()+1, 1)))
+				suite.NoError(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.UpdateLastRemoteHeight(ctx, res.Id, ibcclienttypes.NewHeight(suite.ChainA.LastHeader.GetHeight().GetRevisionNumber()+1, 1)))
 
 				resp := suite.ChainB.App.Query(abci.RequestQuery{
 					Path:   fmt.Sprintf("store/%s/key", host.StoreKey),
@@ -1369,7 +1369,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 					Sender:       sender,
 				}
 
-				msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+				msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 				res, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 				suite.Require().NoError(err)
@@ -1432,7 +1432,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 
 			tt.malleate(contractAddress.String(), ctx)
 
-			msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+			msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 
 			res, err := msgSrv.SubmitQueryResult(sdk.WrapSDKContext(ctx), &msg)
 
@@ -1450,7 +1450,7 @@ func (suite *KeeperTestSuite) TestSubmitInterchainQueryResult() {
 func (suite *KeeperTestSuite) TestTxQueriesCleanup() {
 	suite.Run("SingleIterSingleQuery", func() {
 		suite.SetupTest()
-		iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+		iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 		ctx := suite.ChainA.GetContext()
 
 		// create a query and add results for it
@@ -1481,7 +1481,7 @@ func (suite *KeeperTestSuite) TestTxQueriesCleanup() {
 
 	suite.Run("SingleIterMultipeQueries", func() {
 		suite.SetupTest()
-		iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+		iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 		ctx := suite.ChainA.GetContext()
 
 		txHashes := suite.buildTxHashes(100)
@@ -1531,7 +1531,7 @@ func (suite *KeeperTestSuite) TestTxQueriesCleanup() {
 
 	suite.Run("MultipleIterSingleQuery", func() {
 		suite.SetupTest()
-		iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+		iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 		ctx := suite.ChainA.GetContext()
 
 		// set TxQueryRemovalLimit to a low value
@@ -1578,7 +1578,7 @@ func (suite *KeeperTestSuite) TestTxQueriesCleanup() {
 
 	suite.Run("MultipleIterMultipeQueries", func() {
 		suite.SetupTest()
-		iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+		iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 		ctx := suite.ChainA.GetContext()
 
 		// set TxQueryRemovalLimit to a low value
@@ -1641,7 +1641,7 @@ func (suite *KeeperTestSuite) TestTxQueriesCleanup() {
 
 	suite.Run("Unlimited", func() {
 		suite.SetupTest()
-		iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+		iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 		ctx := suite.ChainA.GetContext()
 
 		// set TxQueryRemovalLimit to a low value
@@ -1694,7 +1694,7 @@ func (suite *KeeperTestSuite) TestRemoveFreshlyCreatedICQ() {
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	suite.TopUpWallet(ctx, senderAddress, contractAddress)
 
-	iqkeeper := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper
+	iqkeeper := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper
 	params := iqkeeper.GetParams(ctx)
 	params.QuerySubmitTimeout = 5
 	iqkeeper.SetParams(ctx, params)
@@ -1730,7 +1730,7 @@ func (suite *KeeperTestSuite) TestRemoveFreshlyCreatedICQ() {
 
 func (suite *KeeperTestSuite) TopUpWallet(ctx sdk.Context, sender, contractAddress sdk.AccAddress) {
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(1_000_000))))
-	bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+	bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 	err := bankKeeper.SendCoins(ctx, sender, contractAddress, coinsAmnt)
 	suite.Require().NoError(err)
 }

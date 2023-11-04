@@ -10,7 +10,7 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 )
 
 func TestConsumerWhitelistingKeys(t *testing.T) {

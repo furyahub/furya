@@ -7,9 +7,9 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/neutron-org/neutron/app/params"
-	feerefundertypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/app/params"
+	feerefundertypes "github.com/furyahub/furya/x/feerefunder/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 
 	"github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
@@ -17,11 +17,11 @@ import (
 	host "github.com/cosmos/ibc-go/v4/modules/core/24-host"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/testutil"
-	"github.com/neutron-org/neutron/wasmbinding/bindings"
-	icqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	ictxtypes "github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/testutil"
+	"github.com/furyahub/furya/wasmbinding/bindings"
+	icqtypes "github.com/furyahub/furya/x/interchainqueries/types"
+	ictxtypes "github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 type CustomQuerierTestSuite struct {
@@ -30,7 +30,7 @@ type CustomQuerierTestSuite struct {
 
 func (suite *CustomQuerierTestSuite) TestInterchainQueryResult() {
 	var (
-		neutron = suite.GetNeutronZoneApp(suite.ChainA)
+		furya = suite.GetFuryaZoneApp(suite.ChainA)
 		ctx     = suite.ChainA.GetContext()
 		owner   = keeper.RandomAccountAddress(suite.T()) // We don't care what this address is
 	)
@@ -42,8 +42,8 @@ func (suite *CustomQuerierTestSuite) TestInterchainQueryResult() {
 
 	// Register and submit query result
 	clientKey := host.FullClientStateKey(suite.Path.EndpointB.ClientID)
-	lastID := neutron.InterchainQueriesKeeper.GetLastRegisteredQueryKey(ctx) + 1
-	neutron.InterchainQueriesKeeper.SetLastRegisteredQueryKey(ctx, lastID)
+	lastID := furya.InterchainQueriesKeeper.GetLastRegisteredQueryKey(ctx) + 1
+	furya.InterchainQueriesKeeper.SetLastRegisteredQueryKey(ctx, lastID)
 	registeredQuery := &icqtypes.RegisteredQuery{
 		Id: lastID,
 		Keys: []*icqtypes.KVKey{
@@ -53,8 +53,8 @@ func (suite *CustomQuerierTestSuite) TestInterchainQueryResult() {
 		UpdatePeriod: 1,
 		ConnectionId: suite.Path.EndpointA.ConnectionID,
 	}
-	neutron.InterchainQueriesKeeper.SetLastRegisteredQueryKey(ctx, lastID)
-	err := neutron.InterchainQueriesKeeper.SaveQuery(ctx, registeredQuery)
+	furya.InterchainQueriesKeeper.SetLastRegisteredQueryKey(ctx, lastID)
+	err := furya.InterchainQueriesKeeper.SaveQuery(ctx, registeredQuery)
 	suite.Require().NoError(err)
 
 	chainBResp := suite.ChainB.App.Query(abci.RequestQuery{
@@ -76,11 +76,11 @@ func (suite *CustomQuerierTestSuite) TestInterchainQueryResult() {
 		Height:   uint64(chainBResp.Height),
 		Revision: suite.ChainA.LastHeader.GetHeight().GetRevisionNumber(),
 	}
-	err = neutron.InterchainQueriesKeeper.SaveKVQueryResult(ctx, lastID, expectedQueryResult)
+	err = furya.InterchainQueriesKeeper.SaveKVQueryResult(ctx, lastID, expectedQueryResult)
 	suite.Require().NoError(err)
 
 	// Query interchain query result
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		InterchainQueryResult: &bindings.QueryRegisteredQueryResultRequest{
 			QueryID: lastID,
 		},
@@ -113,7 +113,7 @@ func (suite *CustomQuerierTestSuite) TestInterchainQueryResultNotFound() {
 	suite.Require().NotEmpty(contractAddress)
 
 	// Query interchain query result
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		InterchainQueryResult: &bindings.QueryRegisteredQueryResultRequest{
 			QueryID: 1,
 		},
@@ -138,7 +138,7 @@ func (suite *CustomQuerierTestSuite) TestInterchainAccountAddress() {
 	err := testutil.SetupICAPath(suite.Path, contractAddress.String())
 	suite.Require().NoError(err)
 
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		InterchainAccountAddress: &bindings.QueryInterchainAccountAddressRequest{
 			OwnerAddress:        contractAddress.String(),
 			InterchainAccountID: testutil.TestInterchainID,
@@ -149,10 +149,10 @@ func (suite *CustomQuerierTestSuite) TestInterchainAccountAddress() {
 	err = suite.queryCustom(ctx, contractAddress, query, &resp)
 	suite.Require().NoError(err)
 
-	hostNeutronApp, ok := suite.ChainB.App.(*app.App)
+	hostFuryaApp, ok := suite.ChainB.App.(*app.App)
 	suite.Require().True(ok)
 
-	expected := hostNeutronApp.ICAHostKeeper.GetAllInterchainAccounts(suite.ChainB.GetContext())[0].AccountAddress // we expect only one registered ICA
+	expected := hostFuryaApp.ICAHostKeeper.GetAllInterchainAccounts(suite.ChainB.GetContext())[0].AccountAddress // we expect only one registered ICA
 	suite.Require().Equal(expected, resp.InterchainAccountAddress)
 }
 
@@ -170,7 +170,7 @@ func (suite *CustomQuerierTestSuite) TestUnknownInterchainAcc() {
 	err := testutil.SetupICAPath(suite.Path, contractAddress.String())
 	suite.Require().NoError(err)
 
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		InterchainAccountAddress: &bindings.QueryInterchainAccountAddressRequest{
 			OwnerAddress:        testutil.TestOwnerAddress,
 			InterchainAccountID: "wrong_account_id",
@@ -195,7 +195,7 @@ func (suite *CustomQuerierTestSuite) TestMinIbcFee() {
 	contractAddress := suite.InstantiateReflectContract(ctx, owner, codeID)
 	suite.Require().NotEmpty(contractAddress)
 
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		MinIbcFee: &bindings.QueryMinIbcFeeRequest{},
 	}
 	resp := bindings.QueryMinIbcFeeResponse{}
@@ -206,10 +206,10 @@ func (suite *CustomQuerierTestSuite) TestMinIbcFee() {
 		feerefundertypes.Fee{
 			RecvFee: sdk.Coins{},
 			AckFee: sdk.Coins{
-				sdk.Coin{Denom: "untrn", Amount: sdk.NewInt(1000)},
+				sdk.Coin{Denom: "ufury", Amount: sdk.NewInt(1000)},
 			},
 			TimeoutFee: sdk.Coins{
-				sdk.Coin{Denom: "untrn", Amount: sdk.NewInt(1000)},
+				sdk.Coin{Denom: "ufury", Amount: sdk.NewInt(1000)},
 			},
 		},
 		resp.MinFee,
@@ -227,7 +227,7 @@ func (suite *CustomQuerierTestSuite) TestFullDenom() {
 	contractAddress := suite.InstantiateReflectContract(ctx, owner, codeID)
 	suite.Require().NotEmpty(contractAddress)
 
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		FullDenom: &bindings.FullDenom{
 			CreatorAddr: contractAddress.String(),
 			Subdenom:    "test",
@@ -243,13 +243,13 @@ func (suite *CustomQuerierTestSuite) TestFullDenom() {
 
 func (suite *CustomQuerierTestSuite) TestDenomAdmin() {
 	var (
-		neutron = suite.GetNeutronZoneApp(suite.ChainA)
+		furya = suite.GetFuryaZoneApp(suite.ChainA)
 		ctx     = suite.ChainA.GetContext()
 		owner   = keeper.RandomAccountAddress(suite.T()) // We don't care what this address is
 	)
 
-	neutron.TokenFactoryKeeper.SetParams(ctx, tokenfactorytypes.NewParams(
-		sdk.NewCoins(sdk.NewInt64Coin(tokenfactorytypes.DefaultNeutronDenom, 10_000_000)),
+	furya.TokenFactoryKeeper.SetParams(ctx, tokenfactorytypes.NewParams(
+		sdk.NewCoins(sdk.NewInt64Coin(tokenfactorytypes.DefaultFuryaDenom, 10_000_000)),
 		FeeCollectorAddress,
 	))
 
@@ -260,13 +260,13 @@ func (suite *CustomQuerierTestSuite) TestDenomAdmin() {
 
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	coinsAmnt := sdk.NewCoins(sdk.NewCoin(params.DefaultDenom, sdk.NewInt(int64(10_000_000))))
-	bankKeeper := neutron.BankKeeper
+	bankKeeper := furya.BankKeeper
 	err := bankKeeper.SendCoins(ctx, senderAddress, contractAddress, coinsAmnt)
 	suite.NoError(err)
 
-	denom, _ := neutron.TokenFactoryKeeper.CreateDenom(ctx, contractAddress.String(), "test")
+	denom, _ := furya.TokenFactoryKeeper.CreateDenom(ctx, contractAddress.String(), "test")
 
-	query := bindings.NeutronQuery{
+	query := bindings.FuryaQuery{
 		DenomAdmin: &bindings.DenomAdmin{
 			Subdenom: denom,
 		},
@@ -299,7 +299,7 @@ func (suite *CustomQuerierTestSuite) queryCustom(ctx sdk.Context, contract sdk.A
 		return err
 	}
 
-	resBz, err := suite.GetNeutronZoneApp(suite.ChainA).WasmKeeper.QuerySmart(ctx, contract, queryBz)
+	resBz, err := suite.GetFuryaZoneApp(suite.ChainA).WasmKeeper.QuerySmart(ctx, contract, queryBz)
 	if err != nil {
 		return err
 	}

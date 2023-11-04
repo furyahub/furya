@@ -69,7 +69,7 @@ func (m *Params) GetMsgSubmitTxMaxMessages() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.interchaintxs.Params")
+	proto.RegisterType((*Params)(nil), "furya.interchaintxs.Params")
 }
 
 func init() { proto.RegisterFile("interchaintxs/v1/params.proto", fileDescriptor_9d5df0577c2bc16b) }

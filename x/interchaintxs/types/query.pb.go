@@ -120,7 +120,7 @@ type QueryInterchainAccountAddressRequest struct {
 	// interchain_account_id is an identifier of your interchain account from
 	// which you want to execute msgs
 	InterchainAccountId string `protobuf:"bytes,2,opt,name=interchain_account_id,json=interchainAccountId,proto3" json:"interchain_account_id,omitempty"`
-	// connection_id is an IBC connection identifier between Neutron and remote
+	// connection_id is an IBC connection identifier between Furya and remote
 	// chain
 	ConnectionId string `protobuf:"bytes,3,opt,name=connection_id,json=connectionId,proto3" json:"connection_id,omitempty"`
 }
@@ -205,10 +205,10 @@ func (m *QueryInterchainAccountAddressResponse) GetInterchainAccountAddress() st
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "neutron.interchaintxs.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "neutron.interchaintxs.QueryParamsResponse")
-	proto.RegisterType((*QueryInterchainAccountAddressRequest)(nil), "neutron.interchaintxs.QueryInterchainAccountAddressRequest")
-	proto.RegisterType((*QueryInterchainAccountAddressResponse)(nil), "neutron.interchaintxs.QueryInterchainAccountAddressResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "furya.interchaintxs.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "furya.interchaintxs.QueryParamsResponse")
+	proto.RegisterType((*QueryInterchainAccountAddressRequest)(nil), "furya.interchaintxs.QueryInterchainAccountAddressRequest")
+	proto.RegisterType((*QueryInterchainAccountAddressResponse)(nil), "furya.interchaintxs.QueryInterchainAccountAddressResponse")
 }
 
 func init() { proto.RegisterFile("interchaintxs/v1/query.proto", fileDescriptor_85130b102faab7ea) }
@@ -271,7 +271,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchaintxs.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchaintxs.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +280,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) InterchainAccountAddress(ctx context.Context, in *QueryInterchainAccountAddressRequest, opts ...grpc.CallOption) (*QueryInterchainAccountAddressResponse, error) {
 	out := new(QueryInterchainAccountAddressResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchaintxs.Query/InterchainAccountAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchaintxs.Query/InterchainAccountAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchaintxs.Query/Params",
+		FullMethod: "/furya.interchaintxs.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -337,7 +337,7 @@ func _Query_InterchainAccountAddress_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchaintxs.Query/InterchainAccountAddress",
+		FullMethod: "/furya.interchaintxs.Query/InterchainAccountAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).InterchainAccountAddress(ctx, req.(*QueryInterchainAccountAddressRequest))
@@ -346,7 +346,7 @@ func _Query_InterchainAccountAddress_Handler(srv interface{}, ctx context.Contex
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.interchaintxs.Query",
+	ServiceName: "furya.interchaintxs.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

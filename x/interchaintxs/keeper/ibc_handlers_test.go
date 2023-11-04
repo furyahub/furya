@@ -10,12 +10,12 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/testutil"
-	testkeeper "github.com/neutron-org/neutron/testutil/interchaintxs/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/interchaintxs/types"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
-	feetypes "github.com/neutron-org/neutron/x/feerefunder/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/keeper"
+	"github.com/furyahub/furya/testutil"
+	testkeeper "github.com/furyahub/furya/testutil/interchaintxs/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/interchaintxs/types"
+	"github.com/furyahub/furya/x/contractmanager/types"
+	feetypes "github.com/furyahub/furya/x/feerefunder/types"
+	"github.com/furyahub/furya/x/interchaintxs/keeper"
 )
 
 var (
@@ -56,7 +56,7 @@ func TestHandleAcknowledgement(t *testing.T) {
 		SourceChannel: "channel-0",
 	}
 	contractAddress := sdk.MustAccAddressFromBech32(testutil.TestOwnerAddress)
-	relayerBech32 := "neutron1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
+	relayerBech32 := "furya1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
 	relayerAddress := sdk.MustAccAddressFromBech32(relayerBech32)
 
 	err = icak.HandleAcknowledgement(ctx, channeltypes.Packet{}, nil, relayerAddress)
@@ -161,7 +161,7 @@ func TestHandleTimeout(t *testing.T) {
 	ctx := infCtx.WithGasMeter(sdk.NewGasMeter(1_000_000_000_000))
 	store := ctx.KVStore(storeKey)
 	contractAddress := sdk.MustAccAddressFromBech32(testutil.TestOwnerAddress)
-	relayerBech32 := "neutron1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
+	relayerBech32 := "furya1fxudpred77a0grgh69u0j7y84yks5ev4n5050z45kecz792jnd6scqu98z"
 	relayerAddress := sdk.MustAccAddressFromBech32(relayerBech32)
 	p := channeltypes.Packet{
 		Sequence:      100,

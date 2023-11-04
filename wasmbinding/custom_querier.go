@@ -7,15 +7,15 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/neutron-org/neutron/wasmbinding/bindings"
+	"github.com/furyahub/furya/wasmbinding/bindings"
 )
 
 // CustomQuerier returns a function that is an implementation of custom querier mechanism for specific messages
 func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
 	return func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
-		var contractQuery bindings.NeutronQuery
+		var contractQuery bindings.FuryaQuery
 		if err := json.Unmarshal(request, &contractQuery); err != nil {
-			return nil, sdkerrors.Wrapf(err, "failed to unmarshal neutron query: %v", err)
+			return nil, sdkerrors.Wrapf(err, "failed to unmarshal furya query: %v", err)
 		}
 
 		switch {
@@ -70,15 +70,15 @@ func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessag
 			}
 
 			return bz, nil
-		case contractQuery.TotalBurnedNeutronsAmount != nil:
-			totalBurnedNeutrons, err := qp.GetTotalBurnedNeutronsAmount(ctx, contractQuery.TotalBurnedNeutronsAmount)
+		case contractQuery.TotalBurnedFuryasAmount != nil:
+			totalBurnedFuryas, err := qp.GetTotalBurnedFuryasAmount(ctx, contractQuery.TotalBurnedFuryasAmount)
 			if err != nil {
-				return nil, sdkerrors.Wrapf(err, "failed to get total burned neutrons amount: %v", err)
+				return nil, sdkerrors.Wrapf(err, "failed to get total burned furyas amount: %v", err)
 			}
 
-			bz, err := json.Marshal(totalBurnedNeutrons)
+			bz, err := json.Marshal(totalBurnedFuryas)
 			if err != nil {
-				return nil, sdkerrors.Wrapf(err, "failed to marshal total burned neutrons amount response: %v", err)
+				return nil, sdkerrors.Wrapf(err, "failed to marshal total burned furyas amount response: %v", err)
 			}
 
 			return bz, nil
@@ -129,7 +129,7 @@ func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessag
 			return bz, nil
 
 		default:
-			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown neutron query type"}
+			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown furya query type"}
 		}
 	}
 }

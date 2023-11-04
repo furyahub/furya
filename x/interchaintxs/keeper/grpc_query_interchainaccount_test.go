@@ -10,10 +10,10 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/testutil"
-	testkeeper "github.com/neutron-org/neutron/testutil/interchaintxs/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/interchaintxs/types"
-	"github.com/neutron-org/neutron/x/interchaintxs/types"
+	"github.com/furyahub/furya/testutil"
+	testkeeper "github.com/furyahub/furya/testutil/interchaintxs/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/interchaintxs/types"
+	"github.com/furyahub/furya/x/interchaintxs/types"
 )
 
 func TestKeeper_InterchainAccountAddress(t *testing.T) {
@@ -46,12 +46,12 @@ func TestKeeper_InterchainAccountAddress(t *testing.T) {
 	require.Nil(t, resp)
 
 	portID = fmt.Sprintf("%s%s.%s", types2.PortPrefix, testutil.TestOwnerAddress, "test1")
-	icaKeeper.EXPECT().GetInterchainAccountAddress(ctx, "connection-0", portID).Return("neutron1interchainaccountaddress", true)
+	icaKeeper.EXPECT().GetInterchainAccountAddress(ctx, "connection-0", portID).Return("furya1interchainaccountaddress", true)
 	resp, err = keeper.InterchainAccountAddress(wctx, &types.QueryInterchainAccountAddressRequest{
 		OwnerAddress:        testutil.TestOwnerAddress,
 		InterchainAccountId: "test1",
 		ConnectionId:        "connection-0",
 	})
 	require.NoError(t, err)
-	require.Equal(t, &types.QueryInterchainAccountAddressResponse{InterchainAccountAddress: "neutron1interchainaccountaddress"}, resp)
+	require.Equal(t, &types.QueryInterchainAccountAddressResponse{InterchainAccountAddress: "furya1interchainaccountaddress"}, resp)
 }

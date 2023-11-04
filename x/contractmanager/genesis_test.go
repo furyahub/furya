@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/neutron-org/neutron/testutil/contractmanager/keeper"
-	"github.com/neutron-org/neutron/testutil/contractmanager/nullify"
-	"github.com/neutron-org/neutron/x/contractmanager"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	keepertest "github.com/furyahub/furya/testutil/contractmanager/keeper"
+	"github.com/furyahub/furya/testutil/contractmanager/nullify"
+	"github.com/furyahub/furya/x/contractmanager"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 func TestGenesis(t *testing.T) {

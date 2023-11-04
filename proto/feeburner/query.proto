@@ -1,24 +1,24 @@
 syntax = "proto3";
-package neutron.feeburner;
+package furya.feeburner;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "feeburner/params.proto";
-import "feeburner/total_burned_neutrons_amount.proto";
+import "feeburner/total_burned_furyas_amount.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feeburner/types";
+option go_package = "github.com/furyahub/furya/x/feeburner/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/neutron/feeburner/params";
+    option (google.api.http).get = "/furya/feeburner/params";
   }
 
-  // TotalBurnedNeutronsAmount queries total amount of burned neutron fees.
-  rpc TotalBurnedNeutronsAmount(QueryTotalBurnedNeutronsAmountRequest) returns (QueryTotalBurnedNeutronsAmountResponse) {
-    option (google.api.http).get = "/neutron/feeburner/total_burned_neutrons_amount";
+  // TotalBurnedFuryasAmount queries total amount of burned furya fees.
+  rpc TotalBurnedFuryasAmount(QueryTotalBurnedFuryasAmountRequest) returns (QueryTotalBurnedFuryasAmountResponse) {
+    option (google.api.http).get = "/furya/feeburner/total_burned_furyas_amount";
   }
 }
 
@@ -31,12 +31,12 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-// QueryTotalBurnedNeutronsAmountRequest is request type for the
-// Query/QueryTotalBurnedNeutronsAmount method.
-message QueryTotalBurnedNeutronsAmountRequest {}
+// QueryTotalBurnedFuryasAmountRequest is request type for the
+// Query/QueryTotalBurnedFuryasAmount method.
+message QueryTotalBurnedFuryasAmountRequest {}
 
-// QueryTotalBurnedNeutronsAmountResponse is response type for the
-// Query/QueryTotalBurnedNeutronsAmount method.
-message QueryTotalBurnedNeutronsAmountResponse {
-  TotalBurnedNeutronsAmount total_burned_neutrons_amount = 1 [(gogoproto.nullable) = false];
+// QueryTotalBurnedFuryasAmountResponse is response type for the
+// Query/QueryTotalBurnedFuryasAmount method.
+message QueryTotalBurnedFuryasAmountResponse {
+  TotalBurnedFuryasAmount total_burned_furyas_amount = 1 [(gogoproto.nullable) = false];
 }

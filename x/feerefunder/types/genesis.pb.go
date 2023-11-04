@@ -137,8 +137,8 @@ func (m *FeeInfo) GetFee() Fee {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "neutron.feerefunder.GenesisState")
-	proto.RegisterType((*FeeInfo)(nil), "neutron.feerefunder.FeeInfo")
+	proto.RegisterType((*GenesisState)(nil), "furya.feerefunder.GenesisState")
+	proto.RegisterType((*FeeInfo)(nil), "furya.feerefunder.FeeInfo")
 }
 
 func init() { proto.RegisterFile("feerefunder/genesis.proto", fileDescriptor_582fc3ebaf316c40) }

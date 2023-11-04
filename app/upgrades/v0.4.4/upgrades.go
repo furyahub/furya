@@ -7,10 +7,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	feeburnertypes "github.com/neutron-org/neutron/x/feeburner/types"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	feeburnertypes "github.com/furyahub/furya/x/feeburner/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 
-	"github.com/neutron-org/neutron/app/upgrades"
+	"github.com/furyahub/furya/app/upgrades"
 )
 
 func CreateUpgradeHandler(
@@ -39,12 +39,12 @@ func CreateUpgradeHandler(
 		var reserveAddress string
 		s.Get(ctx, feeburnertypes.KeyReserveAddress, &reserveAddress)
 
-		var neutronDenom string
-		s.Get(ctx, feeburnertypes.KeyNeutronDenom, &neutronDenom)
+		var furyaDenom string
+		s.Get(ctx, feeburnertypes.KeyFuryaDenom, &furyaDenom)
 
 		feeburnerDefaultParams := feeburnertypes.DefaultParams()
 		feeburnerDefaultParams.TreasuryAddress = reserveAddress
-		feeburnerDefaultParams.NeutronDenom = neutronDenom
+		feeburnerDefaultParams.FuryaDenom = furyaDenom
 		keepers.FeeBurnerKeeper.SetParams(ctx, feeburnerDefaultParams)
 
 		ctx.Logger().Info("Migrating TokenFactory Params...")

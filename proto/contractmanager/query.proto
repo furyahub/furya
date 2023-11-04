@@ -1,5 +1,5 @@
 syntax = "proto3";
-package neutron.contractmanager;
+package furya.contractmanager;
 
 import "contractmanager/genesis.proto";
 import "contractmanager/params.proto";
@@ -7,22 +7,22 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/contractmanager/types";
+option go_package = "github.com/furyahub/furya/x/contractmanager/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/neutron/contractmanager/params";
+    option (google.api.http).get = "/furya/contractmanager/params";
   }
   // Queries a Failure by address.
   rpc AddressFailures(QueryFailuresRequest) returns (QueryFailuresResponse) {
-    option (google.api.http).get = "/neutron/contractmanager/failures/{address}";
+    option (google.api.http).get = "/furya/contractmanager/failures/{address}";
   }
 
   // Queries a list of Failure items.
   rpc Failures(QueryFailuresRequest) returns (QueryFailuresResponse) {
-    option (google.api.http).get = "/neutron/contractmanager/failures";
+    option (google.api.http).get = "/furya/contractmanager/failures";
   }
 }
 

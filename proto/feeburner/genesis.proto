@@ -1,14 +1,14 @@
 syntax = "proto3";
-package neutron.feeburner;
+package furya.feeburner;
 
 import "feeburner/params.proto";
-import "feeburner/total_burned_neutrons_amount.proto";
+import "feeburner/total_burned_furyas_amount.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/feeburner/types";
+option go_package = "github.com/furyahub/furya/x/feeburner/types";
 
 // GenesisState defines the feeburner module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
-  TotalBurnedNeutronsAmount total_burned_neutrons_amount = 2 [(gogoproto.nullable) = false];
+  TotalBurnedFuryasAmount total_burned_furyas_amount = 2 [(gogoproto.nullable) = false];
 }

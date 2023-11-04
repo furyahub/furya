@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/neutron-org/neutron/x/feerefunder/types"
+	"github.com/furyahub/furya/x/feerefunder/types"
 )
 
 var _ types.QueryServer = Keeper{}

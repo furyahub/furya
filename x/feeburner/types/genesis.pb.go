@@ -26,7 +26,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the feeburner module's genesis state.
 type GenesisState struct {
 	Params                    Params                    `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
-	TotalBurnedNeutronsAmount TotalBurnedNeutronsAmount `protobuf:"bytes,2,opt,name=total_burned_neutrons_amount,json=totalBurnedNeutronsAmount,proto3" json:"total_burned_neutrons_amount"`
+	TotalBurnedFuryasAmount TotalBurnedFuryasAmount `protobuf:"bytes,2,opt,name=total_burned_furyas_amount,json=totalBurnedFuryasAmount,proto3" json:"total_burned_furyas_amount"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -69,15 +69,15 @@ func (m *GenesisState) GetParams() Params {
 	return Params{}
 }
 
-func (m *GenesisState) GetTotalBurnedNeutronsAmount() TotalBurnedNeutronsAmount {
+func (m *GenesisState) GetTotalBurnedFuryasAmount() TotalBurnedFuryasAmount {
 	if m != nil {
-		return m.TotalBurnedNeutronsAmount
+		return m.TotalBurnedFuryasAmount
 	}
-	return TotalBurnedNeutronsAmount{}
+	return TotalBurnedFuryasAmount{}
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "neutron.feeburner.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "furya.feeburner.GenesisState")
 }
 
 func init() { proto.RegisterFile("feeburner/genesis.proto", fileDescriptor_6bcf9b99915c37ac) }
@@ -123,7 +123,7 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	{
-		size, err := m.TotalBurnedNeutronsAmount.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.TotalBurnedFuryasAmount.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -164,7 +164,7 @@ func (m *GenesisState) Size() (n int) {
 	_ = l
 	l = m.Params.Size()
 	n += 1 + l + sovGenesis(uint64(l))
-	l = m.TotalBurnedNeutronsAmount.Size()
+	l = m.TotalBurnedFuryasAmount.Size()
 	n += 1 + l + sovGenesis(uint64(l))
 	return n
 }
@@ -239,7 +239,7 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TotalBurnedNeutronsAmount", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TotalBurnedFuryasAmount", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -266,7 +266,7 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.TotalBurnedNeutronsAmount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.TotalBurnedFuryasAmount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

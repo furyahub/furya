@@ -15,9 +15,9 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/client/cli"
-	"github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/client/cli"
+	"github.com/furyahub/furya/x/interchainqueries/keeper"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 var (

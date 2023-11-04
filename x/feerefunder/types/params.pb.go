@@ -68,7 +68,7 @@ func (m *Params) GetMinFee() Fee {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.feerefunder.Params")
+	proto.RegisterType((*Params)(nil), "furya.feerefunder.Params")
 }
 
 func init() { proto.RegisterFile("feerefunder/params.proto", fileDescriptor_b29edda2b6ec7f73) }

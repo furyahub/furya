@@ -5,15 +5,15 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 	"gopkg.in/yaml.v2"
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
 
 var (
-	KeyNeutronDenom        = []byte("NeutronDenom")
-	DefaultNeutronDenom    = params.DefaultDenom
+	KeyFuryaDenom        = []byte("FuryaDenom")
+	DefaultFuryaDenom    = params.DefaultDenom
 	KeyReserveAddress      = []byte("ReserveAddress")
 	DefaultReserveAddress  = ""
 	KeyTreasuryAddress     = []byte("TreasuryAddress")
@@ -24,9 +24,9 @@ var (
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
 		paramtypes.NewParamSetPair(
-			KeyNeutronDenom,
-			DefaultNeutronDenom,
-			validateNeutronDenom,
+			KeyFuryaDenom,
+			DefaultFuryaDenom,
+			validateFuryaDenom,
 		),
 		paramtypes.NewParamSetPair(
 			KeyReserveAddress,
@@ -42,9 +42,9 @@ func ParamKeyTable() paramtypes.KeyTable {
 }
 
 // NewParams creates a new Params instance
-func NewParams(neutronDenom, treasuryAddress string) Params {
+func NewParams(furyaDenom, treasuryAddress string) Params {
 	return Params{
-		NeutronDenom:    neutronDenom,
+		FuryaDenom:    furyaDenom,
 		ReserveAddress:  DefaultReserveAddress,
 		TreasuryAddress: treasuryAddress,
 	}
@@ -52,16 +52,16 @@ func NewParams(neutronDenom, treasuryAddress string) Params {
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams(DefaultNeutronDenom, DefaultTreasuryAddress)
+	return NewParams(DefaultFuryaDenom, DefaultTreasuryAddress)
 }
 
 // ParamSetPairs get the params.ParamSet
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(
-			KeyNeutronDenom,
-			&p.NeutronDenom,
-			validateNeutronDenom,
+			KeyFuryaDenom,
+			&p.FuryaDenom,
+			validateFuryaDenom,
 		),
 		paramtypes.NewParamSetPair(
 			KeyReserveAddress,
@@ -78,7 +78,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 
 // Validate validates the set of params
 func (p Params) Validate() error {
-	err := validateNeutronDenom(p.NeutronDenom)
+	err := validateFuryaDenom(p.FuryaDenom)
 	if err != nil {
 		return err
 	}
@@ -97,14 +97,14 @@ func (p Params) String() string {
 	return string(out)
 }
 
-func validateNeutronDenom(i interface{}) error {
+func validateFuryaDenom(i interface{}) error {
 	v, ok := i.(string)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == "" {
-		return fmt.Errorf("NeutronDenom must not be empty")
+		return fmt.Errorf("FuryaDenom must not be empty")
 	}
 
 	return nil

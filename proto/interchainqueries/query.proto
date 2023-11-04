@@ -1,5 +1,5 @@
 syntax = "proto3";
-package neutron.interchainqueries;
+package furya.interchainqueries;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
@@ -8,35 +8,35 @@ import "interchainqueries/params.proto";
 import "interchainqueries/genesis.proto";
 import "interchainqueries/tx.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/interchainqueries/types";
+option go_package = "github.com/furyahub/furya/x/interchainqueries/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/neutron/interchainqueries/params";
+    option (google.api.http).get = "/furya/interchainqueries/params";
   }
 
   rpc RegisteredQueries(QueryRegisteredQueriesRequest)
       returns (QueryRegisteredQueriesResponse) {
     option (google.api.http).get =
-        "/neutron/interchainqueries/registered_queries";
+        "/furya/interchainqueries/registered_queries";
   }
 
   rpc RegisteredQuery(QueryRegisteredQueryRequest)
       returns (QueryRegisteredQueryResponse) {
     option (google.api.http).get =
-        "/neutron/interchainqueries/registered_query";
+        "/furya/interchainqueries/registered_query";
   }
 
   rpc QueryResult(QueryRegisteredQueryResultRequest)
       returns (QueryRegisteredQueryResultResponse) {
-    option (google.api.http).get = "/neutron/interchainqueries/query_result";
+    option (google.api.http).get = "/furya/interchainqueries/query_result";
   }
 
   rpc LastRemoteHeight(QueryLastRemoteHeight)
       returns (QueryLastRemoteHeightResponse) {
-    option (google.api.http).get = "/neutron/interchainqueries/remote_height";
+    option (google.api.http).get = "/furya/interchainqueries/remote_height";
   }
 }
 

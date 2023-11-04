@@ -1,11 +1,11 @@
 syntax = "proto3";
-package neutron.cron;
+package furya.cron;
 
 import "cron/params.proto";
 import "cron/schedule.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/neutron-org/neutron/x/cron/types";
+option go_package = "github.com/furyahub/furya/x/cron/types";
 
 // GenesisState defines the cron module's genesis state.
 message GenesisState {

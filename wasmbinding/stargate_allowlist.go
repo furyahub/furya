@@ -7,11 +7,11 @@ import (
 	ibctransfertypes "github.com/cosmos/ibc-go/v4/modules/apps/transfer/types"
 	ibcclienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
 	ibcconnectiontypes "github.com/cosmos/ibc-go/v4/modules/core/03-connection/types"
-	contractmanagertypes "github.com/neutron-org/neutron/x/contractmanager/types"
-	feeburnertypes "github.com/neutron-org/neutron/x/feeburner/types"
-	interchainqueriestypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	interchaintxstypes "github.com/neutron-org/neutron/x/interchaintxs/types"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	contractmanagertypes "github.com/furyahub/furya/x/contractmanager/types"
+	feeburnertypes "github.com/furyahub/furya/x/feeburner/types"
+	interchainqueriestypes "github.com/furyahub/furya/x/interchainqueries/types"
+	interchaintxstypes "github.com/furyahub/furya/x/interchaintxs/types"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func AcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
@@ -40,16 +40,16 @@ func AcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
 		"/cosmos.bank.v1beta1.Query/SupplyOf":      &banktypes.QuerySupplyOfResponse{},
 
 		// contractmanager
-		"/neutron.contractmanager.Query/AddressFailures": &contractmanagertypes.QueryFailuresResponse{},
-		"/neutron.contractmanager.Query/Failures":        &contractmanagertypes.QueryFailuresResponse{},
+		"/furya.contractmanager.Query/AddressFailures": &contractmanagertypes.QueryFailuresResponse{},
+		"/furya.contractmanager.Query/Failures":        &contractmanagertypes.QueryFailuresResponse{},
 
 		// interchaintxs
-		"/neutron.interchaintxs.Query/Params": &interchaintxstypes.QueryParamsResponse{},
+		"/furya.interchaintxs.Query/Params": &interchaintxstypes.QueryParamsResponse{},
 
 		// interchainqueries
-		"/neutron.interchainqueries.Query/Params": &interchainqueriestypes.QueryParamsResponse{},
+		"/furya.interchainqueries.Query/Params": &interchainqueriestypes.QueryParamsResponse{},
 
 		// feeburner
-		"/neutron.feeburner.Query/Params": &feeburnertypes.QueryParamsResponse{},
+		"/furya.feeburner.Query/Params": &feeburnertypes.QueryParamsResponse{},
 	}
 }

@@ -25,9 +25,9 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
-	// Defines Neutron denom, which will be burned during fee processing, any
+	// Defines Furya denom, which will be burned during fee processing, any
 	// other denom will be sent to Treasury
-	NeutronDenom string `protobuf:"bytes,1,opt,name=neutron_denom,json=neutronDenom,proto3" json:"neutron_denom,omitempty"`
+	FuryaDenom string `protobuf:"bytes,1,opt,name=furya_denom,json=furyaDenom,proto3" json:"furya_denom,omitempty"`
 	// Deprecated in v0.4.4. Is not used anymore
 	ReserveAddress string `protobuf:"bytes,2,opt,name=reserve_address,json=reserveAddress,proto3" json:"reserve_address,omitempty"`
 	// Defines treasury address
@@ -66,9 +66,9 @@ func (m *Params) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
-func (m *Params) GetNeutronDenom() string {
+func (m *Params) GetFuryaDenom() string {
 	if m != nil {
-		return m.NeutronDenom
+		return m.FuryaDenom
 	}
 	return ""
 }
@@ -88,7 +88,7 @@ func (m *Params) GetTreasuryAddress() string {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "neutron.feeburner.Params")
+	proto.RegisterType((*Params)(nil), "furya.feeburner.Params")
 }
 
 func init() { proto.RegisterFile("feeburner/params.proto", fileDescriptor_ccaaf97f3dcc64c0) }
@@ -146,10 +146,10 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.NeutronDenom) > 0 {
-		i -= len(m.NeutronDenom)
-		copy(dAtA[i:], m.NeutronDenom)
-		i = encodeVarintParams(dAtA, i, uint64(len(m.NeutronDenom)))
+	if len(m.FuryaDenom) > 0 {
+		i -= len(m.FuryaDenom)
+		copy(dAtA[i:], m.FuryaDenom)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.FuryaDenom)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -173,7 +173,7 @@ func (m *Params) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.NeutronDenom)
+	l = len(m.FuryaDenom)
 	if l > 0 {
 		n += 1 + l + sovParams(uint64(l))
 	}
@@ -225,7 +225,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NeutronDenom", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field FuryaDenom", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -253,7 +253,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.NeutronDenom = string(dAtA[iNdEx:postIndex])
+			m.FuryaDenom = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {

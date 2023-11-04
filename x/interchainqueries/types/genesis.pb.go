@@ -279,9 +279,9 @@ func (m *GenesisState) GetRegisteredQueries() []*RegisteredQuery {
 }
 
 func init() {
-	proto.RegisterType((*RegisteredQuery)(nil), "neutron.interchainqueries.RegisteredQuery")
-	proto.RegisterType((*KVKey)(nil), "neutron.interchainqueries.KVKey")
-	proto.RegisterType((*GenesisState)(nil), "neutron.interchainqueries.GenesisState")
+	proto.RegisterType((*RegisteredQuery)(nil), "furya.interchainqueries.RegisteredQuery")
+	proto.RegisterType((*KVKey)(nil), "furya.interchainqueries.KVKey")
+	proto.RegisterType((*GenesisState)(nil), "furya.interchainqueries.GenesisState")
 }
 
 func init() { proto.RegisterFile("interchainqueries/genesis.proto", fileDescriptor_68e6c14f58b92f58) }

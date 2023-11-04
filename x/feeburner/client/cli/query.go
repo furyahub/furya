@@ -7,7 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 
-	"github.com/neutron-org/neutron/x/feeburner/types"
+	"github.com/furyahub/furya/x/feeburner/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -22,7 +22,7 @@ func GetQueryCmd(_ string) *cobra.Command {
 	}
 
 	cmd.AddCommand(CmdQueryParams())
-	cmd.AddCommand(CmdQueryTotalBurnedNeutronsAmount())
+	cmd.AddCommand(CmdQueryTotalBurnedFuryasAmount())
 
 	return cmd
 }

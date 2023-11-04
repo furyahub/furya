@@ -218,10 +218,10 @@ func (m *FeeInfoResponse) GetFeeInfo() *FeeInfo {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "neutron.feerefunder.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "neutron.feerefunder.QueryParamsResponse")
-	proto.RegisterType((*FeeInfoRequest)(nil), "neutron.feerefunder.FeeInfoRequest")
-	proto.RegisterType((*FeeInfoResponse)(nil), "neutron.feerefunder.FeeInfoResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "furya.feerefunder.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "furya.feerefunder.QueryParamsResponse")
+	proto.RegisterType((*FeeInfoRequest)(nil), "furya.feerefunder.FeeInfoRequest")
+	proto.RegisterType((*FeeInfoResponse)(nil), "furya.feerefunder.FeeInfoResponse")
 }
 
 func init() { proto.RegisterFile("feerefunder/query.proto", fileDescriptor_1975d512c0efffc5) }
@@ -285,7 +285,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.feerefunder.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.feerefunder.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +294,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) FeeInfo(ctx context.Context, in *FeeInfoRequest, opts ...grpc.CallOption) (*FeeInfoResponse, error) {
 	out := new(FeeInfoResponse)
-	err := c.cc.Invoke(ctx, "/neutron.feerefunder.Query/FeeInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.feerefunder.Query/FeeInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -333,7 +333,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.feerefunder.Query/Params",
+		FullMethod: "/furya.feerefunder.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -351,7 +351,7 @@ func _Query_FeeInfo_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.feerefunder.Query/FeeInfo",
+		FullMethod: "/furya.feerefunder.Query/FeeInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).FeeInfo(ctx, req.(*FeeInfoRequest))
@@ -360,7 +360,7 @@ func _Query_FeeInfo_Handler(srv interface{}, ctx context.Context, dec func(inter
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.feerefunder.Query",
+	ServiceName: "furya.feerefunder.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

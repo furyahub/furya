@@ -1,7 +1,7 @@
 syntax = "proto3";
-package neutron.cron;
+package furya.cron;
 
-option go_package = "github.com/neutron-org/neutron/x/cron/types";
+option go_package = "github.com/furyahub/furya/x/cron/types";
 
 // Msg defines the Msg service.
 service Msg {}

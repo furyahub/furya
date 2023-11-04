@@ -3,8 +3,8 @@ package contractmanager
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/neutron-org/neutron/x/contractmanager/keeper"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	"github.com/furyahub/furya/x/contractmanager/keeper"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

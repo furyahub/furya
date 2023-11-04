@@ -18,13 +18,13 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	staking "github.com/cosmos/cosmos-sdk/x/staking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app/params"
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/neutron-org/neutron/testutil/consumer"
+	"github.com/furyahub/furya/testutil/consumer"
 
-	"github.com/neutron-org/neutron/app"
+	"github.com/furyahub/furya/app"
 )
 
 type (
@@ -82,7 +82,7 @@ func DefaultConfig() network.Config {
 		GenesisState:  app.ModuleBasics.DefaultGenesis(encoding.Marshaler),
 		TimeoutCommit: 2 * time.Second,
 		ChainID:       "chain-" + tmrand.Str(6),
-		// Some changes are introduced to make the tests run as if neutron is a standalone chain.
+		// Some changes are introduced to make the tests run as if furya is a standalone chain.
 		// This will only work if NumValidators is set to 1.
 		NumValidators:   1,
 		BondDenom:       params.DefaultDenom,

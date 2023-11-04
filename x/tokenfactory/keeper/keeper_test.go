@@ -9,14 +9,14 @@ import (
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/neutron-org/neutron/app/params"
-	"github.com/neutron-org/neutron/testutil"
-	"github.com/neutron-org/neutron/x/tokenfactory/keeper"
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/app/params"
+	"github.com/furyahub/furya/testutil"
+	"github.com/furyahub/furya/x/tokenfactory/keeper"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 const (
-	FeeCollectorAddress = "neutron1vguuxez2h5ekltfj9gjd62fs5k4rl2zy5hfrncasykzw08rezpfsd2rhm7"
+	FeeCollectorAddress = "furya1vguuxez2h5ekltfj9gjd62fs5k4rl2zy5hfrncasykzw08rezpfsd2rhm7"
 	TopUpCoinsAmount    = 1_000_000
 )
 
@@ -40,7 +40,7 @@ func (suite *KeeperTestSuite) Setup() {
 	suite.SetupTest()
 
 	suite.QueryHelper = &baseapp.QueryServiceTestHelper{
-		GRPCQueryRouter: suite.GetNeutronZoneApp(suite.ChainA).GRPCQueryRouter(),
+		GRPCQueryRouter: suite.GetFuryaZoneApp(suite.ChainA).GRPCQueryRouter(),
 		Ctx:             suite.ChainA.GetContext(),
 	}
 	suite.TestAccs = CreateRandomAccounts(3)
@@ -49,9 +49,9 @@ func (suite *KeeperTestSuite) Setup() {
 
 	suite.queryClient = types.NewQueryClient(suite.QueryHelper)
 
-	tokeFactoryKeeper := suite.GetNeutronZoneApp(suite.ChainA).TokenFactoryKeeper
+	tokeFactoryKeeper := suite.GetFuryaZoneApp(suite.ChainA).TokenFactoryKeeper
 	tokeFactoryKeeper.SetParams(suite.ChainA.GetContext(), types.NewParams(
-		sdktypes.NewCoins(sdktypes.NewInt64Coin(types.DefaultNeutronDenom, TopUpCoinsAmount)),
+		sdktypes.NewCoins(sdktypes.NewInt64Coin(types.DefaultFuryaDenom, TopUpCoinsAmount)),
 		FeeCollectorAddress,
 	))
 
@@ -59,7 +59,7 @@ func (suite *KeeperTestSuite) Setup() {
 }
 
 func (suite *KeeperTestSuite) SetupTokenFactory() {
-	suite.GetNeutronZoneApp(suite.ChainA).TokenFactoryKeeper.CreateModuleAccount(suite.ChainA.GetContext())
+	suite.GetFuryaZoneApp(suite.ChainA).TokenFactoryKeeper.CreateModuleAccount(suite.ChainA.GetContext())
 }
 
 func (suite *KeeperTestSuite) CreateDefaultDenom(ctx sdktypes.Context) {
@@ -72,13 +72,13 @@ func (suite *KeeperTestSuite) CreateDefaultDenom(ctx sdktypes.Context) {
 
 func (suite *KeeperTestSuite) TopUpWallet(ctx sdktypes.Context, sender, contractAddress sdktypes.AccAddress) {
 	coinsAmnt := sdktypes.NewCoins(sdktypes.NewCoin(params.DefaultDenom, sdktypes.NewInt(TopUpCoinsAmount)))
-	bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+	bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 	err := bankKeeper.SendCoins(ctx, sender, contractAddress, coinsAmnt)
 	suite.Require().NoError(err)
 }
 
 func (suite *KeeperTestSuite) WalletBalance(ctx sdktypes.Context, address string) sdktypes.Int {
-	bankKeeper := suite.GetNeutronZoneApp(suite.ChainA).BankKeeper
+	bankKeeper := suite.GetFuryaZoneApp(suite.ChainA).BankKeeper
 	balance, err := bankKeeper.Balance(
 		sdktypes.WrapSDKContext(ctx),
 		&banktypes.QueryBalanceRequest{

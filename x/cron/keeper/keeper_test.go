@@ -10,10 +10,10 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/golang/mock/gomock"
-	"github.com/neutron-org/neutron/testutil"
-	testutil_keeper "github.com/neutron-org/neutron/testutil/cron/keeper"
-	mock_types "github.com/neutron-org/neutron/testutil/mocks/cron/types"
-	"github.com/neutron-org/neutron/x/cron/types"
+	"github.com/furyahub/furya/testutil"
+	testutil_keeper "github.com/furyahub/furya/testutil/cron/keeper"
+	mock_types "github.com/furyahub/furya/testutil/mocks/cron/types"
+	"github.com/furyahub/furya/x/cron/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -45,7 +45,7 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 			Period: 3,
 			Msgs: []types.MsgExecuteContract{
 				{
-					Contract: "1_neutron",
+					Contract: "1_furya",
 					Msg:      "1_msg",
 				},
 			},
@@ -56,7 +56,7 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 			Period: 3,
 			Msgs: []types.MsgExecuteContract{
 				{
-					Contract: "2_neutron",
+					Contract: "2_furya",
 					Msg:      "2_msg",
 				},
 			},
@@ -67,7 +67,7 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 			Period: 3,
 			Msgs: []types.MsgExecuteContract{
 				{
-					Contract: "3_neutron",
+					Contract: "3_furya",
 					Msg:      "3_msg",
 				},
 			},
@@ -84,7 +84,7 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 			Period: 3,
 			Msgs: []types.MsgExecuteContract{
 				{
-					Contract: "5_neutron",
+					Contract: "5_furya",
 					Msg:      "5_msg",
 				},
 			},
@@ -107,13 +107,13 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 	accountKeeper.EXPECT().GetModuleAddress(types.ModuleName).Return(addr)
 	wasmMsgServer.EXPECT().ExecuteContract(gomock.Any(), &wasmtypes.MsgExecuteContract{
 		Sender:   testutil.TestOwnerAddress,
-		Contract: "2_neutron",
+		Contract: "2_furya",
 		Msg:      []byte("2_msg"),
 		Funds:    sdk.NewCoins(),
 	}).Return(nil, fmt.Errorf("executeerror"))
 	wasmMsgServer.EXPECT().ExecuteContract(gomock.Any(), &wasmtypes.MsgExecuteContract{
 		Sender:   testutil.TestOwnerAddress,
-		Contract: "3_neutron",
+		Contract: "3_furya",
 		Msg:      []byte("3_msg"),
 		Funds:    sdk.NewCoins(),
 	}).Return(&wasmtypes.MsgExecuteContractResponse{}, nil)
@@ -139,7 +139,7 @@ func TestKeeperExecuteReadySchedules(t *testing.T) {
 	accountKeeper.EXPECT().GetModuleAddress(types.ModuleName).Return(addr)
 	wasmMsgServer.EXPECT().ExecuteContract(gomock.Any(), &wasmtypes.MsgExecuteContract{
 		Sender:   testutil.TestOwnerAddress,
-		Contract: "5_neutron",
+		Contract: "5_furya",
 		Msg:      []byte("5_msg"),
 		Funds:    sdk.NewCoins(),
 	}).Return(&wasmtypes.MsgExecuteContractResponse{}, nil)

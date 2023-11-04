@@ -551,17 +551,17 @@ func (m *QueryLastRemoteHeightResponse) GetHeight() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "neutron.interchainqueries.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "neutron.interchainqueries.QueryParamsResponse")
-	proto.RegisterType((*QueryRegisteredQueriesRequest)(nil), "neutron.interchainqueries.QueryRegisteredQueriesRequest")
-	proto.RegisterType((*QueryRegisteredQueriesResponse)(nil), "neutron.interchainqueries.QueryRegisteredQueriesResponse")
-	proto.RegisterType((*QueryRegisteredQueryRequest)(nil), "neutron.interchainqueries.QueryRegisteredQueryRequest")
-	proto.RegisterType((*QueryRegisteredQueryResponse)(nil), "neutron.interchainqueries.QueryRegisteredQueryResponse")
-	proto.RegisterType((*QueryRegisteredQueryResultRequest)(nil), "neutron.interchainqueries.QueryRegisteredQueryResultRequest")
-	proto.RegisterType((*QueryRegisteredQueryResultResponse)(nil), "neutron.interchainqueries.QueryRegisteredQueryResultResponse")
-	proto.RegisterType((*Transaction)(nil), "neutron.interchainqueries.Transaction")
-	proto.RegisterType((*QueryLastRemoteHeight)(nil), "neutron.interchainqueries.QueryLastRemoteHeight")
-	proto.RegisterType((*QueryLastRemoteHeightResponse)(nil), "neutron.interchainqueries.QueryLastRemoteHeightResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "furya.interchainqueries.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "furya.interchainqueries.QueryParamsResponse")
+	proto.RegisterType((*QueryRegisteredQueriesRequest)(nil), "furya.interchainqueries.QueryRegisteredQueriesRequest")
+	proto.RegisterType((*QueryRegisteredQueriesResponse)(nil), "furya.interchainqueries.QueryRegisteredQueriesResponse")
+	proto.RegisterType((*QueryRegisteredQueryRequest)(nil), "furya.interchainqueries.QueryRegisteredQueryRequest")
+	proto.RegisterType((*QueryRegisteredQueryResponse)(nil), "furya.interchainqueries.QueryRegisteredQueryResponse")
+	proto.RegisterType((*QueryRegisteredQueryResultRequest)(nil), "furya.interchainqueries.QueryRegisteredQueryResultRequest")
+	proto.RegisterType((*QueryRegisteredQueryResultResponse)(nil), "furya.interchainqueries.QueryRegisteredQueryResultResponse")
+	proto.RegisterType((*Transaction)(nil), "furya.interchainqueries.Transaction")
+	proto.RegisterType((*QueryLastRemoteHeight)(nil), "furya.interchainqueries.QueryLastRemoteHeight")
+	proto.RegisterType((*QueryLastRemoteHeightResponse)(nil), "furya.interchainqueries.QueryLastRemoteHeightResponse")
 }
 
 func init() { proto.RegisterFile("interchainqueries/query.proto", fileDescriptor_eb803bedd4e52c75) }
@@ -648,7 +648,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -657,7 +657,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) RegisteredQueries(ctx context.Context, in *QueryRegisteredQueriesRequest, opts ...grpc.CallOption) (*QueryRegisteredQueriesResponse, error) {
 	out := new(QueryRegisteredQueriesResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Query/RegisteredQueries", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Query/RegisteredQueries", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -666,7 +666,7 @@ func (c *queryClient) RegisteredQueries(ctx context.Context, in *QueryRegistered
 
 func (c *queryClient) RegisteredQuery(ctx context.Context, in *QueryRegisteredQueryRequest, opts ...grpc.CallOption) (*QueryRegisteredQueryResponse, error) {
 	out := new(QueryRegisteredQueryResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Query/RegisteredQuery", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Query/RegisteredQuery", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -675,7 +675,7 @@ func (c *queryClient) RegisteredQuery(ctx context.Context, in *QueryRegisteredQu
 
 func (c *queryClient) QueryResult(ctx context.Context, in *QueryRegisteredQueryResultRequest, opts ...grpc.CallOption) (*QueryRegisteredQueryResultResponse, error) {
 	out := new(QueryRegisteredQueryResultResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Query/QueryResult", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Query/QueryResult", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -684,7 +684,7 @@ func (c *queryClient) QueryResult(ctx context.Context, in *QueryRegisteredQueryR
 
 func (c *queryClient) LastRemoteHeight(ctx context.Context, in *QueryLastRemoteHeight, opts ...grpc.CallOption) (*QueryLastRemoteHeightResponse, error) {
 	out := new(QueryLastRemoteHeightResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchainqueries.Query/LastRemoteHeight", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchainqueries.Query/LastRemoteHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -735,7 +735,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Query/Params",
+		FullMethod: "/furya.interchainqueries.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -753,7 +753,7 @@ func _Query_RegisteredQueries_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Query/RegisteredQueries",
+		FullMethod: "/furya.interchainqueries.Query/RegisteredQueries",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).RegisteredQueries(ctx, req.(*QueryRegisteredQueriesRequest))
@@ -771,7 +771,7 @@ func _Query_RegisteredQuery_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Query/RegisteredQuery",
+		FullMethod: "/furya.interchainqueries.Query/RegisteredQuery",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).RegisteredQuery(ctx, req.(*QueryRegisteredQueryRequest))
@@ -789,7 +789,7 @@ func _Query_QueryResult_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Query/QueryResult",
+		FullMethod: "/furya.interchainqueries.Query/QueryResult",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).QueryResult(ctx, req.(*QueryRegisteredQueryResultRequest))
@@ -807,7 +807,7 @@ func _Query_LastRemoteHeight_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchainqueries.Query/LastRemoteHeight",
+		FullMethod: "/furya.interchainqueries.Query/LastRemoteHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).LastRemoteHeight(ctx, req.(*QueryLastRemoteHeight))
@@ -816,7 +816,7 @@ func _Query_LastRemoteHeight_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.interchainqueries.Query",
+	ServiceName: "furya.interchainqueries.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

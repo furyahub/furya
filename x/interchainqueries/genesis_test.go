@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/neutron-org/neutron/testutil/interchainqueries/keeper"
-	"github.com/neutron-org/neutron/testutil/interchainqueries/nullify"
-	"github.com/neutron-org/neutron/x/interchainqueries"
-	"github.com/neutron-org/neutron/x/interchainqueries/types"
+	keepertest "github.com/furyahub/furya/testutil/interchainqueries/keeper"
+	"github.com/furyahub/furya/testutil/interchainqueries/nullify"
+	"github.com/furyahub/furya/x/interchainqueries"
+	"github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 func TestGenesis(t *testing.T) {
@@ -255,7 +255,7 @@ func TestGenesisMalformedQueriesInvalidPrefix(t *testing.T) {
 			{
 				Id:        4,
 				QueryType: "kv",
-				Owner:     "neutron18g0avxazu3dkgd5n5ea8h8rtl78de0hytsj9vm",
+				Owner:     "furya18g0avxazu3dkgd5n5ea8h8rtl78de0hytsj9vm",
 				Keys: []*types.KVKey{
 					{
 						Path: "newpath",

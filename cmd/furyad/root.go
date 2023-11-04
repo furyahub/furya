@@ -36,11 +36,11 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	gaiaparams "github.com/cosmos/gaia/v8/app/params"
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/app/params"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/app/params"
 )
 
-// NewRootCmd creates a new root command for neutrond. It is called once in the
+// NewRootCmd creates a new root command for furyad. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	encodingConfig := app.MakeEncodingConfig()
@@ -62,7 +62,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 
 	rootCmd := &cobra.Command{
 		Use:   version.AppName,
-		Short: "Neutron",
+		Short: "Furya",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -82,8 +82,8 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 				return err
 			}
 
-			customTemplate, customNeutronConfig := initAppConfig()
-			return server.InterceptConfigsPreRunHandler(cmd, customTemplate, customNeutronConfig)
+			customTemplate, customFuryaConfig := initAppConfig()
+			return server.InterceptConfigsPreRunHandler(cmd, customTemplate, customFuryaConfig)
 		},
 	}
 
@@ -322,12 +322,12 @@ func setCustomEnvVariablesFromClientToml(ctx client.Context) {
 	}
 
 	// gas
-	setEnvFromConfig("gas", "NEUTROND_GAS")
-	setEnvFromConfig("gas-prices", "NEUTROND_GAS_PRICES")
-	setEnvFromConfig("gas-adjustment", "NEUTROND_GAS_ADJUSTMENT")
+	setEnvFromConfig("gas", "FURYAD_GAS")
+	setEnvFromConfig("gas-prices", "FURYAD_GAS_PRICES")
+	setEnvFromConfig("gas-adjustment", "FURYAD_GAS_ADJUSTMENT")
 	// fees
-	setEnvFromConfig("fees", "NEUTROND_FEES")
-	setEnvFromConfig("fee-account", "NEUTROND_FEE_ACCOUNT")
+	setEnvFromConfig("fees", "FURYAD_FEES")
+	setEnvFromConfig("fee-account", "FURYAD_FEE_ACCOUNT")
 	// memo
-	setEnvFromConfig("note", "NEUTROND_NOTE")
+	setEnvFromConfig("note", "FURYAD_NOTE")
 }

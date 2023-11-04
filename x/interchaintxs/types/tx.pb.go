@@ -10,7 +10,7 @@ import (
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
-	types1 "github.com/neutron-org/neutron/x/feerefunder/types"
+	types1 "github.com/furyahub/furya/x/feerefunder/types"
 	_ "github.com/regen-network/cosmos-proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
@@ -163,7 +163,7 @@ var xxx_messageInfo_MsgSubmitTx proto.InternalMessageInfo
 type MsgSubmitTxResponse struct {
 	// channel's sequence_id for outgoing ibc packet. Unique per a channel.
 	SequenceId uint64 `protobuf:"varint,1,opt,name=sequence_id,json=sequenceId,proto3" json:"sequence_id,omitempty"`
-	// channel src channel on neutron side trasaction was submitted from
+	// channel src channel on furya side trasaction was submitted from
 	Channel string `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
 }
 
@@ -215,10 +215,10 @@ func (m *MsgSubmitTxResponse) GetChannel() string {
 }
 
 func init() {
-	proto.RegisterType((*MsgRegisterInterchainAccount)(nil), "neutron.interchaintxs.v1.MsgRegisterInterchainAccount")
-	proto.RegisterType((*MsgRegisterInterchainAccountResponse)(nil), "neutron.interchaintxs.v1.MsgRegisterInterchainAccountResponse")
-	proto.RegisterType((*MsgSubmitTx)(nil), "neutron.interchaintxs.v1.MsgSubmitTx")
-	proto.RegisterType((*MsgSubmitTxResponse)(nil), "neutron.interchaintxs.v1.MsgSubmitTxResponse")
+	proto.RegisterType((*MsgRegisterInterchainAccount)(nil), "furya.interchaintxs.v1.MsgRegisterInterchainAccount")
+	proto.RegisterType((*MsgRegisterInterchainAccountResponse)(nil), "furya.interchaintxs.v1.MsgRegisterInterchainAccountResponse")
+	proto.RegisterType((*MsgSubmitTx)(nil), "furya.interchaintxs.v1.MsgSubmitTx")
+	proto.RegisterType((*MsgSubmitTxResponse)(nil), "furya.interchaintxs.v1.MsgSubmitTxResponse")
 }
 
 func init() { proto.RegisterFile("interchaintxs/v1/tx.proto", fileDescriptor_ecd987b66c8800e1) }
@@ -289,7 +289,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) RegisterInterchainAccount(ctx context.Context, in *MsgRegisterInterchainAccount, opts ...grpc.CallOption) (*MsgRegisterInterchainAccountResponse, error) {
 	out := new(MsgRegisterInterchainAccountResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchaintxs.v1.Msg/RegisterInterchainAccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchaintxs.v1.Msg/RegisterInterchainAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +298,7 @@ func (c *msgClient) RegisterInterchainAccount(ctx context.Context, in *MsgRegist
 
 func (c *msgClient) SubmitTx(ctx context.Context, in *MsgSubmitTx, opts ...grpc.CallOption) (*MsgSubmitTxResponse, error) {
 	out := new(MsgSubmitTxResponse)
-	err := c.cc.Invoke(ctx, "/neutron.interchaintxs.v1.Msg/SubmitTx", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.interchaintxs.v1.Msg/SubmitTx", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +336,7 @@ func _Msg_RegisterInterchainAccount_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchaintxs.v1.Msg/RegisterInterchainAccount",
+		FullMethod: "/furya.interchaintxs.v1.Msg/RegisterInterchainAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).RegisterInterchainAccount(ctx, req.(*MsgRegisterInterchainAccount))
@@ -354,7 +354,7 @@ func _Msg_SubmitTx_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.interchaintxs.v1.Msg/SubmitTx",
+		FullMethod: "/furya.interchaintxs.v1.Msg/SubmitTx",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SubmitTx(ctx, req.(*MsgSubmitTx))
@@ -363,7 +363,7 @@ func _Msg_SubmitTx_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.interchaintxs.v1.Msg",
+	ServiceName: "furya.interchaintxs.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

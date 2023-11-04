@@ -10,10 +10,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	keepertest "github.com/neutron-org/neutron/testutil/contractmanager/keeper"
-	"github.com/neutron-org/neutron/testutil/contractmanager/nullify"
-	"github.com/neutron-org/neutron/x/contractmanager/keeper"
-	"github.com/neutron-org/neutron/x/contractmanager/types"
+	keepertest "github.com/furyahub/furya/testutil/contractmanager/keeper"
+	"github.com/furyahub/furya/testutil/contractmanager/nullify"
+	"github.com/furyahub/furya/x/contractmanager/keeper"
+	"github.com/furyahub/furya/x/contractmanager/types"
 )
 
 // Prevent strconv unused error
@@ -46,7 +46,7 @@ func TestFailureQuerySingle(t *testing.T) {
 		{
 			desc: "KeyIsAbsent",
 			request: &types.QueryFailuresRequest{
-				Address: "neutron17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
+				Address: "furya17dtl0mjt3t77kpuhg2edqzjpszulwhgzcdvagh",
 			},
 			response: &types.QueryFailuresResponse{Failures: []types.Failure{}, Pagination: &query.PageResponse{Total: 0}},
 		},

@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	crontypes "github.com/neutron-org/neutron/x/cron/types"
+	crontypes "github.com/furyahub/furya/x/cron/types"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	cronkeeper "github.com/neutron-org/neutron/x/cron/keeper"
+	cronkeeper "github.com/furyahub/furya/x/cron/keeper"
 
 	paramChange "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 
@@ -24,16 +24,16 @@ import (
 
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	ibcclienttypes "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
-	"github.com/neutron-org/neutron/wasmbinding/bindings"
-	icqkeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	icqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
-	ictxkeeper "github.com/neutron-org/neutron/x/interchaintxs/keeper"
-	ictxtypes "github.com/neutron-org/neutron/x/interchaintxs/types"
-	transferwrapperkeeper "github.com/neutron-org/neutron/x/transfer/keeper"
-	transferwrappertypes "github.com/neutron-org/neutron/x/transfer/types"
+	"github.com/furyahub/furya/wasmbinding/bindings"
+	icqkeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	icqtypes "github.com/furyahub/furya/x/interchainqueries/types"
+	ictxkeeper "github.com/furyahub/furya/x/interchaintxs/keeper"
+	ictxtypes "github.com/furyahub/furya/x/interchaintxs/types"
+	transferwrapperkeeper "github.com/furyahub/furya/x/transfer/keeper"
+	transferwrappertypes "github.com/furyahub/furya/x/transfer/types"
 
-	tokenfactorykeeper "github.com/neutron-org/neutron/x/tokenfactory/keeper"
-	tokenfactorytypes "github.com/neutron-org/neutron/x/tokenfactory/types"
+	tokenfactorykeeper "github.com/furyahub/furya/x/tokenfactory/keeper"
+	tokenfactorytypes "github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func CustomMessageDecorator(
@@ -78,7 +78,7 @@ var _ wasmkeeper.Messenger = (*CustomMessenger)(nil)
 
 func (m *CustomMessenger) DispatchMsg(ctx sdk.Context, contractAddr sdk.AccAddress, contractIBCPortID string, msg wasmvmtypes.CosmosMsg) ([]sdk.Event, [][]byte, error) {
 	if msg.Custom != nil {
-		var contractMsg bindings.NeutronMsg
+		var contractMsg bindings.FuryaMsg
 		if err := json.Unmarshal(msg.Custom, &contractMsg); err != nil {
 			ctx.Logger().Debug("json.Unmarshal: failed to decode incoming custom cosmos message",
 				"from_address", contractAddr.String(),

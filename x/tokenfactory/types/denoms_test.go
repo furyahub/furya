@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/neutron-org/neutron/app"
-	"github.com/neutron-org/neutron/x/tokenfactory/types"
+	"github.com/furyahub/furya/app"
+	"github.com/furyahub/furya/x/tokenfactory/types"
 )
 
 func TestDecomposeDenoms(t *testing.T) {
@@ -23,32 +23,32 @@ func TestDecomposeDenoms(t *testing.T) {
 		},
 		{
 			desc:  "normal",
-			denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+			denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 			valid: true,
 		},
 		{
 			desc:  "multiple slashes in subdenom",
-			denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin/1",
+			denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin/1",
 			valid: true,
 		},
 		{
 			desc:  "no subdenom",
-			denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/",
+			denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/",
 			valid: true,
 		},
 		{
 			desc:  "incorrect prefix",
-			denom: "ibc/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
+			denom: "ibc/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/bitcoin",
 			valid: false,
 		},
 		{
 			desc:  "subdenom of only slashes",
-			denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/////",
+			denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/////",
 			valid: true,
 		},
 		{
 			desc:  "too long name",
-			denom: "factory/neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/adsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsf",
+			denom: "factory/furya1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2/adsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsfadsf",
 			valid: false,
 		},
 	} {

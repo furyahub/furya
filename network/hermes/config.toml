@@ -95,12 +95,12 @@ rpc_addr = 'http://127.0.0.1:26657'
 grpc_addr = 'http://127.0.0.1:8090'
 event_source = { mode = 'push', url = 'ws://127.0.0.1:26657/websocket', batch_delay = '200ms' }
 rpc_timeout = '10s'
-account_prefix = 'neutron'
+account_prefix = 'furya'
 key_name = 'testkey_1'
 store_prefix = 'ibc'
 default_gas = 100000
 max_gas = 3000000
-gas_price = { price = 0.0025, denom = 'untrn' }
+gas_price = { price = 0.0025, denom = 'ufury' }
 gas_multiplier = 1.5
 max_msg_num = 30
 max_tx_size = 2097152

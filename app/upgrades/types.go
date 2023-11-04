@@ -7,10 +7,10 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
 	paramskeeper "github.com/cosmos/cosmos-sdk/x/params/keeper"
-	cronkeeper "github.com/neutron-org/neutron/x/cron/keeper"
-	feeburnerkeeper "github.com/neutron-org/neutron/x/feeburner/keeper"
-	icqkeeper "github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	tokenfactorykeeper "github.com/neutron-org/neutron/x/tokenfactory/keeper"
+	cronkeeper "github.com/furyahub/furya/x/cron/keeper"
+	feeburnerkeeper "github.com/furyahub/furya/x/feeburner/keeper"
+	icqkeeper "github.com/furyahub/furya/x/interchainqueries/keeper"
+	tokenfactorykeeper "github.com/furyahub/furya/x/tokenfactory/keeper"
 
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )

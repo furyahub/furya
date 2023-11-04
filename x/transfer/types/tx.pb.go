@@ -11,7 +11,7 @@ import (
 	types1 "github.com/cosmos/ibc-go/v4/modules/core/02-client/types"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
-	types2 "github.com/neutron-org/neutron/x/feerefunder/types"
+	types2 "github.com/furyahub/furya/x/feerefunder/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -90,7 +90,7 @@ var xxx_messageInfo_MsgTransfer proto.InternalMessageInfo
 type MsgTransferResponse struct {
 	// channel's sequence_id for outgoing ibc packet. Unique per a channel.
 	SequenceId uint64 `protobuf:"varint,1,opt,name=sequence_id,json=sequenceId,proto3" json:"sequence_id,omitempty"`
-	// channel src channel on neutron side trasaction was submitted from
+	// channel src channel on furya side trasaction was submitted from
 	Channel string `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
 }
 
@@ -142,8 +142,8 @@ func (m *MsgTransferResponse) GetChannel() string {
 }
 
 func init() {
-	proto.RegisterType((*MsgTransfer)(nil), "neutron.transfer.MsgTransfer")
-	proto.RegisterType((*MsgTransferResponse)(nil), "neutron.transfer.MsgTransferResponse")
+	proto.RegisterType((*MsgTransfer)(nil), "furya.transfer.MsgTransfer")
+	proto.RegisterType((*MsgTransferResponse)(nil), "furya.transfer.MsgTransferResponse")
 }
 
 func init() { proto.RegisterFile("transfer/v1/tx.proto", fileDescriptor_9d59058d805d54b2) }
@@ -212,7 +212,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) Transfer(ctx context.Context, in *MsgTransfer, opts ...grpc.CallOption) (*MsgTransferResponse, error) {
 	out := new(MsgTransferResponse)
-	err := c.cc.Invoke(ctx, "/neutron.transfer.Msg/Transfer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/furya.transfer.Msg/Transfer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func _Msg_Transfer_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/neutron.transfer.Msg/Transfer",
+		FullMethod: "/furya.transfer.Msg/Transfer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).Transfer(ctx, req.(*MsgTransfer))
@@ -256,7 +256,7 @@ func _Msg_Transfer_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "neutron.transfer.Msg",
+	ServiceName: "furya.transfer.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

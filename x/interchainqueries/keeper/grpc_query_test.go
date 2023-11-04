@@ -11,8 +11,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/neutron-org/neutron/x/interchainqueries/keeper"
-	iqtypes "github.com/neutron-org/neutron/x/interchainqueries/types"
+	"github.com/furyahub/furya/x/interchainqueries/keeper"
+	iqtypes "github.com/furyahub/furya/x/interchainqueries/types"
 )
 
 func (suite *KeeperTestSuite) TestRemoteLastHeight() {
@@ -24,7 +24,7 @@ func (suite *KeeperTestSuite) TestRemoteLastHeight() {
 			"wrong connection id",
 			func() {
 				ctx := suite.ChainA.GetContext()
-				_, err := keeper.Keeper.LastRemoteHeight(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: "test"})
+				_, err := keeper.Keeper.LastRemoteHeight(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: "test"})
 				suite.Require().Error(err)
 			},
 		},
@@ -33,7 +33,7 @@ func (suite *KeeperTestSuite) TestRemoteLastHeight() {
 			func() {
 				ctx := suite.ChainA.GetContext()
 
-				oldHeight, err := keeper.Keeper.LastRemoteHeight(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: suite.Path.EndpointA.ConnectionID})
+				oldHeight, err := keeper.Keeper.LastRemoteHeight(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: suite.Path.EndpointA.ConnectionID})
 				suite.Require().NoError(err)
 				suite.Require().Greater(oldHeight.Height, uint64(0))
 
@@ -43,7 +43,7 @@ func (suite *KeeperTestSuite) TestRemoteLastHeight() {
 					suite.NoError(suite.Path.EndpointA.UpdateClient())
 				}
 
-				updatedHeight, err := keeper.Keeper.LastRemoteHeight(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: suite.Path.EndpointA.ConnectionID})
+				updatedHeight, err := keeper.Keeper.LastRemoteHeight(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper, sdk.WrapSDKContext(ctx), &iqtypes.QueryLastRemoteHeight{ConnectionId: suite.Path.EndpointA.ConnectionID})
 				suite.Require().Equal(updatedHeight.Height, oldHeight.Height+N) // check that last remote height really equals oldHeight+N
 				suite.Require().NoError(err)
 			},
@@ -460,10 +460,10 @@ func (suite *KeeperTestSuite) TestRegisteredQueries() {
 
 			for _, q := range tt.registeredQueries {
 				q := q
-				suite.NoError(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.SaveQuery(suite.ChainA.GetContext(), &q))
+				suite.NoError(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.SaveQuery(suite.ChainA.GetContext(), &q))
 			}
 
-			resp, err := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.RegisteredQueries(sdk.WrapSDKContext(suite.ChainA.GetContext()), tt.req)
+			resp, err := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.RegisteredQueries(sdk.WrapSDKContext(suite.ChainA.GetContext()), tt.req)
 			suite.NoError(err)
 
 			suite.Equal(tt.expectedQueryResponse, resp.RegisteredQueries)
@@ -490,7 +490,7 @@ func (suite *KeeperTestSuite) TestQueryResult() {
 	senderAddress := suite.ChainA.SenderAccounts[0].SenderAccount.GetAddress()
 	suite.TopUpWallet(ctx, senderAddress, contractAddress)
 
-	msgSrv := keeper.NewMsgServerImpl(suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper)
+	msgSrv := keeper.NewMsgServerImpl(suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper)
 	regQuery1, err := msgSrv.RegisterInterchainQuery(sdk.WrapSDKContext(ctx), &registerMsg)
 	suite.Require().NoError(err)
 
@@ -528,7 +528,7 @@ func (suite *KeeperTestSuite) TestQueryResult() {
 	_, err = msgSrv.SubmitQueryResult(sdk.WrapSDKContext(ctx), &msg)
 	suite.NoError(err)
 
-	queryResultResponse, err := suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
+	queryResultResponse, err := suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
 		QueryId: regQuery1.Id,
 	})
 	suite.NoError(err)
@@ -545,12 +545,12 @@ func (suite *KeeperTestSuite) TestQueryResult() {
 	}
 	suite.Equal(len(expectKvResults), len(queryKvResult))
 
-	_, err = suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
+	_, err = suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
 		QueryId: regQuery2.Id,
 	})
 	suite.ErrorContains(err, "no query result")
 
-	_, err = suite.GetNeutronZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
+	_, err = suite.GetFuryaZoneApp(suite.ChainA).InterchainQueriesKeeper.QueryResult(sdk.WrapSDKContext(ctx), &iqtypes.QueryRegisteredQueryResultRequest{
 		QueryId: regQuery2.Id + 1,
 	})
 	suite.ErrorContains(err, "invalid query id")

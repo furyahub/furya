@@ -195,9 +195,9 @@ func (m *ScheduleCount) GetCount() int32 {
 }
 
 func init() {
-	proto.RegisterType((*Schedule)(nil), "neutron.cron.Schedule")
-	proto.RegisterType((*MsgExecuteContract)(nil), "neutron.cron.MsgExecuteContract")
-	proto.RegisterType((*ScheduleCount)(nil), "neutron.cron.ScheduleCount")
+	proto.RegisterType((*Schedule)(nil), "furya.cron.Schedule")
+	proto.RegisterType((*MsgExecuteContract)(nil), "furya.cron.MsgExecuteContract")
+	proto.RegisterType((*ScheduleCount)(nil), "furya.cron.ScheduleCount")
 }
 
 func init() { proto.RegisterFile("cron/schedule.proto", fileDescriptor_b6a5569ec6e2056c) }
